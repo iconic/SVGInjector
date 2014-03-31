@@ -31,7 +31,7 @@ Download the [svg-injector.js]() or [dist/svg-injector.min.js]() file from this 
 * [AMD API](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) usage with [RequireJS](http://requirejs.org/)
 * Plain ol' JavaScript via creation of a global function
 
-## Example Use
+## Usage
 
 Add `SVGInjector` to your page:
 
