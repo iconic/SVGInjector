@@ -37,11 +37,13 @@
   var processRequestQueue = function (url) {
     for (var i = 0, len = requestQueue[url].length; i < len; i++) {
       // Make these calls async so we avoid blocking the page/renderer
+      /* jshint loopfunc: true */
       (function (index) {
         setTimeout(function () {
           requestQueue[url][index](cloneSvg(svgCache[url]));
         }, 0);
       })(i);
+      /* jshint loopfunc: false */
     }
   };
 
@@ -296,7 +298,10 @@
         throw new TypeError();
       }
 
+      /* jshint bitwise: false */
       var i, len = this.length >>> 0;
+      /* jshint bitwise: true */
+
       for (i = 0; i < len; ++i) {
         if (i in this) {
           fn.call(scope, this[i], i, this);
