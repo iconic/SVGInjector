@@ -19,7 +19,7 @@ Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's ide
 
 
 
-# Documenation
+# Documentation
 
 ## Install
 
