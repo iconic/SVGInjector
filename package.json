@@ -1,0 +1,37 @@
+{
+  "name": "SVGInjector",
+  "description": "Fast, caching, dynamic inline SVG DOM injection library",
+  "version": "1.0.0",
+  "author": {
+    "name": "Waybury",
+    "url": "http://waybury.com/"
+  },
+  "main": "svg-injector.js",
+  "homepage": "https://github.com/iconic/SVGInjector",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iconic/SVGInjector"
+  },
+  "keywords": [
+    "SVG",
+    "SVG injector",
+    "images",
+    "img",
+    "html",
+    "DOM"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "jshint": "^2.4.4",
+    "uglify-js": "^2.4.13",
+    "github-changes": "0.0.10"
+  },
+  "scripts": {
+    "test": "jshint svg-injector.js",
+    "build": "uglifyjs ./svg-injector.js -c -m -o ./svg-injector.min.js --source-map ./svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
+    "changelog": "github-changes -o iconic -r SVGInjector --use-commit-body",
+    "changelog-post": "git add CHANGELOG.md && git commit -m 'Updated CHANGELOG'",
+    "release": "for TASK in (test build changelog changelog-post tag); do npm run $TASK; done",
+    "tag": "git tag ${npm_package_version} && git push --tags"
+  }
+}
