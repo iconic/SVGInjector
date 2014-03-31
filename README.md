@@ -35,13 +35,13 @@ Download the [svg-injector.js]() or [dist/svg-injector.min.js]() file from this 
 
 Add `SVGInjector` to your page:
 
-```markup
+```html
 <script src="svg-injector.min.js"></script>
 ```
 
 Add some SVG `img` tags:
 
-```markup
+```html
 <img id="image-one" class="inject-these-svgs" src="image-one.svg">
 <img id="image-two" class="inject-these-svgs" src="image-two.svg">
 ```
