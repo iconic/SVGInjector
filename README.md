@@ -58,7 +58,7 @@ SVGInjector(mySVGsToInject,
   pngFallback: 'assets/png',
   each: function(svg) {
     // Callback after each SVG is injected
-    console.log('SVG injected: ' + svg.getAttribute('id');
+    console.log('SVG injected: ' + svg.getAttribute('id'));
   }
 },
 function(totalSVGsInjected) {
