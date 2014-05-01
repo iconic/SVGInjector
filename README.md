@@ -73,9 +73,13 @@ function(totalSVGsInjected) {
 SVGInjector(elements, options, callback);
 ```
 
+---
+
 ### `elements`
 
 A single DOM element or array of elements to inject.
+
+---
 
 ### `options`
 
@@ -99,9 +103,11 @@ Should we run any script blocks found in the SVG?
 
 The directory where fallback PNGs are located for use if the browser doesn't [support SVG](http://caniuse.com/svg).
 
-### `each`
+#### `each`
 
 A function to call after each SVG is injected.
+
+---
 
 ### `callback`
 
