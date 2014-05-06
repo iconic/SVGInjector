@@ -20,7 +20,7 @@ Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's ide
 
 ## Install
 
-Download the [dist/svg-injector.min.js](blob/master/dist/svg-injector.min.js) file from this repository and add it to your project.
+Download the [dist/svg-injector.min.js](https://github.com/iconic/SVGInjector/blob/master/dist/svg-injector.min.js) file from this repository and add it to your project.
 
 > **SVGInjector** is compatible with:
   * [CommonJS](http://commonjs.org/) via `module.exports` for use with [Browserify](http://browserify.org/) or [Node](http://nodejs.org/)/[PhantomJS](http://phantomjs.org/)
