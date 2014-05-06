@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SVGInjector Example: Simple</title>
+    <style>
+      #thumb-icon {
+        width:64px;
+        height:64px;
+        display: block;
+        margin: 100px auto;
+      }
+    </style>
+  </head>
+  <body>
+
+    <img id="thumb-icon" class="inject-me" src="thumb-up.svg" title="I like it!" alt="thumb">
+
+    <script src="svg-injector.min.js"></script>
+    <script>
+      // Elements to inject
+      var mySVGsToInject = document.querySelectorAll('img.inject-me');
+
+      // Do the injection
+      SVGInjector(mySVGsToInject);
+    </script>
+
+  </body>
+</html>
