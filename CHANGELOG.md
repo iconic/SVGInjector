@@ -1,9 +1,21 @@
 ## Change Log
 
-### upcoming (2014/03/31 19:10 +00:00)
+### 1.0.1 (2014/05/08 22:08 +00:00)
 - [13a2af6](https://github.com/iconic/SVGInjector/commit/13a2af6af1bd61dab6b1ff34c84c7d6f6fd79dcf) Added jshintrc and some jshint wrapper rules to svg-injector.js (@protodave)
 - [3c69267](https://github.com/iconic/SVGInjector/commit/3c692679056e3270b97e0718d50255983b05e8e5) added a package.json and .gitignore (@protodave)
 - [f61e766](https://github.com/iconic/SVGInjector/commit/f61e766220e3c70e98704b265d653977a96344a7) created first min/map dist build (@protodave)
+- [9a4a8ba](https://github.com/iconic/SVGInjector/commit/9a4a8ba8910fc991a76ac889b43bbf1993571321) Updated CHANGELOG (@protodave)
+- [f40df63](https://github.com/iconic/SVGInjector/commit/f40df632f1e413eb1bdcfa2a036ad845edba7af3) Update README.md (@protodave)
+- [60c74dc](https://github.com/iconic/SVGInjector/commit/60c74dc119c24e6ae160c86031be0128da625979) Missing a closing `)` on example console.log (@FStop)
+- [#2](https://github.com/iconic/SVGInjector/pull/2) Missing a closing `)` on example console.log (@FStop)
+- [172e267](https://github.com/iconic/SVGInjector/commit/172e267b7cd119728070003675e0a6453df32442) Update README.md (@protodave)
+- [7adef6e](https://github.com/iconic/SVGInjector/commit/7adef6e409bef6e490524f33b831eab2089e39eb) Updated documentation (@protodave)
+- [4fc172a](https://github.com/iconic/SVGInjector/commit/4fc172a2d54b7ed02e5dd42165b970db398bb4ff) Added examples (@protodave)
+- [c5a7fb4](https://github.com/iconic/SVGInjector/commit/c5a7fb40e379b566c7577f0f3b9b1c00d2c7278c) Fixed a link in the README (@protodave)
+- [52b0483](https://github.com/iconic/SVGInjector/commit/52b0483e913fe89c1aeafefd6d3399ab75f77b07) init bower (@hoetmaaiers)
+- [7d78660](https://github.com/iconic/SVGInjector/commit/7d786602a1b62c327a21cbaaf9a9bef36e772fe6) add install with bower to README (@hoetmaaiers)
+- [#5](https://github.com/iconic/SVGInjector/pull/5) Bower (@hoetmaaiers)
+- [b0c055c](https://github.com/iconic/SVGInjector/commit/b0c055c778430878e8a12ce14389c9812fbe9ffc) Bump to v1.0.1 (@protodave)
 
 ### 1.0.0 (2014/03/31 17:33 +00:00)
 - [0280954](https://github.com/iconic/SVGInjector/commit/02809541241ab8ebf88135124bac2be27d9e2538) Initial commit (@protodave)
