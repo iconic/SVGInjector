@@ -1,6 +1,6 @@
-// svg-injector.js 1.0.0
+// svg-injector.js 1.0.1
 //
-// Copyright (c) 2014 Waybury
+// Copyright (c) 2014 Waybury <hello@waybury.com>
 // SVGInjector may be freely distributed under the MIT license.
 //
 // For full details and documentation:

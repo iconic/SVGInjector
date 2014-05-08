@@ -1,22 +1,23 @@
 {
-  "name": "SVGInjector",
-  "version": "1.0.0",
+  "name": "svg-injector",
+  "version": "1.0.1",
   "homepage": "https://github.com/iconic/SVGInjector",
   "authors": [
-    "Iconic"
+    "Waybury <hello@waybury.com>"
   ],
   "description": "Fast, caching, dynamic inline SVG DOM injection library",
   "main": "svg-injector.js",
   "moduleType": [
-    "node"
+    "node",
+    "amd",
+    "globals"
   ],
   "keywords": [
-    "SVG",
     "SVG",
     "injector",
     "images",
     "img",
-    "htmlk",
+    "html",
     "DOM"
   ],
   "license": "MIT",
