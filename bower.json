@@ -1,0 +1,31 @@
+{
+  "name": "SVGInjector",
+  "version": "1.0.0",
+  "homepage": "https://github.com/iconic/SVGInjector",
+  "authors": [
+    "Iconic"
+  ],
+  "description": "Fast, caching, dynamic inline SVG DOM injection library",
+  "main": "svg-injector.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "SVG",
+    "SVG",
+    "injector",
+    "images",
+    "img",
+    "htmlk",
+    "DOM"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ]
+}
