@@ -51,6 +51,14 @@
     }
   };
 
+  function isFunction(value) {
+    return typeof value === 'function';
+  }
+
+  function isDefined(value) {
+    return typeof value !== 'undefined';
+  }
+
   // SVG Cache
   var svgCache = {};
 
@@ -85,10 +93,10 @@
   };
 
   var loadSvg = function (url, callback) {
-    if (svgCache[url] !== undefined) {
+    if (isDefined(svgCache[url])) {
       if (svgCache[url] instanceof SVGSVGElement) {
         // We already have it in cache, so use it
-        callback(svgCache[url].cloneNode(true));
+        callback(cloneSvg(svgCache[url]));
       }
       else {
         // We don't have it in cache yet, but we are loading it, so queue this request
@@ -221,7 +229,7 @@
     // Load it up
     loadSvg(imgUrl, function (svg) {
 
-      if (svg === undefined || typeof svg === 'string') {
+      if (!isDefined(svg) || typeof svg === 'string') {
         callback(svg);
         return false;
       }
@@ -366,19 +374,19 @@
     var eachCallback = options.each;
 
     // Do the injection...
-    if (elements.length !== undefined) {
+    if (isDefined(elements.length)) {
       var elementsLoaded = 0;
       forEach.call(elements, function (element) {
         injectElement(element, evalScripts, pngFallback, function (svg) {
-          if (eachCallback && typeof (eachCallback) === 'function') eachCallback(svg);
+          if (isFunction(eachCallback)) eachCallback(svg);
           if (done && elements.length === ++elementsLoaded) done(elementsLoaded);
         });
       });
     }
     else {
-      if (elements !== null) {
+      if (elements) {
         injectElement(elements, evalScripts, pngFallback, function (svg) {
-          if (eachCallback && typeof (eachCallback) === 'function') eachCallback(svg);
+          if (isFunction(eachCallback)) eachCallback(svg);
           if (done) done(1);
         });
       }
@@ -394,7 +402,7 @@
     module.exports = exports = SVGInjector;
   }
   // AMD support
-  else if (typeof define === 'function' && define.amd) {
+  else if (isFunction(define) && define.amd) {
     define(function () {
       return SVGInjector;
     });
