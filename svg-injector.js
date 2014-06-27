@@ -14,6 +14,23 @@
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
 
+  function mergeClasses( list ) {
+    list = list.split(' ');
+
+    var hash = {};
+    var i    = list.length;
+    var out  = [];
+
+    while (i--) {
+      if (!hash.hasOwnProperty(list[i])) {
+        hash[list[i]] = 1;
+        out.unshift(list[i]);
+      }
+    }
+
+    return out.join(' ');
+  }
+
   // SVG Cache
   var svgCache = {};
 
@@ -201,9 +218,8 @@
 
       var imgClass = el.getAttribute('class');
       if (imgClass) {
-        // :TODO: don't add dups
         var classMerge = [svg.getAttribute('class'), 'iconic-injected-svg', imgClass].join(' ');
-        svg.setAttribute('class', classMerge);
+        svg.setAttribute('class', mergeClasses(classMerge));
       }
 
       var imgStyle = el.getAttribute('style');
