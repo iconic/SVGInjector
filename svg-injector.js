@@ -31,6 +31,26 @@
     return out.join(' ');
   }
 
+  /**
+   * cache (or polyfill for <= IE8) Array.forEach()
+   * source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+   */
+  var forEach = Array.prototype.forEach || function (fn, scope) {
+    if (this === void 0 || this === null || typeof fn !== 'function') {
+      throw new TypeError();
+    }
+
+    /* jshint bitwise: false */
+    var i, len = this.length >>> 0;
+    /* jshint bitwise: true */
+
+    for (i = 0; i < len; ++i) {
+      if (i in this) {
+        fn.call(scope, this[i], i, this);
+      }
+    }
+  };
+
   // SVG Cache
   var svgCache = {};
 
@@ -229,7 +249,7 @@
       var imgData = [].filter.call(el.attributes, function (at) {
         return (/^data-\w[\w\-]*$/).test(at.name);
       });
-      Array.prototype.forEach.call(imgData, function (dataAttr) {
+      forEach.call(imgData, function (dataAttr) {
         if (dataAttr.name && dataAttr.value) {
           svg.setAttribute(dataAttr.name, dataAttr.value);
         }
@@ -314,28 +334,6 @@
   };
 
   /**
-   * Array.forEach() polyfill for <= IE8
-   * source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-   */
-  if (!Array.prototype.forEach) {
-    Array.prototype.forEach = function (fn, scope) {
-      if (this === void 0 || this === null || typeof fn !== 'function') {
-        throw new TypeError();
-      }
-
-      /* jshint bitwise: false */
-      var i, len = this.length >>> 0;
-      /* jshint bitwise: true */
-
-      for (i = 0; i < len; ++i) {
-        if (i in this) {
-          fn.call(scope, this[i], i, this);
-        }
-      }
-    };
-  }
-
-  /**
    * SVGInjector
    *
    * Replace the given elements with their full inline SVG DOM elements.
@@ -370,7 +368,7 @@
     // Do the injection...
     if (elements.length !== undefined) {
       var elementsLoaded = 0;
-      Array.prototype.forEach.call(elements, function (element) {
+      forEach.call(elements, function (element) {
         injectElement(element, evalScripts, pngFallback, function (svg) {
           if (eachCallback && typeof (eachCallback) === 'function') eachCallback(svg);
           if (done && elements.length === ++elementsLoaded) done(elementsLoaded);
