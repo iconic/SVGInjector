@@ -144,7 +144,7 @@ SVGInjector(mySVGsToInject, injectorOptions, function (totalSVGsInjected) {
 
 ### Per-element PNG fallback
 
-Since you might be using a single SVG icon styled in multiple ways, you can also define per-element fallbacks by adding a `data-fallback` or `data-png` attribute to your `img` tags to define a unique PNG for each context.
+Since you might be using a single SVG styled in multiple ways, you can also define per-element fallbacks by adding a `data-fallback` or `data-png` attribute to your `img` tags to define a unique PNG for each context.
 
 See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examples/fallbacks) for more details.
 
