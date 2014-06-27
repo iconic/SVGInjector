@@ -1,10 +1,10 @@
-// svg-injector.js 1.0.1
-//
-// Copyright (c) 2014 Waybury <hello@waybury.com>
-// SVGInjector may be freely distributed under the MIT license.
-//
-// For full details and documentation:
-// https://github.com/iconic/SVGInjector
+/**
+ * SVGInjector v1.1.0 - Fast, caching, dynamic inline SVG DOM injection library
+ * https://github.com/iconic/SVGInjector
+ *
+ * Copyright (c) 2014 Waybury <hello@waybury.com>
+ * @license MIT
+ */
 
 (function (window, document) {
 
@@ -154,12 +154,23 @@
       return;
     }
 
-    // If we don't have SVG support try to fall back to png
+    // If we don't have SVG support try to fall back to a png,
+    // either defined per-element via data-fallback or data-png,
+    // or globally via the pngFallback directory setting
     if (!hasSvgSupport) {
-      if (pngFallback) {
+      var perElementFallback = el.getAttribute('data-fallback') || el.getAttribute('data-png');
+
+      // Per-element specific PNG fallback defined, so use that
+      if (perElementFallback) {
+        el.setAttribute('src', perElementFallback);
+        callback(null);
+      }
+      // Global PNG fallback directoriy defined, use the same-named PNG
+      else if (pngFallback) {
         el.setAttribute('src', pngFallback + '/' + imgUrl.split('/').pop().replace('.svg', '.png'));
         callback(null);
       }
+      // um...
       else {
         callback('This browser does not support SVG and no PNG fallback was defined.');
       }

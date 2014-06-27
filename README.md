@@ -102,7 +102,9 @@ A single DOM element or array of elements, with `src` or `data-src` attributes d
 
 * `pngFallback` - String
 
-  The directory where fallback PNGs are located for use if the browser doesn't [support SVG](http://caniuse.com/svg).
+  The directory where fallback PNGs are located for use if the browser doesn't [support SVG](http://caniuse.com/svg). This will look for a file with a `.png` extension matching the SVG filename defined in the `src` (or `data-src`).
+
+  For additional flexibility, per-element fallbacks are also [available](#per-element-png-fallback).
 
 * `each(svg)` - function
 
@@ -139,6 +141,21 @@ SVGInjector(mySVGsToInject, injectorOptions, function (totalSVGsInjected) {
   console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
 });
 ```
+
+### Per-element PNG fallback
+
+Since you might be using a single SVG icon styled in multiple ways, you can also define per-element fallbacks by adding a `data-fallback` or `data-png` attribute to your `img` tags to define a unique PNG for each context.
+
+See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examples/fallbacks) for more details.
+
+```html
+<style>
+  .thumb-green {fill: #A6A93C;}
+</style>
+<img class="thumb-green inject-me" data-src="svg/thumb-up.svg" data-fallback="png/thumb-up-green.png">
+
+```
+
 
 # Licence
 The MIT License (MIT)

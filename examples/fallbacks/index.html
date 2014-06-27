@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVGInjector Example: Fallbacks</title>
+    <style>
+      body {text-align: center; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #3A3A3C;}
+      h2 {font-weight: normal; margin: 100px 0 10px;}
+      p {width: 400px; margin: 0 auto;}
+
+      .thumb-icon {
+        width: 64px;
+        height: 64px;
+        display: block;
+        margin: 25px auto;
+      }
+      .thumb-default {fill: #3A3A3C;}
+      .thumb-green {fill: #A6A93C;}
+    </style>
+  </head>
+  <body>
+
+    <h2>Global Fallback Setting</h2>
+    <p>This SVG will fallback to a PNG of the same name in the defined <code>pngFallback</code> directory.</p>
+    <img class="thumb-icon inject-me" data-src="assets/svg/thumb-up.svg" title="Thumb Up" alt="thumb">
+
+    <h2>Per-element Fallback Setting</h2>
+    <p>These SVGs will fallback to PNGs individually defined via the <code>data-fallback</code> attribute.</p>
+    <img class="thumb-icon thumb-default inject-me" data-src="assets/svg/thumb-up.svg" data-fallback="assets/png/thumb-up-default.png" title="Like it" alt="thumb">
+    <img class="thumb-icon thumb-green inject-me" data-src="assets/svg/thumb-up.svg" data-fallback="assets/png/thumb-up-green.png" title="Liked!" alt="thumb">
+
+    <script src="js/svg-injector.min.js"></script>
+    <script>
+      // Elements to inject
+      var mySVGsToInject = document.querySelectorAll('img.inject-me');
+
+      // Trigger the injection
+      SVGInjector(mySVGsToInject, {
+        pngFallback: 'assets/png'
+      });
+    </script>
+  </body>
+</html>

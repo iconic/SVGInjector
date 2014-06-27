@@ -19,6 +19,10 @@
 
     <script src="js/svg-injector.min.js"></script>
     <script>
+
+      // For testing in IE8
+      if (!window.console){ console = {log: function() {}}; };
+
       // Elements to inject
       var mySVGsToInject = document.querySelectorAll('img.inject-me');
 
@@ -28,7 +32,7 @@
         pngFallback: 'assets/png',
         each: function (svg) {
           // Callback after each SVG is injected
-          console.log('SVG injected: ' + svg.getAttribute('id'));
+          if (svg) console.log('SVG injected: ' + svg.getAttribute('id'));
         }
       };
 
