@@ -14,12 +14,12 @@
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
 
-  function mergeClasses( list ) {
+  function uniqueClasses(list) {
     list = list.split(' ');
 
     var hash = {};
-    var i    = list.length;
-    var out  = [];
+    var i = list.length;
+    var out = [];
 
     while (i--) {
       if (!hash.hasOwnProperty(list[i])) {
@@ -216,11 +216,9 @@
         svg.setAttribute('title', imgTitle);
       }
 
-      var imgClass = el.getAttribute('class');
-      if (imgClass) {
-        var classMerge = [svg.getAttribute('class'), 'iconic-injected-svg', imgClass].join(' ');
-        svg.setAttribute('class', mergeClasses(classMerge));
-      }
+      // Concat the SVG classes + 'injected-svg' + the img classes
+      var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
+      svg.setAttribute('class', uniqueClasses(classMerge));
 
       var imgStyle = el.getAttribute('style');
       if (imgStyle) {
