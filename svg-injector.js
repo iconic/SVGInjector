@@ -51,14 +51,6 @@
     }
   };
 
-  function isFunction(value) {
-    return typeof value === 'function';
-  }
-
-  function isDefined(value) {
-    return typeof value !== 'undefined';
-  }
-
   // SVG Cache
   var svgCache = {};
 
@@ -93,7 +85,7 @@
   };
 
   var loadSvg = function (url, callback) {
-    if (isDefined(svgCache[url])) {
+    if (svgCache[url] !== undefined) {
       if (svgCache[url] instanceof SVGSVGElement) {
         // We already have it in cache, so use it
         callback(cloneSvg(svgCache[url]));
@@ -229,7 +221,7 @@
     // Load it up
     loadSvg(imgUrl, function (svg) {
 
-      if (!isDefined(svg) || typeof svg === 'string') {
+      if (typeof svg === 'undefined' || typeof svg === 'string') {
         callback(svg);
         return false;
       }
@@ -374,11 +366,11 @@
     var eachCallback = options.each;
 
     // Do the injection...
-    if (isDefined(elements.length)) {
+    if (elements.length !== undefined) {
       var elementsLoaded = 0;
       forEach.call(elements, function (element) {
         injectElement(element, evalScripts, pngFallback, function (svg) {
-          if (isFunction(eachCallback)) eachCallback(svg);
+          if (eachCallback && typeof eachCallback === 'function') eachCallback(svg);
           if (done && elements.length === ++elementsLoaded) done(elementsLoaded);
         });
       });
@@ -386,7 +378,7 @@
     else {
       if (elements) {
         injectElement(elements, evalScripts, pngFallback, function (svg) {
-          if (isFunction(eachCallback)) eachCallback(svg);
+          if (eachCallback && typeof eachCallback === 'function') eachCallback(svg);
           if (done) done(1);
         });
       }
@@ -402,7 +394,7 @@
     module.exports = exports = SVGInjector;
   }
   // AMD support
-  else if (isFunction(define) && define.amd) {
+  else if (typeof define === 'function' && define.amd) {
     define(function () {
       return SVGInjector;
     });
