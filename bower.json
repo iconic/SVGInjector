@@ -27,6 +27,7 @@
     "bower_components",
     "app/bower_components",
     "test",
-    "tests"
+    "tests",
+    "examples"
   ]
 }
