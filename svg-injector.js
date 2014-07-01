@@ -183,16 +183,6 @@
   // Inject a single element
   var injectElement = function (el, evalScripts, pngFallback, callback) {
 
-    // Make sure we aren't already in the process of injecting this element to
-    // avoid a race condition if multiple injections for the same element are run
-    if (injectedElements.indexOf(el) !== -1) {
-      return;
-    }
-
-    // Remember the request to inject this element, in case other injection
-    // calls are also trying to replace this element before we finish
-    injectedElements.push(el);
-
     // Grab the src or data-src attribute
     var imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
 
@@ -225,6 +215,18 @@
 
       return;
     }
+
+    // Make sure we aren't already in the process of injecting this element to
+    // avoid a race condition if multiple injections for the same element are run.
+    // :NOTE: Using indexOf() only _after_ we check for SVG support and bail,
+    // so no need for IE8 indexOf() polyfill
+    if (injectedElements.indexOf(el) !== -1) {
+      return;
+    }
+
+    // Remember the request to inject this element, in case other injection
+    // calls are also trying to replace this element before we finish
+    injectedElements.push(el);
 
     // Try to avoid loading the orginal image src if possible.
     el.setAttribute('src', '');
