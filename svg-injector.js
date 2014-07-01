@@ -55,6 +55,7 @@
   var svgCache = {};
 
   var injectCount = 0;
+  var injectedElements = [];
 
   // Request Queue
   var requestQueue = [];
@@ -181,6 +182,16 @@
 
   // Inject a single element
   var injectElement = function (el, evalScripts, pngFallback, callback) {
+
+    // Make sure we aren't already in the process of injecting this element to
+    // avoid a race condition if multiple injections for the same element are run
+    if (injectedElements.indexOf(el) !== -1) {
+      return;
+    }
+
+    // Remember the request to inject this element, in case other injection
+    // calls are also trying to replace this element before we finish
+    injectedElements.push(el);
 
     // Grab the src or data-src attribute
     var imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
