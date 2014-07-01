@@ -337,6 +337,11 @@
       // Replace the image with the svg
       el.parentNode.replaceChild(svg, el);
 
+      // Now that we no longer need it, drop references
+      // to the original element so it can be GC'd
+      delete injectedElements[injectedElements.indexOf(el)];
+      el = null;
+
       // Increment the injected count
       injectCount++;
 
