@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVGInjector Test: Race Condition</title>
+    <style>
+      .thumb-icon {
+        width:64px;
+        height:64px;
+        display: block;
+        margin: 100px auto;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Stress Test -->
+    <img id="thumb-up" class="inject-me thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up">
+
+    <!-- Sequential Test -->
+    <img id="thumb-up-one" class="inject-me-once thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up">
+    <img id="thumb-up-two" class="inject-me-twice thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up">
+    <img id="thumb-up-three" class="inject-me-three-times thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up">
+
+
+    <script src="js/svg-injector.min.js"></script>
+    <script>
+
+      // Stress Test...
+
+      // Call the same injection call lots of time to try and trigger a race condition
+      var x = 0;
+      while (x < 1000) {
+        SVGInjector(document.querySelectorAll('img.inject-me'), {
+          each: function (svg) {
+            // Callback after each SVG is injected
+            if (svg) {
+              console.log('[Stress Test] SVG injected: ' + svg.getAttribute('id'));
+              svg.setAttribute('style', 'fill:plum');
+            }
+          }
+        }, function (totalSVGsInjected) {
+          // Callback after all SVGs are injected
+          console.log('[Stress Test] We injected ' + totalSVGsInjected + ' SVG(s)!');
+        });
+        x++;
+      }
+
+      // Sequential Test...
+
+      // Trigger an injection.
+      // Inject all the SVGs a first time... should make them Plum colored
+      SVGInjector(document.querySelectorAll('img.inject-me-once, img.inject-me-twice, img.inject-me-three-times'), {
+        each: function (svg) {
+          // Callback after each SVG is injected
+          if (svg) {
+            console.log('[One] SVG injected: ' + svg.getAttribute('id'));
+            svg.setAttribute('style', 'fill:plum');
+          }
+        }
+      }, function (totalSVGsInjected) {
+        // Callback after all SVGs are injected
+        console.log('[One] We injected ' + totalSVGsInjected + ' SVG(s)!');
+      });
+
+      // Trigger another injection of the second and third SVG in attempt to cause a race condition
+      // These should not trigger since ideally the previous injection already did it (or is doing it)
+      SVGInjector(document.querySelectorAll('img.inject-me-twice, img.inject-me-three-times'), {
+        each: function (svg) {
+          // Callback after each SVG is injected
+          if (svg) {
+            console.log('[Two] SVG injected: ' + svg.getAttribute('id'));
+            svg.setAttribute('style', 'fill:wheat');
+          }
+        }
+      }, function (totalSVGsInjected) {
+        // Callback after all SVGs are injected
+        console.log('[Two] We injected ' + totalSVGsInjected + ' SVG(s)!');
+      });
+
+      // Trigger yet another injection of the third SVG in attempt to cause a race condition.
+      // ...this too should be skipped
+      SVGInjector(document.querySelectorAll('img.inject-me-three-times'), {
+        each: function (svg) {
+          // Callback after each SVG is injected
+          if (svg) {
+            console.log('[Three] SVG injected: ' + svg.getAttribute('id'));
+            svg.setAttribute('style', 'fill:maroon');
+          }
+        }
+      }, function (totalSVGsInjected) {
+        // Callback after all SVGs are injected
+        console.log('[Three] We injected ' + totalSVGsInjected + ' SVG(s)!');
+      });
+
+    </script>
+  </body>
+</html>
