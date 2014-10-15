@@ -1,6 +1,10 @@
 ## Change Log
 
-### 1.1.0 (2014/07/01 20:59 +00:00)
+### 1.1.1 (2014/10/15 21:08 +00:00)
+- [55ac808](https://github.com/iconic/SVGInjector/commit/55ac808b03bf691d69230359d2436156def0d0bd) Fix for issue #17 - "SVG Injector doesn't work if there is a URL parameter". Updated the regex that was matching for an svg file extension to allow for query strings. (@protodave)
+- [0b76f3b](https://github.com/iconic/SVGInjector/commit/0b76f3b82529757508d0fb7a9fba582089f16abe) version bump, v1.1.1 (@protodave)
+
+### 1.1.0 (2014/07/01 21:01 +00:00)
 - [e2d6d62](https://github.com/iconic/SVGInjector/commit/e2d6d626560911154257367d629e6a59d6e239b2) Updated bower package name in the install command (@protodave)
 - [972fdf6](https://github.com/iconic/SVGInjector/commit/972fdf62f98ee2c68c8c8f132c2e2f64867581ff) different forEach approach (@stryju)
 - [207dee9](https://github.com/iconic/SVGInjector/commit/207dee91f44423c8396d8c8f157c22d37834bb72) small cleanup (@stryju)
@@ -27,6 +31,8 @@
 - [9be5041](https://github.com/iconic/SVGInjector/commit/9be50413b67bff29d9fc799c0553dbee06fb2fad) min/map dist build and updated lib in examples and tests (@protodave)
 - [e2e2438](https://github.com/iconic/SVGInjector/commit/e2e24383f97a60adbc64cfe546f21813964f9bd9) Unlink elements var to aid GC and avoid detacted DOM elements (@protodave)
 - [fe70317](https://github.com/iconic/SVGInjector/commit/fe703175448b3ba2768b8425eebf7f01ee3ae2c8) updated min/map dist build (@protodave)
+- [0e1cce5](https://github.com/iconic/SVGInjector/commit/0e1cce5e792358bc0ce4ac3158cd3e77e10c5245) Updated CHANGELOG for 1.1.0 release (@protodave)
+- [173dc9b](https://github.com/iconic/SVGInjector/commit/173dc9b9c205c8ff1441391d3fb70e7172caf162) update version in bower.json (@protodave)
 
 ### 1.0.1 (2014/05/08 22:31 +00:00)
 - [13a2af6](https://github.com/iconic/SVGInjector/commit/13a2af6af1bd61dab6b1ff34c84c7d6f6fd79dcf) Added jshintrc and some jshint wrapper rules to svg-injector.js (@protodave)
