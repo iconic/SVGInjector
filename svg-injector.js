@@ -187,7 +187,7 @@
     var imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
 
     // We can only inject SVG
-    if (!(/svg$/i).test(imgUrl)) {
+    if (!(/\.svg/i).test(imgUrl)) {
       callback('Attempted to inject a file with a non-svg extension: ' + imgUrl);
       return;
     }
