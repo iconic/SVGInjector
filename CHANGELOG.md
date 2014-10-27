@@ -1,5 +1,8 @@
 ## Change Log
 
+### 1.1.2 (2014/10/27 21:48 +00:00)
+- [8da3cfb](https://github.com/iconic/SVGInjector/commit/8da3cfbf239b286c6046f7cd1f80261690ad9a5d) changelog update (@protodave)
+
 ### 1.1.1 (2014/10/15 21:08 +00:00)
 - [55ac808](https://github.com/iconic/SVGInjector/commit/55ac808b03bf691d69230359d2436156def0d0bd) Fix for issue #17 - "SVG Injector doesn't work if there is a URL parameter". Updated the regex that was matching for an svg file extension to allow for query strings. (@protodave)
 - [0b76f3b](https://github.com/iconic/SVGInjector/commit/0b76f3b82529757508d0fb7a9fba582089f16abe) version bump, v1.1.1 (@protodave)
