@@ -1,7 +1,10 @@
 ## Change Log
 
-### 1.1.2 (2014/10/27 21:48 +00:00)
+### 1.1.2 (2014/10/27 21:50 +00:00)
 - [8da3cfb](https://github.com/iconic/SVGInjector/commit/8da3cfbf239b286c6046f7cd1f80261690ad9a5d) changelog update (@protodave)
+- [e498e03](https://github.com/iconic/SVGInjector/commit/e498e03eb2c40d3907c5cddb035a1705bfa5f384) Make sure any mask ids and their references are unique so we can safely use the same SVG multiple times on the same page (like we already do for clipPaths) (@protodave)
+- [eae8b22](https://github.com/iconic/SVGInjector/commit/eae8b2268f5cc3a1430f76a318b7eac3c31fdc3d) New build and version bump (@protodave)
+- [7266bcf](https://github.com/iconic/SVGInjector/commit/7266bcf7eeda3e4c33d2fa15bc9365ea57985959) updated changelog (@protodave)
 
 ### 1.1.1 (2014/10/15 21:08 +00:00)
 - [55ac808](https://github.com/iconic/SVGInjector/commit/55ac808b03bf691d69230359d2436156def0d0bd) Fix for issue #17 - "SVG Injector doesn't work if there is a URL parameter". Updated the regex that was matching for an svg file extension to allow for query strings. (@protodave)
