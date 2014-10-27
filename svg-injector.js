@@ -280,14 +280,27 @@
       // Reference: https://bugzilla.mozilla.org/show_bug.cgi?id=376027
       var clipPaths = svg.querySelectorAll('defs clipPath[id]');
       var newClipPathName;
-      for (var i = 0, clipPathsLen = clipPaths.length; i < clipPathsLen; i++) {
-        newClipPathName = clipPaths[i].id + '-' + injectCount;
+      for (var g = 0, clipPathsLen = clipPaths.length; g < clipPathsLen; g++) {
+        newClipPathName = clipPaths[g].id + '-' + injectCount;
         // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-        var usingClipPath = svg.querySelectorAll('[clip-path*="' + clipPaths[i].id + '"]');
-        for (var j = 0, usingClipPathLen = usingClipPath.length; j < usingClipPathLen; j++) {
-          usingClipPath[j].setAttribute('clip-path', 'url(#' + newClipPathName + ')');
+        var usingClipPath = svg.querySelectorAll('[clip-path*="' + clipPaths[g].id + '"]');
+        for (var h = 0, usingClipPathLen = usingClipPath.length; h < usingClipPathLen; h++) {
+          usingClipPath[h].setAttribute('clip-path', 'url(#' + newClipPathName + ')');
         }
-        clipPaths[i].id = newClipPathName;
+        clipPaths[g].id = newClipPathName;
+      }
+
+      // Do the same for masks
+      var masks = svg.querySelectorAll('defs mask[id]');
+      var newMaskName;
+      for (var i = 0, masksLen = masks.length; i < masksLen; i++) {
+        newMaskName = masks[i].id + '-' + injectCount;
+        // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
+        var usingMask = svg.querySelectorAll('[mask*="' + masks[i].id + '"]');
+        for (var j = 0, usingMaskLen = usingMask.length; j < usingMaskLen; j++) {
+          usingMask[j].setAttribute('mask', 'url(#' + newMaskName + ')');
+        }
+        masks[i].id = newMaskName;
       }
 
       // Remove any unwanted/invalid namespaces that might have been added by SVG editing tools
