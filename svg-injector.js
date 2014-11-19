@@ -31,6 +31,23 @@
     return out.join(' ');
   }
 
+  // Create the XHR object.
+  function createCORSRequest(method, url) {
+    var xhr = new XMLHttpRequest();
+    if ('withCredentials' in xhr) {
+      // XHR for Chrome/Firefox/Opera/Safari.
+      xhr.open(method, url, true);
+    } else if (typeof XDomainRequest !== 'undefined') {
+      // XDomainRequest for IE.
+      xhr = new XDomainRequest();
+      xhr.open(method, url);
+    } else {
+      // CORS not supported.
+      xhr = null;
+    }
+    return xhr;
+  }
+
   /**
    * cache (or polyfill for <= IE8) Array.forEach()
    * source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
@@ -85,6 +102,8 @@
     }
   };
 
+
+
   var loadSvg = function (url, callback) {
     if (svgCache[url] !== undefined) {
       if (svgCache[url] instanceof SVGSVGElement) {
@@ -107,14 +126,19 @@
       svgCache[url] = {};
       queueRequest(url, callback);
 
-      var httpRequest = new XMLHttpRequest();
+      var xhr = createCORSRequest('GET', url);
 
-      httpRequest.onreadystatechange = function () {
+      if (!xhr) {
+        callback('Browser does not support CORS');
+        return false;
+      }
+
+      xhr.onreadystatechange = function () {
         // readyState 4 = complete
-        if (httpRequest.readyState === 4) {
+        if (xhr.readyState === 4) {
 
           // Handle status
-          if (httpRequest.status === 404 || httpRequest.responseXML === null) {
+          if (xhr.status === 404 || xhr.responseXML === null) {
             callback('Unable to load SVG file: ' + url);
 
             if (isLocal) callback('Note: SVG injection ajax calls do not work locally without adjusting security setting in your browser. Or consider using a local webserver.');
@@ -124,12 +148,12 @@
           }
 
           // 200 success from server, or 0 when using file:// protocol locally
-          if (httpRequest.status === 200 || (isLocal && httpRequest.status === 0)) {
+          if (xhr.status === 200 || (isLocal && xhr.status === 0)) {
 
             /* globals Document */
-            if (httpRequest.responseXML instanceof Document) {
+            if (xhr.responseXML instanceof Document) {
               // Cache it
-              svgCache[url] = httpRequest.responseXML.documentElement;
+              svgCache[url] = xhr.responseXML.documentElement;
             }
             /* globals -Document */
 
@@ -144,7 +168,7 @@
               var xmlDoc;
               try {
                 var parser = new DOMParser();
-                xmlDoc = parser.parseFromString(httpRequest.responseText, 'text/xml');
+                xmlDoc = parser.parseFromString(xhr.responseText, 'text/xml');
               }
               catch (e) {
                 xmlDoc = undefined;
@@ -164,19 +188,17 @@
             processRequestQueue(url);
           }
           else {
-            callback('There was a problem injecting the SVG: ' + httpRequest.status + ' ' + httpRequest.statusText);
+            callback('There was a problem injecting the SVG: ' + xhr.status + ' ' + xhr.statusText);
             return false;
           }
         }
       };
 
-      httpRequest.open('GET', url);
-
       // Treat and parse the response as XML, even if the
       // server sends us a different mimetype
-      if (httpRequest.overrideMimeType) httpRequest.overrideMimeType('text/xml');
+      if (xhr.overrideMimeType) xhr.overrideMimeType('text/xml');
 
-      httpRequest.send();
+      xhr.send();
     }
   };
 
