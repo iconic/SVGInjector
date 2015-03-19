@@ -1,5 +1,5 @@
 /**
- * SVGInjector v1.1.3-RC - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v1.1.2 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/iconic/SVGInjector
  *
  * Copyright (c) 2014 Waybury <hello@waybury.com>
@@ -244,14 +244,10 @@
         svg.setAttribute('id', imgId);
       }
 
-      var imgAlt = el.getAttribute('alt');
-      if (imgAlt) {
-        svg.setAttribute('title', imgAlt);
-        svg.getAttribute('title').setAttribute('id', 'title');
-        svg.setAttribute('aria-labelledby', 'title');
+      var imgTitle = el.getAttribute('title');
+      if (imgTitle) {
+        svg.setAttribute('title', imgTitle);
       }
-
-      svg.setAttribute('role', 'img');
 
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
@@ -352,16 +348,6 @@
         // Remember we already ran scripts for this svg
         ranScripts[imgUrl] = true;
       }
-
-      // :WORKAROUND:
-      // IE doesn't evaluate <style> tags in SVGs that are dynamically added to the page.
-      // This trick will trigger IE to read and use any existing SVG <style> tags.
-      //
-      // Reference: https://github.com/iconic/SVGInjector/issues/23
-      var styleTags = svg.querySelectorAll('style');
-      forEach.call(styleTags, function (styleTag) {
-        styleTag.textContent += '';
-      });
 
       // Replace the image with the svg
       el.parentNode.replaceChild(svg, el);
