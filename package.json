@@ -1,11 +1,11 @@
 {
   "name": "svg-injector",
   "description": "Fast, caching, dynamic inline SVG DOM injection library",
-  "version": "1.1.2",
+  "version": "1.1.3-RC",
   "author": {
-    "name": "Waybury",
-    "email": "hello@waybury.com",
-    "url": "http://waybury.com/"
+    "name": "Iconic",
+    "email": "yourfriends@useiconic.com",
+    "url": "https://useiconic.com/"
   },
   "main": "svg-injector.js",
   "homepage": "https://github.com/iconic/SVGInjector",
@@ -15,6 +15,7 @@
   },
   "keywords": [
     "SVG",
+    "Scalable Vector Graphics",
     "SVG injector",
     "images",
     "img",
