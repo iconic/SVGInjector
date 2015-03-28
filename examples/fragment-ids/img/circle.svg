@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100px" height="100px">
+
+  <defs>
+    <style type="text/css">
+      .circle{
+        fill: #ff0000;
+        transition: all 0.5s;
+      }
+
+      .circle:hover{
+        fill: #660000;
+      }
+    </style>
+  </defs>
+
+  <ellipse cy="50" cx="50" ry="45" rx="45" class="circle"/>
+</svg>
