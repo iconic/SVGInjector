@@ -63,13 +63,39 @@
   // Script running status
   var ranScripts = {};
 
-  var cloneSvg = function (sourceSvg) {
+  var cloneSvg = function (sourceSvg, fragId) {
+    var svgElem, newSVG, viewBox, viewBoxAttr;
+
+    if(fragId !== undefined) {
+      svgElem = sourceSvg.getElementById(fragId);
+
+      if(svgElem instanceof SVGSymbolElement){
+        newSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        forEach.call(svgElem.childNodes, function(child){
+          newSVG.appendChild(child.cloneNode(true));
+        });
+      }
+      else if(svgElem instanceof SVGViewElement){
+        newSVG = sourceSvg.cloneNode(true);
+      }
+
+      viewBoxAttr = svgElem.getAttribute('viewBox');
+      if(viewBoxAttr){
+        viewBox = viewBoxAttr.split(' ');
+        newSVG.setAttribute('viewBox', viewBox.join(' '));
+        newSVG.setAttribute('width', viewBox[2]+'px');
+        newSVG.setAttribute('height', viewBox[3]+'px');
+      }
+
+      newSVG.setAttribute('class', fragId);
+      return newSVG;
+    }
     return sourceSvg.cloneNode(true);
   };
 
-  var queueRequest = function (url, callback) {
-    requestQueue[url] = requestQueue[url] || [];
-    requestQueue[url].push(callback);
+  var queueRequest = function (callback, fileName, fragId) {
+    requestQueue[fileName] = requestQueue[fileName] || [];
+    requestQueue[fileName].push({'callback':callback, 'fragmentId':fragId});
   };
 
   var processRequestQueue = function (url) {
@@ -78,7 +104,7 @@
       /* jshint loopfunc: true */
       (function (index) {
         setTimeout(function () {
-          requestQueue[url][index](cloneSvg(svgCache[url]));
+          requestQueue[url][index].callback(cloneSvg(svgCache[url], requestQueue[url][index].fragmentId));
         }, 0);
       })(i);
       /* jshint loopfunc: false */
@@ -86,14 +112,19 @@
   };
 
   var loadSvg = function (url, callback) {
-    if (svgCache[url] !== undefined) {
-      if (svgCache[url] instanceof SVGSVGElement) {
+    var urlArr, fileName, fragId;
+    urlArr = url.split('#');
+    fileName = urlArr[0];
+    fragId = (urlArr.length === 2) ? urlArr[1] : undefined;
+
+    if (svgCache[fileName] !== undefined) {
+      if (svgCache[fileName] instanceof SVGSVGElement) {
         // We already have it in cache, so use it
-        callback(cloneSvg(svgCache[url]));
+        callback(cloneSvg(svgCache[fileName], fragId));
       }
       else {
         // We don't have it in cache yet, but we are loading it, so queue this request
-        queueRequest(url, callback);
+        queueRequest(callback, fileName, fragId);
       }
     }
     else {
@@ -104,8 +135,8 @@
       }
 
       // Seed the cache to indicate we are loading this URL already
-      svgCache[url] = {};
-      queueRequest(url, callback);
+      svgCache[fileName] = {};
+      queueRequest(callback, fileName, fragId);
 
       var httpRequest = new XMLHttpRequest();
 
@@ -115,7 +146,7 @@
 
           // Handle status
           if (httpRequest.status === 404 || httpRequest.responseXML === null) {
-            callback('Unable to load SVG file: ' + url);
+            callback('Unable to load SVG file: ' + fileName);
 
             if (isLocal) callback('Note: SVG injection ajax calls do not work locally without adjusting security setting in your browser. Or consider using a local webserver.');
 
@@ -129,7 +160,7 @@
             /* globals Document */
             if (httpRequest.responseXML instanceof Document) {
               // Cache it
-              svgCache[url] = httpRequest.responseXML.documentElement;
+              svgCache[fileName] = httpRequest.responseXML.documentElement;
             }
             /* globals -Document */
 
@@ -156,12 +187,12 @@
               }
               else {
                 // Cache it
-                svgCache[url] = xmlDoc.documentElement;
+                svgCache[fileName] = xmlDoc.documentElement;
               }
             }
 
             // We've loaded a new asset, so process any requests waiting for it
-            processRequestQueue(url);
+            processRequestQueue(fileName);
           }
           else {
             callback('There was a problem injecting the SVG: ' + httpRequest.status + ' ' + httpRequest.statusText);
@@ -170,7 +201,7 @@
         }
       };
 
-      httpRequest.open('GET', url);
+      httpRequest.open('GET', fileName);
 
       // Treat and parse the response as XML, even if the
       // server sends us a different mimetype
