@@ -28,21 +28,21 @@
     <script src="../../dist/svg-injector.min.js"></script>
     <!--<script src="../../svg-injector.js"></script>-->
     <script>
-        (function(global, doc){
-            // Options
-            var injectorOptions = {
-                evalScripts: 'once',
-                pngFallback: false,
-                each: function(svg){
-                    if (svg){
-                        //console.log('injected: ', svg);
-                    }
-                }
-            };
+      (function(global, doc){
+          // Options
+          var injectorOptions = {
+              evalScripts: 'once',
+              pngFallback: false,
+              each: function(svg){
+                  if (svg){
+                      //console.log('injected: ', svg);
+                  }
+              }
+          };
 
-            // Do the injection
-            global.SVGInjector(doc.querySelectorAll('svg[data-src]'), injectorOptions);
-        })(window, document);
+          // Do the injection
+          global.SVGInjector(doc.querySelectorAll('svg[data-src]'), injectorOptions);
+      })(window, document);
     </script>
   </body>
 </html>
