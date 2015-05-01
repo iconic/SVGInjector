@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <view id="circle"                            viewBox="0 0 100 100" />
+  <svg class="circle" width="100" height="100" viewBox="0 0 100 100">
+    <style type="text/css">
+      .circle .st0 {
+        fill: #A6042D;
+      }
+    </style>
+    <ellipse cy="50" cx="50" ry="45" rx="45" class="st0"/>
+  </svg>
+
+  <view id="square"                            viewBox="0 100 100 100" />
+  <svg class="square" width="100" height="100" viewBox="0 0 100 100" y="100">
+    <style type="text/css">
+      .square .st0 {
+        fill: #A6042D;
+      }
+    </style>
+    <rect y="5" x="5" width="90" height="90" class="st0"/>
+  </svg>
+
+  <view id="triangle"                             viewBox="0 200 100 100" />
+  <svg class="triangle" width="100" height="100"  viewBox="0 0 100 100" y="200">
+    <style type="text/css">
+      .triangle .st0 {
+        fill: #A6042D;
+      }
+    </style>
+    <path d="M20,7 L92,50 L6,93 z" />
+  </svg>
+
+</svg>

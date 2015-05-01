@@ -24,6 +24,10 @@
     <!-- svg without symbols or views -->
     <svg data-src="./img/circle.svg" />
 
+    <!-- reference fragments via views -->
+    <svg data-src="./img/views.svg#circle" />
+    <svg data-src="./img/views.svg#square" />
+    <svg data-src="./img/views.svg#triangle" />
 
     <script src="../../dist/svg-injector.min.js"></script>
     <!--<script src="../../svg-injector.js"></script>-->
@@ -32,7 +36,7 @@
           // Options
           var injectorOptions = {
               evalScripts: 'once',
-              pngFallback: false,
+              pngFallback: '.',
               each: function(svg){
                   if (svg){
                       //console.log('injected: ', svg);
