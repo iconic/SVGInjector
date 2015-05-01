@@ -298,6 +298,8 @@
 
     // Grab the src or data-src attribute
     var imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
+    var imgUrlSplitByFId = imgUrl.split('#');
+    var fallbackUrl;
 
     // We can only inject SVG
     if (!(/\.svg/i).test(imgUrl)) {
@@ -318,7 +320,14 @@
       }
       // Global PNG fallback directoriy defined, use the same-named PNG
       else if (pngFallback) {
-        el.setAttribute('src', pngFallback + '/' + imgUrl.split('/').pop().replace('.svg', '.png'));
+
+        if (imgUrlSplitByFId.length>1) {
+          fallbackUrl = imgUrlSplitByFId[1] + '.png';
+        }
+        else{
+          fallbackUrl = imgUrl.split('/').pop().replace('.svg', '.png');
+        }
+          el.setAttribute('src', pngFallback + '/' + fallbackUrl);
         callback(null);
       }
       // um...
