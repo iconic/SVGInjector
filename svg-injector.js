@@ -12,6 +12,7 @@
 
   // Constants
   var svgNS = 'http://www.w3.org/2000/svg';
+  var xlinkNS = 'http://www.w3.org/1999/xlink';
 
   // Environment
   var isLocal = window.location.protocol === 'file:';
@@ -74,10 +75,19 @@
 
     for(var i=0; i<svgElemSource.attributes.length; i++) {
       curAttr = svgElemSource.attributes.item(i);
-      if (attributesToIgnore.indexOf(curAttr) < 0) {
-        svgElemTarget.setAttribute(curAttr, svgElemSource.getAttribute(curAttr));
+      if (attributesToIgnore.indexOf(curAttr.name) < 0) {
+        svgElemTarget.setAttribute(curAttr.name, curAttr.value);
       }
     }
+  };
+
+  var cloneSymbolAsSVG = function( svgSymbol ) {
+    var svg = document.createElementNS(svgNS, 'svg');
+    forEach.call(svgSymbol.childNodes, function(child){
+      svg.appendChild(child.cloneNode(true));
+    });
+    copyAttributes(svgSymbol, svg);
+    return svg;
   };
 
   var cloneSvg = function (sourceSvg, fragId) {
@@ -90,13 +100,14 @@
         symbolAttributesToFind,
         symbolToFindIdx,
         curClassList,
+        curClassAttr,
         setViewboxOnNewSVG = false,
         allAttribsMatch = false;
 
     if(fragId !== undefined) {
       svgElem = sourceSvg.getElementById(fragId);
       if(!svgElem){
-        //console.warn(fragId + ' not found in svg', sourceSvg);
+        console.warn(fragId + ' not found in svg', sourceSvg);
         // fail silently
         return;
       }
@@ -105,56 +116,69 @@
       viewBox = viewBoxAttr.split(' ');
 
       if (svgElem instanceof SVGSymbolElement) {
-        newSVG = document.createElementNS(svgNS, 'svg');
+
+        newSVG = cloneSymbolAsSVG(svgElem); /*document.createElementNS(svgNS, 'svg');
         forEach.call(svgElem.childNodes, function(child){
           newSVG.appendChild(child.cloneNode(true));
         });
-        copyAttributes(svgElem, newSVG);
+        copyAttributes(svgElem, newSVG);*/
         setViewboxOnNewSVG = true;
 
       }
       else if (svgElem instanceof SVGViewElement) {
         symbolToFindIdx = -1;
         if (onlyInjectVisiblePart) {
-          symbolAttributesToFind = {
-            width   : viewBox[2],
-            height  : viewBox[3]
-          };
+          symbolAttributesToFind = {};
           if (Math.abs(viewBox[0]) > 0) {
             symbolAttributesToFind.x = viewBox[0];
           }
           if (Math.abs(viewBox[1]) > 0) {
             symbolAttributesToFind.y = viewBox[1];
           }
-          symbolElems = sourceSvg.getElementsByTagNameNS(svgNS, 'svg');
+
+          symbolElems = sourceSvg.querySelectorAll('*[width="' + viewBox[2] + '"][height="'+viewBox[3]+'"]');
           forEach.call(
-              symbolElems,
-              function (symbolElem, idx) {
-                allAttribsMatch = true;
-                for (var prop in symbolAttributesToFind) {
-                  if (symbolElem.getAttribute(prop) !== symbolAttributesToFind[prop]) {
-                    allAttribsMatch = false;
-                    break;
-                  }
-                }
-                if (allAttribsMatch) {
-                  symbolToFindIdx = idx;
+            symbolElems,
+            function (symbolElem, idx) {
+              allAttribsMatch = true;
+              for (var prop in symbolAttributesToFind) {
+                if (symbolElem.getAttribute(prop) !== symbolAttributesToFind[prop]) {
+                  allAttribsMatch = false;
+                  break;
                 }
               }
+              if (allAttribsMatch) {
+                symbolToFindIdx = idx;
+              }
+            }
           );
+
         }
-        if (symbolToFindIdx === -1) {
-          // onlyInjectVisiblePart option was disabled or no symbol was found
-          setViewboxOnNewSVG = true;
-          newSVG = sourceSvg.cloneNode(true);
-        }
-        else {
+        if (symbolToFindIdx !== -1 && (symbolElems[symbolToFindIdx] instanceof SVGSVGElement)) {
           newSVG = symbolElems[symbolToFindIdx].cloneNode(true);
           for (var prop in symbolAttributesToFind) {
             if (prop !== 'width' && prop !== 'height') {
               newSVG.removeAttribute(prop);
             }
           }
+        }
+        else if(symbolToFindIdx !== -1 && (symbolElems[symbolToFindIdx] instanceof SVGUseElement)) {
+          //console.log('referenced view shows a SVGUseElement');
+          var referencedSymbol = sourceSvg.getElementById(
+              symbolElems[symbolToFindIdx].getAttributeNS(xlinkNS, 'href').substr(1)
+          );
+          newSVG = cloneSymbolAsSVG(referencedSymbol);
+          viewBoxAttr = referencedSymbol.getAttribute('viewBox');
+          viewBox = viewBoxAttr.split(' ');
+          setViewboxOnNewSVG = true;
+        }
+        else {
+
+          // onlyInjectVisiblePart option was disabled or no symbol was found
+          //console.log('symbol referenced via view ' + fragId + ' not found -> clone complete svg!');
+          setViewboxOnNewSVG = true;
+          newSVG = sourceSvg.cloneNode(true);
+
         }
       }
 
@@ -164,7 +188,8 @@
         newSVG.setAttribute('height', viewBox[3]+'px');
       }
 
-      curClassList = newSVG.getAttribute('class').split(' ');
+      curClassAttr = newSVG.getAttribute('class');
+      curClassList = (curClassAttr) ? curClassAttr.split(' '): [];
       if (curClassList.indexOf(fragId)<0) {
         curClassList.push(fragId);
         newSVG.setAttribute('class', curClassList.join(' '));
