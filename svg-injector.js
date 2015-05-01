@@ -96,13 +96,11 @@
         newSVG,
         viewBox,
         viewBoxAttr,
-        symbolElems,
         symbolAttributesToFind,
-        symbolToFindIdx,
         curClassList,
         curClassAttr,
         setViewboxOnNewSVG = false,
-        allAttribsMatch = false;
+        symbolElem = null;
 
     if(fragId !== undefined) {
       svgElem = sourceSvg.getElementById(fragId);
@@ -126,46 +124,35 @@
 
       }
       else if (svgElem instanceof SVGViewElement) {
-        symbolToFindIdx = -1;
+        symbolElem = null;
         if (onlyInjectVisiblePart) {
+          var selector = '*[width="' + viewBox[2] + '"][height="'+viewBox[3]+'"]';
+
           symbolAttributesToFind = {};
           if (Math.abs(viewBox[0]) > 0) {
             symbolAttributesToFind.x = viewBox[0];
+            selector += '[x="' + viewBox[0] + '"]';
           }
           if (Math.abs(viewBox[1]) > 0) {
             symbolAttributesToFind.y = viewBox[1];
+            selector += '[y="' + viewBox[1] + '"]';
           }
 
-          symbolElems = sourceSvg.querySelectorAll('*[width="' + viewBox[2] + '"][height="'+viewBox[3]+'"]');
-          forEach.call(
-            symbolElems,
-            function (symbolElem, idx) {
-              allAttribsMatch = true;
-              for (var prop in symbolAttributesToFind) {
-                if (symbolElem.getAttribute(prop) !== symbolAttributesToFind[prop]) {
-                  allAttribsMatch = false;
-                  break;
-                }
-              }
-              if (allAttribsMatch) {
-                symbolToFindIdx = idx;
-              }
-            }
-          );
+          symbolElem = sourceSvg.querySelector(selector);
 
         }
-        if (symbolToFindIdx !== -1 && (symbolElems[symbolToFindIdx] instanceof SVGSVGElement)) {
-          newSVG = symbolElems[symbolToFindIdx].cloneNode(true);
+        if (symbolElem && (symbolElem instanceof SVGSVGElement)) {
+          newSVG = symbolElem.cloneNode(true);
           for (var prop in symbolAttributesToFind) {
             if (prop !== 'width' && prop !== 'height') {
               newSVG.removeAttribute(prop);
             }
           }
         }
-        else if(symbolToFindIdx !== -1 && (symbolElems[symbolToFindIdx] instanceof SVGUseElement)) {
+        else if(symbolElem && (symbolElem instanceof SVGUseElement)) {
           //console.log('referenced view shows a SVGUseElement');
           var referencedSymbol = sourceSvg.getElementById(
-              symbolElems[symbolToFindIdx].getAttributeNS(xlinkNS, 'href').substr(1)
+              symbolElem.getAttributeNS(xlinkNS, 'href').substr(1)
           );
           newSVG = cloneSymbolAsSVG(referencedSymbol);
           viewBoxAttr = referencedSymbol.getAttribute('viewBox');
