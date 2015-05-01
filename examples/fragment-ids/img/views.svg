@@ -28,7 +28,7 @@
         fill: #A6042D;
       }
     </style>
-    <path d="M20,7 L92,50 L6,93 z" />
+    <path d="M20,7 L92,50 L6,93 z" class="st0"/>
   </svg>
 
 </svg>
