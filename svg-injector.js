@@ -14,8 +14,6 @@
   var svgNS = 'http://www.w3.org/2000/svg';
   var xlinkNS = 'http://www.w3.org/1999/xlink';
 
-
-
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
@@ -106,7 +104,6 @@
         viewBoxAttr,
         symbolAttributesToFind,
         curClassList,
-        curClassAttr,
         setViewboxOnNewSVG = false,
         symbolElem = null;
 
@@ -117,7 +114,6 @@
       svgElem = sourceSvg.getElementById(fragId);
       if(!svgElem){
         console.warn(fragId + ' not found in svg', sourceSvg);
-        // fail silently
         return;
       }
 
@@ -126,11 +122,7 @@
 
       if (svgElem instanceof SVGSymbolElement) {
 
-        newSVG = cloneSymbolAsSVG(svgElem); /*document.createElementNS(svgNS, 'svg');
-        forEach.call(svgElem.childNodes, function(child){
-          newSVG.appendChild(child.cloneNode(true));
-        });
-        copyAttributes(svgElem, newSVG);*/
+        newSVG = cloneSymbolAsSVG(svgElem);
         setViewboxOnNewSVG = true;
 
       }
@@ -148,9 +140,7 @@
             symbolAttributesToFind.y = viewBox[1];
             selector += '[y="' + viewBox[1] + '"]';
           }
-
           symbolElem = sourceSvg.querySelector(selector);
-
         }
         if (symbolElem && (symbolElem instanceof SVGSVGElement)) {
           newSVG = symbolElem.cloneNode(true);
@@ -162,7 +152,7 @@
           }
         }
         else if(symbolElem && (symbolElem instanceof SVGUseElement)) {
-          //console.log('referenced view shows a SVGUseElement');
+          console.log('referenced view shows a SVGUseElement');
           var referencedSymbol = sourceSvg.getElementById(
               symbolElem.getAttributeNS(xlinkNS, 'href').substr(1)
           );
@@ -172,9 +162,10 @@
           setViewboxOnNewSVG = true;
         }
         else {
-
-          // onlyInjectVisiblePart option was disabled or no symbol was found
-          //console.log('symbol referenced via view ' + fragId + ' not found -> clone complete svg!');
+          console.info(
+            ((onlyInjectVisiblePart) ? 'symbol referenced via view' + fragId + ' not found' : 'option.onlyInjectVisiblePart: false')
+              + ' -> clone complete svg!'
+          );
           setViewboxOnNewSVG = true;
           newSVG = sourceSvg.cloneNode(true);
 

@@ -30,7 +30,7 @@
   },
   "scripts": {
     "test": "jshint svg-injector.js",
-    "build": "uglifyjs ./svg-injector.js --stats --compress --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
+    "build": "uglifyjs ./svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
     "changelog": "github-changes -o iconic -r SVGInjector --use-commit-body",
     "changelog-post": "git add CHANGELOG.md && git commit -m 'Updated CHANGELOG'",
     "release": "for TASK in (test build changelog changelog-post tag); do npm run $TASK; done",
