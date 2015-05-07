@@ -14,10 +14,12 @@
   var svgNS = 'http://www.w3.org/2000/svg';
   var xlinkNS = 'http://www.w3.org/1999/xlink';
 
+
+
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
-  var onlyInjectVisiblePart;
+  var onlyInjectVisiblePart, removeStylesClass;
 
 
   function uniqueClasses(list) {
@@ -33,7 +35,6 @@
         out.unshift(list[i]);
       }
     }
-
     return out.join(' ');
   }
 
@@ -81,13 +82,20 @@
     }
   };
 
-  var cloneSymbolAsSVG = function( svgSymbol ) {
+  var cloneSymbolAsSVG = function(svgSymbol) {
     var svg = document.createElementNS(svgNS, 'svg');
     forEach.call(svgSymbol.childNodes, function(child){
+
       svg.appendChild(child.cloneNode(true));
+
     });
     copyAttributes(svgSymbol, svg);
     return svg;
+  };
+
+  var getClassList = function(svgToCheck) {
+    var curClassAttr = svgToCheck.getAttribute('class');
+    return (curClassAttr) ? curClassAttr.split(' '): [];
   };
 
   var cloneSvg = function (sourceSvg, fragId) {
@@ -102,7 +110,10 @@
         setViewboxOnNewSVG = false,
         symbolElem = null;
 
-    if(fragId !== undefined) {
+    if(fragId === undefined){
+      return sourceSvg.cloneNode(true);
+    }
+    else {
       svgElem = sourceSvg.getElementById(fragId);
       if(!svgElem){
         console.warn(fragId + ' not found in svg', sourceSvg);
@@ -143,6 +154,7 @@
         }
         if (symbolElem && (symbolElem instanceof SVGSVGElement)) {
           newSVG = symbolElem.cloneNode(true);
+
           for (var prop in symbolAttributesToFind) {
             if (prop !== 'width' && prop !== 'height') {
               newSVG.removeAttribute(prop);
@@ -175,8 +187,8 @@
         newSVG.setAttribute('height', viewBox[3]+'px');
       }
 
-      curClassAttr = newSVG.getAttribute('class');
-      curClassList = (curClassAttr) ? curClassAttr.split(' '): [];
+      //curClassAttr = newSVG.getAttribute('class');
+      curClassList = getClassList(newSVG);
       if (curClassList.indexOf(fragId)<0) {
         curClassList.push(fragId);
         newSVG.setAttribute('class', curClassList.join(' '));
@@ -184,7 +196,7 @@
 
       return newSVG;
     }
-    return sourceSvg.cloneNode(true);
+
   };
 
   var queueRequest = function (callback, fileName, fragId) {
@@ -489,8 +501,17 @@
       //
       // Reference: https://github.com/iconic/SVGInjector/issues/23
       var styleTags = svg.querySelectorAll('style');
+
       forEach.call(styleTags, function (styleTag) {
-        styleTag.textContent += '';
+        var svgClassList = getClassList(svg);
+        if (svgClassList.indexOf(removeStylesClass)>=0) {
+          console.log('remove', styleTag);
+          svg.removeChild(styleTag);
+        }
+        else {
+          styleTag.textContent += '';
+        }
+
       });
 
       // Replace the image with the svg
@@ -541,6 +562,8 @@
     // as visible through the id of an SVGViewElement
     // is default mode
     onlyInjectVisiblePart = options.onlyInjectVisiblePart || true;
+
+    removeStylesClass = options.removeStyleClass || 'icon';
 
     // Callback to run during each SVG injection, returning the SVG injected
     var eachCallback = options.each;
