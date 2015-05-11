@@ -17,7 +17,7 @@
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
-  var onlyInjectVisiblePart, removeStylesClass;
+  var onlyInjectVisiblePart, removeStylesClass, fallbackClassName;
 
 
   function uniqueClasses(list) {
@@ -34,6 +34,10 @@
       }
     }
     return out.join(' ');
+  }
+
+  function isFunction(obj) {
+    return !!(obj && obj.constructor && obj.call && obj.apply);
   }
 
   /**
@@ -326,6 +330,7 @@
     // either defined per-element via data-fallback or data-png,
     // or globally via the pngFallback directory setting
     if (!hasSvgSupport) {
+
       var perElementFallback = el.getAttribute('data-fallback') || el.getAttribute('data-png');
 
       // Per-element specific PNG fallback defined, so use that
@@ -342,7 +347,17 @@
         else{
           fallbackUrl = imgUrl.split('/').pop().replace('.svg', '.png');
         }
+
+        if(isFunction(fallbackClassName)){
+          console.log('fallbackClassName');
+          fallbackClassName(el, imgUrlSplitByFId[1]);
+        }
+        else if(typeof fallbackClassName === 'string' ){
+          el.className += fallbackClassName;
+        }
+        else{
           el.setAttribute('src', pngFallback + '/' + fallbackUrl);
+        }
         callback(null);
       }
       // um...
@@ -556,10 +571,27 @@
 
     removeStylesClass = options.removeStyleClass || 'icon';
 
+    fallbackClassName = (typeof options.fallbackClassName === 'undefined') ?
+      function(element, symbolId) {
+        var curClasses = element.getAttribute('class');
+        element.setAttribute(
+          'class',
+          (curClasses ? curClasses : '') + ' ' + symbolId + ' ' + symbolId + '-dims nosvg-sprite'
+        );
+      }
+      :
+      options.fallbackClassName;
+
+    if(options.forceFallbacks){
+      hasSvgSupport = false;
+    }
+
     // Callback to run during each SVG injection, returning the SVG injected
     var eachCallback = options.each;
 
-
+    if(!hasSvgSupport){
+      document.querySelector('html').className += ' no-svg';
+    }
 
     // Do the injection...
     if (elements.length !== undefined) {
