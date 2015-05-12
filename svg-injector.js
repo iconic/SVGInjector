@@ -40,6 +40,20 @@
     return !!(obj && obj.constructor && obj.call && obj.apply);
   }
 
+  function isArray(obj){
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  }
+
+  function svgElemSetClassName( el, className ){
+    var curClasses = el.getAttribute('class');
+
+    if(isArray(className)) {
+      className = className.join(' ');
+    }
+
+    el.setAttribute('class', (curClasses ? curClasses : '') + ' ' + className);
+  }
+
   /**
    * cache (or polyfill for <= IE8) Array.forEach()
    * source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
@@ -59,6 +73,20 @@
       }
     }
   };
+
+  function setFallbackClassNames(element, symbolId, classNames) {
+    classNames =  (typeof classNames === 'undefined') ? ['%s', '%s-dims', 'svg-sprite'] : classNames;
+
+    // replace %s by symbolId
+    forEach.call(
+      classNames,
+      function(curClassName, idx) {
+        classNames[idx] = curClassName.replace('%s', symbolId);
+      }
+    );
+
+    svgElemSetClassName(element, classNames);
+  }
 
   // SVG Cache
   var svgCache = {};
@@ -348,8 +376,11 @@
           fallbackUrl = imgUrl.split('/').pop().replace('.svg', '.png');
         }
 
-        if(isFunction(fallbackClassName)){
-          console.log('fallbackClassName');
+        if(isArray(fallbackClassName)){
+          setFallbackClassNames(el, imgUrlSplitByFId[1], fallbackClassName);
+        }
+        else if(isFunction(fallbackClassName)){
+          console.log('custom function to create fallbackClassName');
           fallbackClassName(el, imgUrlSplitByFId[1]);
         }
         else if(typeof fallbackClassName === 'string' ){
@@ -572,15 +603,7 @@
     removeStylesClass = options.removeStyleClass || 'icon';
 
     fallbackClassName = (typeof options.fallbackClassName === 'undefined') ?
-      function(element, symbolId) {
-        var curClasses = element.getAttribute('class');
-        element.setAttribute(
-          'class',
-          (curClasses ? curClasses : '') + ' ' + symbolId + ' ' + symbolId + '-dims nosvg-sprite'
-        );
-      }
-      :
-      options.fallbackClassName;
+      setFallbackClassNames : options.fallbackClassName;
 
     if(options.forceFallbacks){
       hasSvgSupport = false;
