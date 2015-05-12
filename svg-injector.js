@@ -44,14 +44,17 @@
     return Object.prototype.toString.call(obj) === '[object Array]';
   }
 
-  function svgElemSetClassName( el, className ){
+  function svgElemSetClassName(el, newClassNames){
     var curClasses = el.getAttribute('class');
+    curClasses = curClasses ? curClasses : '';
 
-    if(isArray(className)) {
-      className = className.join(' ');
+    if(isArray(newClassNames)) {
+      newClassNames = newClassNames.join(' ');
     }
 
-    el.setAttribute('class', (curClasses ? curClasses : '') + ' ' + className);
+    newClassNames = curClasses + ' ' + newClassNames;
+
+    el.setAttribute('class', uniqueClasses(newClassNames));
   }
 
   /**
@@ -376,14 +379,14 @@
           fallbackUrl = imgUrl.split('/').pop().replace('.svg', '.png');
         }
 
-        if(isArray(fallbackClassName)){
+        if(isArray(fallbackClassName)) {
           setFallbackClassNames(el, imgUrlSplitByFId[1], fallbackClassName);
         }
-        else if(isFunction(fallbackClassName)){
+        else if(isFunction(fallbackClassName)) {
           console.log('custom function to create fallbackClassName');
           fallbackClassName(el, imgUrlSplitByFId[1]);
         }
-        else if(typeof fallbackClassName === 'string' ){
+        else if(typeof fallbackClassName === 'string') {
           el.className += fallbackClassName;
         }
         else{
