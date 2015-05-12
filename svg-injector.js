@@ -614,9 +614,13 @@
 
     // Callback to run during each SVG injection, returning the SVG injected
     var eachCallback = options.each;
+    var htmlElement = document.querySelector('html');
 
-    if(!hasSvgSupport){
-      document.querySelector('html').className += ' no-svg';
+    if(hasSvgSupport) {
+      htmlElement.className.replace('no-svg', '');
+    }
+    else{
+      htmlElement.className += ' no-svg';
     }
 
     // Do the injection...
