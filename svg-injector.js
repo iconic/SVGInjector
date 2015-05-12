@@ -81,7 +81,7 @@
     forEach.call(
       className,
       function(curClassName, idx) {
-        classNames[idx] = curClassName.replace('%s', symbolId);
+        className[idx] = curClassName.replace('%s', symbolId);
       }
     );
 
