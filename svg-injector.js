@@ -75,17 +75,17 @@
   };
 
   function setFallbackClassNames(element, symbolId, classNames) {
-    classNames =  (typeof classNames === 'undefined') ? ['%s', '%s-dims', 'svg-sprite'] : classNames;
+    var className =  (typeof classNames === 'undefined') ? ['%s', '%s-dims', 'svg-sprite'] : classNames.slice(0);
 
     // replace %s by symbolId
     forEach.call(
-      classNames,
+      className,
       function(curClassName, idx) {
         classNames[idx] = curClassName.replace('%s', symbolId);
       }
     );
 
-    svgElemSetClassName(element, classNames);
+    svgElemSetClassName(element, className);
   }
 
   // SVG Cache
