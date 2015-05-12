@@ -13,11 +13,13 @@
   // Constants
   var svgNS = 'http://www.w3.org/2000/svg';
   var xlinkNS = 'http://www.w3.org/1999/xlink';
+  var defaultFallbackClassNames = ['%s', '%s-dims', 'svg-sprite'];
 
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
   var onlyInjectVisiblePart, removeStylesClass, fallbackClassName;
+
 
 
   function uniqueClasses(list) {
@@ -78,7 +80,7 @@
   };
 
   function setFallbackClassNames(element, symbolId, classNames) {
-    var className =  (typeof classNames === 'undefined') ? ['%s', '%s-dims', 'svg-sprite'] : classNames.slice(0);
+    var className =  (typeof classNames === 'undefined') ? defaultFallbackClassNames : classNames.slice(0);
 
     // replace %s by symbolId
     forEach.call(
@@ -90,6 +92,25 @@
 
     svgElemSetClassName(element, className);
   }
+
+  function removeFallbackClassNames(element, symbolId, fallbackClassNames) {
+    fallbackClassNames =  (typeof fallbackClassNames === 'undefined') ? defaultFallbackClassNames.slice(0) : fallbackClassNames.slice(0);
+
+    var curClassNames = element.getAttribute('class');
+    // replace %s by symbolId
+    forEach.call(
+      fallbackClassNames,
+      function(curClassName, idx) {
+        curClassName = curClassName.replace('%s', symbolId);
+        curClassNames = curClassNames.replace(curClassName, '');
+        console.log('removed ' + curClassName);
+      }
+    );
+
+    element.setAttribute('class', uniqueClasses(curClassNames));
+
+  }
+
 
   // SVG Cache
   var svgCache = {};
@@ -357,10 +378,16 @@
       return;
     }
 
-    // If we don't have SVG support try to fall back to a png,
-    // either defined per-element via data-fallback or data-png,
-    // or globally via the pngFallback directory setting
-    if (!hasSvgSupport) {
+
+    if (hasSvgSupport) {
+      if(isArray(fallbackClassName)) {
+        removeFallbackClassNames(el, imgUrlSplitByFId[1], fallbackClassName);
+      }
+    }
+    else{
+      // If we don't have SVG support try to fall back to a png,
+      // either defined per-element via data-fallback or data-png,
+      // or globally via the pngFallback directory setting
 
       var perElementFallback = el.getAttribute('data-fallback') || el.getAttribute('data-png');
 
@@ -387,7 +414,7 @@
           fallbackClassName(el, imgUrlSplitByFId[1]);
         }
         else if(typeof fallbackClassName === 'string') {
-          el.className += fallbackClassName;
+          svgElemSetClassName(el, fallbackClassName);
         }
         else{
           el.setAttribute('src', pngFallback + '/' + fallbackUrl);
@@ -606,7 +633,7 @@
     removeStylesClass = options.removeStyleClass || 'icon';
 
     fallbackClassName = (typeof options.fallbackClassName === 'undefined') ?
-      setFallbackClassNames : options.fallbackClassName;
+      defaultFallbackClassNames : options.fallbackClassName;
 
     if(options.forceFallbacks){
       hasSvgSupport = false;
