@@ -97,17 +97,19 @@
     fallbackClassNames =  (typeof fallbackClassNames === 'undefined') ? defaultFallbackClassNames.slice(0) : fallbackClassNames.slice(0);
 
     var curClassNames = element.getAttribute('class');
-    // replace %s by symbolId
-    forEach.call(
-      fallbackClassNames,
-      function(curClassName, idx) {
-        curClassName = curClassName.replace('%s', symbolId);
-        curClassNames = curClassNames.replace(curClassName, '');
-        console.log('removed ' + curClassName);
-      }
-    );
+    if(curClassNames) {
+      // replace %s by symbolId
+      forEach.call(
+        fallbackClassNames,
+        function(curClassName, idx) {
+          curClassName = curClassName.replace('%s', symbolId);
+          curClassNames = curClassNames.replace(curClassName, '');
+          console.log('removed ' + curClassName);
+        }
+      );
 
-    element.setAttribute('class', uniqueClasses(curClassNames));
+      element.setAttribute('class', uniqueClasses(curClassNames));
+    }
 
   }
 
@@ -219,8 +221,7 @@
         }
         else {
           console.info(
-            ((onlyInjectVisiblePart) ? 'symbol referenced via view' + fragId + ' not found' : 'option.onlyInjectVisiblePart: false')
-              + ' -> clone complete svg!'
+            ((onlyInjectVisiblePart) ? 'symbol referenced via view' + fragId + ' not found' : 'option.onlyInjectVisiblePart: false') + ' -> clone complete svg!'
           );
           setViewboxOnNewSVG = true;
           newSVG = sourceSvg.cloneNode(true);
