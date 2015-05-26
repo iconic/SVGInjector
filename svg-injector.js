@@ -103,8 +103,11 @@
         fallbackClassNames,
         function(curClassName, idx) {
           curClassName = curClassName.replace('%s', symbolId);
-          curClassNames = curClassNames.replace(curClassName, '');
-          console.log('removed ' + curClassName);
+          if( curClassNames.indexOf(curClassName) >= 0 ){
+            console.log('remove class ' + curClassName);
+            curClassNames = curClassNames.replace(curClassName, '');
+          }
+
         }
       );
 
@@ -573,7 +576,7 @@
       forEach.call(styleTags, function (styleTag) {
         var svgClassList = getClassList(svg);
         if (svgClassList.indexOf(removeStylesClass)>=0) {
-          console.log('remove', styleTag);
+          console.log('remove styleTag', styleTag);
           svg.removeChild(styleTag);
         }
         else {
