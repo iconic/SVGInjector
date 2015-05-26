@@ -577,7 +577,7 @@
         var svgClassList = getClassList(svg);
         if (svgClassList.indexOf(removeStylesClass)>=0) {
           console.log('remove styleTag', styleTag);
-          svg.removeChild(styleTag);
+          styleTag.parentNode.removeChild(styleTag);
         }
         else {
           styleTag.textContent += '';
