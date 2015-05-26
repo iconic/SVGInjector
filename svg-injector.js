@@ -14,6 +14,8 @@
   var svgNS = 'http://www.w3.org/2000/svg';
   var xlinkNS = 'http://www.w3.org/1999/xlink';
   var defaultFallbackClassNames = ['%s', '%s-dims', 'svg-sprite'];
+  var defaultRemoveStylesClassName = 'icon';
+
 
   // Environment
   var isLocal = window.location.protocol === 'file:';
@@ -634,7 +636,8 @@
     // is default mode
     onlyInjectVisiblePart = options.onlyInjectVisiblePart || true;
 
-    removeStylesClass = options.removeStyleClass || 'icon';
+    removeStylesClass = (typeof options.removeStylesClass === 'undefined') ?
+      defaultRemoveStylesClassName : options.removeStylesClass;
 
     fallbackClassName = (typeof options.fallbackClassName === 'undefined') ?
       defaultFallbackClassNames : options.fallbackClassName;
@@ -649,6 +652,22 @@
 
     if(hasSvgSupport) {
       htmlElement.className.replace('no-svg', '');
+      if( removeStylesClass === defaultRemoveStylesClassName ){ // user does not want to use his own custom class -> write this style tag
+        var css = 'svg.' + removeStylesClass + ' {fill: currentColor;}',
+          head = document.head || document.getElementsByTagName('head')[0],
+          style = document.createElement('style');
+
+        style.type = 'text/css';
+        if (style.styleSheet){
+          style.styleSheet.cssText = css;
+        }
+        else {
+          style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        console.log( 'default class written: ', css );
+      }
+
     }
     else{
       htmlElement.className += ' no-svg';
