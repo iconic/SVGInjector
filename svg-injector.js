@@ -677,7 +677,7 @@
 
     if(hasSvgSupport) {
       htmlElement.className.replace('no-svg', '');
-      if( removeStylesClass === defaultRemoveStylesClassName ){ // user does not want to use his own custom class -> write this style tag
+      if( typeof options.removeStylesClass === 'undefined' ){ // user does not want to use his own custom class -> write this style tag
         var css = 'svg.' + removeStylesClass + ' {fill: currentColor;}',
           head = document.head || document.getElementsByTagName('head')[0],
           style = document.createElement('style');
