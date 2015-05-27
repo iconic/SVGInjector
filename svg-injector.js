@@ -20,7 +20,7 @@
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
-  var onlyInjectVisiblePart, removeStylesClass, fallbackClassName;
+  var onlyInjectVisiblePart, removeStylesClass, fallbackClassName, prefixStyleTags;
 
 
 
@@ -154,6 +154,19 @@
     return svg;
   };
 
+  var doPrefixStyleTags = function(styleTag, injectCount, svg){
+    var srcArr = svg.getAttribute('data-src').split('#');
+    if(srcArr.length > 1) {
+
+      var origPrefixClassName = srcArr[1];
+      var regex = new RegExp('\\.' + origPrefixClassName + ' ', 'g');
+      var newPrefixClassName = origPrefixClassName + '-' + injectCount;
+
+      styleTag.textContent = styleTag.textContent.replace(regex, '.' + newPrefixClassName + ' ');
+      svg.setAttribute('class', (svg.getAttribute('class') + ' ' + newPrefixClassName));
+    }
+  };
+
   var getClassList = function(svgToCheck) {
     var curClassAttr = svgToCheck.getAttribute('class');
     return (curClassAttr) ? curClassAttr.split(' '): [];
@@ -246,7 +259,6 @@
         curClassList.push(fragId);
         newSVG.setAttribute('class', curClassList.join(' '));
       }
-
       return newSVG;
     }
 
@@ -568,21 +580,31 @@
         ranScripts[imgUrl] = true;
       }
 
-      // :WORKAROUND:
-      // IE doesn't evaluate <style> tags in SVGs that are dynamically added to the page.
-      // This trick will trigger IE to read and use any existing SVG <style> tags.
-      //
-      // Reference: https://github.com/iconic/SVGInjector/issues/23
-      var styleTags = svg.querySelectorAll('style');
+      // :NOTE: handle styles in style-tags
+      var styleTags = svg.querySelectorAll('style'),
+          prefixClassName = '';
 
       forEach.call(styleTags, function (styleTag) {
         var svgClassList = getClassList(svg);
         if (svgClassList.indexOf(removeStylesClass)>=0) {
+
+          // remove the styletag if the removeStylesClass is applied to the SVG
           console.log('remove styleTag', styleTag);
           styleTag.parentNode.removeChild(styleTag);
         }
         else {
-          styleTag.textContent += '';
+          if(prefixStyleTags){
+            doPrefixStyleTags(styleTag, injectCount, svg);
+          }
+          else{
+            // :WORKAROUND:
+            // IE doesn't evaluate <style> tags in SVGs that are dynamically added to the page.
+            // This trick will trigger IE to read and use any existing SVG <style> tags.
+            //
+            // Reference: https://github.com/iconic/SVGInjector/issues/23
+            styleTag.textContent += '';
+          }
+
         }
 
       });
@@ -641,6 +663,9 @@
 
     fallbackClassName = (typeof options.fallbackClassName === 'undefined') ?
       defaultFallbackClassNames : options.fallbackClassName;
+
+    prefixStyleTags  = (typeof options.prefixStyleTags === 'undefined') ?
+      true : options.prefixStyleTags;
 
     if(options.forceFallbacks){
       hasSvgSupport = false;
