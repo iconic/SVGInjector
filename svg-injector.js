@@ -20,7 +20,7 @@
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
-  var onlyInjectVisiblePart, removeStylesClass, fallbackClassName, prefixStyleTags;
+  var onlyInjectVisiblePart, removeStylesClass, fallbackClassName, prefixStyleTags, removeAllStyles;
 
 
 
@@ -586,7 +586,7 @@
 
       forEach.call(styleTags, function (styleTag) {
         var svgClassList = getClassList(svg);
-        if (svgClassList.indexOf(removeStylesClass)>=0) {
+        if (svgClassList.indexOf(removeStylesClass)>=0 || removeAllStyles) {
 
           // remove the styletag if the removeStylesClass is applied to the SVG
           console.log('remove styleTag', styleTag);
@@ -660,6 +660,9 @@
 
     removeStylesClass = (typeof options.removeStylesClass === 'undefined') ?
       defaultRemoveStylesClassName : options.removeStylesClass;
+
+    removeAllStyles = (typeof options.removeAllStyles === 'undefined') ?
+      false : options.removeAllStyles;
 
     fallbackClassName = (typeof options.fallbackClassName === 'undefined') ?
       defaultFallbackClassNames : options.fallbackClassName;
