@@ -20,7 +20,7 @@
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
-  var onlyInjectVisiblePart, removeStylesClass, keepStylesClass, fallbackClassName, prefixStyleTags, removeAllStyles;
+  var onlyInjectVisiblePart, removeStylesClass, keepStylesClass, fallbackClassName, prefixStyleTags, removeAllStyles, nonUniformARClassName;
 
 
 
@@ -498,6 +498,12 @@
           svg.setAttribute(dataAttr.name, dataAttr.value);
         }
       });
+
+      // Copy preserveAspectRatio of elem if exists
+      var presARAttr = el.getAttribute('preserveAspectRatio');
+      if(presARAttr){
+        svg.setAttribute('preserveAspectRatio', presARAttr);
+      }
 
       // Make sure any internally referenced clipPath ids and their
       // clip-path references are unique.
