@@ -13,7 +13,7 @@
   // Constants
   var svgNS = 'http://www.w3.org/2000/svg';
   var xlinkNS = 'http://www.w3.org/1999/xlink';
-  var defaultFallbackClassNames = ['%s', '%s-dims', 'svg-sprite'];
+  var defaultFallbackClassNames = ['%s', 'svg-sprite'];
   var defaultRemoveStylesClassName = 'icon';
 
 
