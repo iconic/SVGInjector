@@ -13,14 +13,22 @@
   // Constants
   var svgNS = 'http://www.w3.org/2000/svg';
   var xlinkNS = 'http://www.w3.org/1999/xlink';
-  var defaultFallbackClassNames = ['%s', 'svg-sprite'];
+  var defaultSpriteClassName = 'sprite';
+  var defaultSpriteClassIdName = defaultSpriteClassName + '--';
+
+  var spriteClassName = defaultSpriteClassName;
+  var spriteClassIdName = defaultSpriteClassIdName;
+
+  var defaultFallbackClassNames = [spriteClassIdName + '%s', spriteClassName];
   var defaultRemoveStylesClassName = 'icon';
 
 
   // Environment
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
-  var onlyInjectVisiblePart, removeStylesClass, keepStylesClass, fallbackClassName, prefixStyleTags, removeAllStyles, nonUniformARClassName;
+  var onlyInjectVisiblePart, removeStylesClass, keepStylesClass, fallbackClassName,
+      prefixStyleTags, removeAllStyles, spritesheetURL;
+
 
 
 
@@ -170,6 +178,21 @@
   var getClassList = function(svgToCheck) {
     var curClassAttr = svgToCheck.getAttribute('class');
     return (curClassAttr) ? curClassAttr.split(' '): [];
+  };
+
+  var getSpriteIdFromClass = function(element) {
+    var classes = getClassList(element);
+    console.log(classes);
+    var id = '';
+    forEach.call(classes, function (curClass) {
+      console.log(curClass);
+      if(curClass.indexOf(spriteClassIdName) >= 0) {
+        id = curClass.replace(spriteClassIdName, '');
+        console.log('class with prefix ' + spriteClassIdName + ' found. id: ' + id);
+      }
+    });
+    //console.error('no class with prefix ' + spriteClassIdName + ' found');
+    return id;
   };
 
   var cloneSvg = function (sourceSvg, fragId) {
@@ -384,9 +407,17 @@
 
   // Inject a single element
   var injectElement = function (el, evalScripts, pngFallback, callback) {
+    var imgUrl;
 
-    // Grab the src or data-src attribute
-    var imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
+    if(spritesheetURL === false){
+      // Grab the src or data-src attribute
+      imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
+    }
+    else{
+      imgUrl = spritesheetURL + '#' + getSpriteIdFromClass(el);
+      console.log('imgURL: ' + imgUrl);
+    }
+
     var imgUrlSplitByFId = imgUrl.split('#');
     var fallbackUrl;
 
@@ -667,6 +698,12 @@
     keepStylesClass  = (typeof options.keepStylesClass === 'undefined') ?
       '' : options.keepStylesClass;
 
+    spriteClassName  = (typeof options.spriteClassName === 'undefined') ?
+      defaultSpriteClassName : options.spriteClassName;
+
+    spriteClassIdName  = (typeof options.spriteClassIdName === 'undefined') ?
+      defaultSpriteClassIdName : options.spriteClassIdName;
+
     removeStylesClass = (typeof options.removeStylesClass === 'undefined') ?
       defaultRemoveStylesClassName : options.removeStylesClass;
 
@@ -678,6 +715,10 @@
 
     prefixStyleTags  = (typeof options.prefixStyleTags === 'undefined') ?
       true : options.prefixStyleTags;
+
+    spritesheetURL = (typeof options.spritesheetURL === 'undefined' || options.spritesheetURL === '') ?
+      false : options.spritesheetURL;
+
 
     if(options.forceFallbacks){
       hasSvgSupport = false;
