@@ -27,7 +27,7 @@
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
   var onlyInjectVisiblePart, removeStylesClass, keepStylesClass, fallbackClassName,
-      prefixStyleTags, removeAllStyles, spritesheetURL;
+      prefixStyleTags, removeAllStyles, spritesheetURL, prefixFragIdClass;
 
 
 
@@ -195,7 +195,7 @@
     return id;
   };
 
-  var cloneSvg = function (sourceSvg, fragId) {
+  var cloneSvg = function(sourceSvg, fragId) {
 
     var svgElem,
         newSVG,
@@ -278,8 +278,9 @@
 
       //curClassAttr = newSVG.getAttribute('class');
       curClassList = getClassList(newSVG);
-      if (curClassList.indexOf(fragId)<0) {
-        curClassList.push(fragId);
+      var fragIdClassName = prefixFragIdClass + fragId;
+      if (curClassList.indexOf(fragIdClassName)<0) {
+        curClassList.push(fragIdClassName);
         newSVG.setAttribute('class', curClassList.join(' '));
       }
       return newSVG;
@@ -416,6 +417,7 @@
     else{
       imgUrl = spritesheetURL + '#' + getSpriteIdFromClass(el);
       console.log('imgURL: ' + imgUrl);
+      el.setAttribute('data-src', imgUrl);
     }
 
     var imgUrlSplitByFId = imgUrl.split('#');
@@ -718,6 +720,8 @@
 
     spritesheetURL = (typeof options.spritesheetURL === 'undefined' || options.spritesheetURL === '') ?
       false : options.spritesheetURL;
+
+    prefixFragIdClass = spriteClassIdName;
 
 
     if(options.forceFallbacks){
