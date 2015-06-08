@@ -1,5 +1,5 @@
 /**
- * SVGInjector v1.1.3-RC - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v1.2.1 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/iconic/SVGInjector
  *
  * Copyright (c) 2014 Waybury <hello@waybury.com>
@@ -30,6 +30,12 @@
       prefixStyleTags, removeAllStyles, spritesheetURL, prefixFragIdClass;
 
 
+  function toCamelCase(str) {
+    return str.replace(/^([A-Z])|[-_](\w)/g, function(match, p1, p2, offset) {
+      if (p2) return p2.toUpperCase();
+      return p1.toLowerCase();
+    });
+  }
 
 
   function uniqueClasses(list) {
@@ -125,6 +131,29 @@
     }
 
   }
+
+  function prefixIdReferences(svg, suffix) {
+    var attributes = ['fill', 'clip-path', 'mask', 'filter'];
+    // toCamelCase
+
+    forEach.call(attributes, function(attribute, idx, attrs) {
+      var curAttrCamel = toCamelCase(attribute);
+      console.log(curAttrCamel);
+      var definitions = svg.querySelectorAll(curAttrCamel + '[id]');
+      var newName;
+      for (var g = 0, defLen = definitions.length; g < defLen; g++) {
+        newName = definitions[g].id + '-' + suffix;
+        // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
+        var usingElements = svg.querySelectorAll('['+attribute+'*="' + definitions[g].id + '"]');
+        for (var h = 0, usingElementsLen = usingElements.length; h < usingElementsLen; h++) {
+          usingElements[h].setAttribute(attribute, 'url(#' + newName + ')');
+        }
+        definitions[g].id = newName;
+      }
+    });
+
+  }
+
 
 
   // SVG Cache
@@ -572,6 +601,9 @@
         }
         masks[i].id = newMaskName;
       }
+
+      prefixIdReferences(svg, injectCount);
+
 
       // Remove any unwanted/invalid namespaces that might have been added by SVG editing tools
       svg.removeAttribute('xmlns:a');
