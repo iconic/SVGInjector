@@ -133,18 +133,26 @@
   }
 
   function prefixIdReferences(svg, suffix) {
-    var attributes = ['fill', 'clip-path', 'mask', 'filter'];
-    // toCamelCase
-
-    forEach.call(attributes, function(attribute, idx, attrs) {
-      var curAttrCamel = toCamelCase(attribute);
-      console.log(curAttrCamel);
-      var definitions = svg.querySelectorAll(curAttrCamel + '[id]');
-      var newName;
+    //var attributes =  [{attr:'fill', defs:},            'clip-path',  'mask', 'filter'];
+    var defs = [
+      {def:'linearGradient', attr:'fill'},
+      {def:'radialGradient', attr:'fill'},
+      {def:'clipPath', attr:'clip-path'},
+      {def:'mask', attr:'mask'},
+      {def:'filter', attr:'filter'}
+    ];
+    var def, attribute, newName;
+    forEach.call(defs, function(elem) {
+      def = elem.def;
+      attribute = elem.attr;
+      console.log(attribute + ':' + def);
+      var definitions = svg.querySelectorAll(def + '[id]');
       for (var g = 0, defLen = definitions.length; g < defLen; g++) {
         newName = definitions[g].id + '-' + suffix;
+        console.log('new name: ' + newName);
         // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
         var usingElements = svg.querySelectorAll('['+attribute+'*="' + definitions[g].id + '"]');
+        console.log(usingElements);
         for (var h = 0, usingElementsLen = usingElements.length; h < usingElementsLen; h++) {
           usingElements[h].setAttribute(attribute, 'url(#' + newName + ')');
         }
@@ -567,6 +575,7 @@
         svg.setAttribute('preserveAspectRatio', presARAttr);
       }
 
+      /*
       // Make sure any internally referenced clipPath ids and their
       // clip-path references are unique.
       //
@@ -601,7 +610,8 @@
         }
         masks[i].id = newMaskName;
       }
-
+      */
+      // suffix the masks, gradients, clipPaths and
       prefixIdReferences(svg, injectCount);
 
 
