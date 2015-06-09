@@ -133,7 +133,6 @@
   }
 
   function prefixIdReferences(svg, suffix) {
-    //var attributes =  [{attr:'fill', defs:},            'clip-path',  'mask', 'filter'];
     var defs = [
       {def:'linearGradient', attr:'fill'},
       {def:'radialGradient', attr:'fill'},
@@ -141,18 +140,18 @@
       {def:'mask', attr:'mask'},
       {def:'filter', attr:'filter'}
     ];
+
     var def, attribute, newName;
+
     forEach.call(defs, function(elem) {
       def = elem.def;
       attribute = elem.attr;
-      console.log(attribute + ':' + def);
       var definitions = svg.querySelectorAll(def + '[id]');
       for (var g = 0, defLen = definitions.length; g < defLen; g++) {
         newName = definitions[g].id + '-' + suffix;
-        console.log('new name: ' + newName);
+        console.log('suffixxed ' + attribute + ': ' + newName);
         // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
         var usingElements = svg.querySelectorAll('['+attribute+'*="' + definitions[g].id + '"]');
-        console.log(usingElements);
         for (var h = 0, usingElementsLen = usingElements.length; h < usingElementsLen; h++) {
           usingElements[h].setAttribute(attribute, 'url(#' + newName + ')');
         }
