@@ -19,7 +19,7 @@
   var spriteClassName = defaultSpriteClassName;
   var spriteClassIdName = defaultSpriteClassIdName;
 
-  var defaultFallbackClassNames = [spriteClassIdName + '%s', spriteClassName];
+  var defaultFallbackClassNames = [spriteClassName];
   var defaultRemoveStylesClassName = 'icon';
 
 
@@ -120,7 +120,7 @@
         function(curClassName, idx) {
           curClassName = curClassName.replace('%s', symbolId);
           if( curClassNames.indexOf(curClassName) >= 0 ){
-            console.log('remove class ' + curClassName);
+            //console.log('remove class ' + curClassName);
             curClassNames = curClassNames.replace(curClassName, '');
           }
 
@@ -149,7 +149,7 @@
       var definitions = svg.querySelectorAll(def + '[id]');
       for (var g = 0, defLen = definitions.length; g < defLen; g++) {
         newName = definitions[g].id + '-' + suffix;
-        console.log('suffixxed ' + attribute + ': ' + newName);
+        //console.log('suffixxed ' + attribute + ': ' + newName);
         // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
         var usingElements = svg.querySelectorAll('['+attribute+'*="' + definitions[g].id + '"]');
         for (var h = 0, usingElementsLen = usingElements.length; h < usingElementsLen; h++) {
@@ -218,16 +218,14 @@
 
   var getSpriteIdFromClass = function(element) {
     var classes = getClassList(element);
-    console.log(classes);
     var id = '';
     forEach.call(classes, function (curClass) {
-      console.log(curClass);
+
       if(curClass.indexOf(spriteClassIdName) >= 0) {
         id = curClass.replace(spriteClassIdName, '');
-        console.log('class with prefix ' + spriteClassIdName + ' found. id: ' + id);
+        //console.log('class with prefix ' + spriteClassIdName + ' found. id: ' + id);
       }
     });
-    //console.error('no class with prefix ' + spriteClassIdName + ' found');
     return id;
   };
 
@@ -287,7 +285,7 @@
           }
         }
         else if(symbolElem && (symbolElem instanceof SVGUseElement)) {
-          console.log('referenced view shows a SVGUseElement');
+          //console.log('referenced view shows a SVGUseElement');
           var referencedSymbol = sourceSvg.getElementById(
               symbolElem.getAttributeNS(xlinkNS, 'href').substr(1)
           );
@@ -452,7 +450,7 @@
     }
     else{
       imgUrl = spritesheetURL + '#' + getSpriteIdFromClass(el);
-      console.log('imgURL: ' + imgUrl);
+      //console.log('imgURL: ' + imgUrl);
       el.setAttribute('data-src', imgUrl);
     }
 
@@ -497,7 +495,7 @@
           setFallbackClassNames(el, imgUrlSplitByFId[1], fallbackClassName);
         }
         else if(isFunction(fallbackClassName)) {
-          console.log('custom function to create fallbackClassName');
+          console.info('custom function to create fallbackClassName');
           fallbackClassName(el, imgUrlSplitByFId[1]);
         }
         else if(typeof fallbackClassName === 'string') {
@@ -574,43 +572,12 @@
         svg.setAttribute('preserveAspectRatio', presARAttr);
       }
 
-      /*
-      // Make sure any internally referenced clipPath ids and their
-      // clip-path references are unique.
+
+      // Make sure any internally referenced ids and their
+      // references are unique.
       //
       // This addresses the issue of having multiple instances of the
-      // same SVG on a page and only the first clipPath id is referenced.
-      //
-      // Browsers often shortcut the SVG Spec and don't use clipPaths
-      // contained in parent elements that are hidden, so if you hide the first
-      // SVG instance on the page, then all other instances lose their clipping.
-      // Reference: https://bugzilla.mozilla.org/show_bug.cgi?id=376027
-      var clipPaths = svg.querySelectorAll('defs clipPath[id]');
-      var newClipPathName;
-      for (var g = 0, clipPathsLen = clipPaths.length; g < clipPathsLen; g++) {
-        newClipPathName = clipPaths[g].id + '-' + injectCount;
-        // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-        var usingClipPath = svg.querySelectorAll('[clip-path*="' + clipPaths[g].id + '"]');
-        for (var h = 0, usingClipPathLen = usingClipPath.length; h < usingClipPathLen; h++) {
-          usingClipPath[h].setAttribute('clip-path', 'url(#' + newClipPathName + ')');
-        }
-        clipPaths[g].id = newClipPathName;
-      }
-
-      // Do the same for masks
-      var masks = svg.querySelectorAll('defs mask[id]');
-      var newMaskName;
-      for (var i = 0, masksLen = masks.length; i < masksLen; i++) {
-        newMaskName = masks[i].id + '-' + injectCount;
-        // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-        var usingMask = svg.querySelectorAll('[mask*="' + masks[i].id + '"]');
-        for (var j = 0, usingMaskLen = usingMask.length; j < usingMaskLen; j++) {
-          usingMask[j].setAttribute('mask', 'url(#' + newMaskName + ')');
-        }
-        masks[i].id = newMaskName;
-      }
-      */
-      // suffix the masks, gradients, clipPaths and
+      // same SVG on a page and only the first clipPath, gradient, mask or filter id is referenced.
       prefixIdReferences(svg, injectCount);
 
 
@@ -669,7 +636,7 @@
         if ((svgClassList.indexOf(removeStylesClass)>=0 || removeAllStyles) && (svgClassList.indexOf(keepStylesClass)<0) ) {
 
           // remove the styletag if the removeStylesClass is applied to the SVG
-          console.log('remove styleTag', styleTag);
+          //console.log('remove styleTag', styleTag);
           styleTag.parentNode.removeChild(styleTag);
         }
         else {
@@ -788,7 +755,7 @@
           style.appendChild(document.createTextNode(css));
         }
         head.appendChild(style);
-        console.log( 'default class written: ', css );
+        console.info( 'default class written: ', css );
       }
 
     }
