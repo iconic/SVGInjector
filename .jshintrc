@@ -22,7 +22,13 @@
   "jquery": false,
   "strict": false,
   "globals": {
+    "define":true,
     "app": true,
-    "ignore": true
+    "ignore": true,
+    "SVGSymbolElement": false,
+    "SVGViewElement": false,
+    "SVGUseElement": false,
+    "SVGSVGElement" :false,
+    "Document" :false
   }
 }
