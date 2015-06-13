@@ -21,7 +21,9 @@
   "node": true,
   "jquery": false,
   "strict": false,
+  "sub": true,
   "globals": {
+    "angular":true,
     "define":true,
     "app": true,
     "ignore": true,

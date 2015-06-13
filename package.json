@@ -7,7 +7,7 @@
     "email": "yourfriends@useiconic.com",
     "url": "https://useiconic.com/"
   },
-  "main": "svg-injector.js",
+  "main": "dist/svg-injector.js",
   "homepage": "https://github.com/iconic/SVGInjector",
   "repository": {
     "type": "git",
@@ -30,7 +30,10 @@
   },
   "scripts": {
     "test": "jshint svg-injector.js",
-    "build": "uglifyjs ./svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
+    "build":      "uglifyjs ./src/svg-injector.js                                            --stats --enclose window,document:window,document --compress drop_console=true,dead_code --mangle --comments       --define STANDALONE=true --output ./dist/svg-injector.min.js",
+    "buildDBG":   "uglifyjs ./src/svg-injector.js                                            --stats --enclose window,document:window,document --compress drop_console=true,dead_code --beautify quote_style=1  --define STANDALONE=true --output ./dist/svg-injector.js  --source-map ./dist/svg-injector.map.js",
+    "buildNG":    "uglifyjs ./src/svg-injector.js ./src/app/svginjector.js ./src/app/**/*.js --stats --enclose window,document:window,document --compress drop_console=true,dead_code --mangle --comments       --define STANDALONE=false --output ./dist/ng-svg-injector.min.js",
+    "buildNGDBG": "uglifyjs ./src/svg-injector.js ./src/app/svginjector.js ./src/app/**/*.js --stats --enclose window,document:window,document --compress drop_console=true,dead_code --beautify quote_style=1  --define STANDALONE=false --output ./dist/ng-svg-injector.js --source-map ./dist/ng-svg-injector.map.js",
     "changelog": "github-changes -o iconic -r SVGInjector --use-commit-body",
     "changelog-post": "git add CHANGELOG.md && git commit -m 'Updated CHANGELOG'",
     "release": "for TASK in (test build changelog changelog-post tag); do npm run $TASK; done",
