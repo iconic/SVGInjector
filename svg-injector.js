@@ -31,7 +31,10 @@ var SVGInjector = (function () {
    */
   function SVGInjector (options) {
     SVGInjector.instanceCounter++;
-    this.init(options);
+    if(typeof options !== 'undefined') {
+      this.init(options);
+    }
+
   }
 
   // - private constants -----------------------------------------
@@ -847,10 +850,20 @@ var SVGInjector = (function () {
     // use with angular
     angular
       .module('svginjector', [])
-      .value('injectorOptions', {})
-      .factory('svgInjectorFactory', ['injectorOptions', function (injectorOptions) {
+      .provider('svgInjectorOptions', function() {
+        var injectorOpts = {};
+        return {
+          set: function (opts) {
+            injectorOpts = opts;
+          },
+          $get: function () {
+            return injectorOpts;
+          }
+        };
+      })
+      .factory('svgInjectorFactory', ['svgInjectorOptions', function (svgInjectorOptions) {
         console.log('new injector');
-        return new SVGInjector(injectorOptions);
+        return new SVGInjector(svgInjectorOptions);
       }])
       .directive('svg', ['svgInjectorFactory', function(svgInjectorFactory) {
         return {
