@@ -6,13 +6,13 @@
   "contributors": [
     {
       "name": "Iconic",
-      "email": "f.bacher@diamonddogs.cc",
-      "url": ""
+      "email": "yourfriends@useiconic.com",
+      "url": "https://useiconic.com/"
     },
     {
       "name": "Florian Bacher",
-      "email": "yourfriends@useiconic.com",
-      "url": "https://useiconic.com/"
+      "email": "flo@digital-fuse.net",
+      "url": ""
     }
   ],
   "main": "svg-injector.js",
