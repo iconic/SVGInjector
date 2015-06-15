@@ -11,8 +11,7 @@
     },
     {
       "name": "Florian Bacher",
-      "email": "flo@digital-fuse.net",
-      "url": ""
+      "email": "flo@digital-fuse.net"
     }
   ],
   "main": "svg-injector.js",
