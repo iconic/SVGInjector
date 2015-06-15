@@ -1,17 +1,25 @@
 {
-  "name": "svg-injector",
-  "description": "Fast, caching, dynamic inline SVG DOM injection library",
-  "version": "2.0.0",
-  "author": {
-    "name": "Iconic",
-    "email": "yourfriends@useiconic.com",
-    "url": "https://useiconic.com/"
-  },
-  "main": "dist/svg-injector.js",
-  "homepage": "https://github.com/iconic/SVGInjector",
+  "name": "svg-injector-2",
+  "description": "forked version of iconic/SVGInjector, extended by the ability to use spritesheets and support for angularjs",
+  "version": "2.0.1",
+  "author": "",
+  "contributors": [
+    {
+      "name": "Iconic",
+      "email": "f.bacher@diamonddogs.cc",
+      "url": ""
+    },
+    {
+      "name": "Florian Bacher",
+      "email": "yourfriends@useiconic.com",
+      "url": "https://useiconic.com/"
+    }
+  ],
+  "main": "svg-injector.js",
+  "homepage": "https://github.com/flobacher/SVGInjector2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iconic/SVGInjector"
+    "url": "https://github.com/flobacher/SVGInjector2"
   },
   "keywords": [
     "SVG",
@@ -30,11 +38,8 @@
   },
   "scripts": {
     "test": "jshint svg-injector.js",
-    "build":      "uglifyjs ./src/svg-injector.js                                            --stats --enclose window,document:window,document --compress drop_console=true                                 --mangle --comments        --define STANDALONE=true --output ./dist/svg-injector.min.js",
-    "buildDBG":   "uglifyjs ./src/svg-injector.js                                            --stats --enclose window,document:window,document --compress drop_console=false,dead_code=true,sequences=false --beautify quote_style=1   --define STANDALONE=true --output ./dist/svg-injector.js  --source-map ./dist/svg-injector.map.js",
-    "buildNG":    "uglifyjs ./src/svg-injector.js ./src/app/svginjector.js ./src/app/**/*.js --stats                                           --compress drop_console=true                                 --mangle --comments        --define STANDALONE=false --output ./dist/ng-svg-injector.min.js",
-    "buildNGDBG": "uglifyjs ./src/svg-injector.js ./src/app/svginjector.js ./src/app/**/*.js --stats                                           --compress drop_console=false,dead_code=true,sequences=false --beautify quote_style=1   --define STANDALONE=false --output ./dist/ng-svg-injector.js --source-map ./dist/ng-svg-injector.map.js",
-    "changelog": "github-changes -o iconic -r SVGInjector --use-commit-body",
+    "build": "uglifyjs ./svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
+    "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
     "changelog-post": "git add CHANGELOG.md && git commit -m 'Updated CHANGELOG'",
     "release": "for TASK in (test build changelog changelog-post tag); do npm run $TASK; done",
     "tag": "git tag ${npm_package_version} && git push --tags",
