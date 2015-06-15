@@ -1,12 +1,13 @@
-
 angular
   .module('svginjector')
-  .directive('inject', ['svgInjectorFactory', function(svgInjectorFactory) {
+  .directive('svg', ['svgInjectorFactory', function(svgInjectorFactory) {
     return {
+      restrict: 'E',
+      replace: true,
       scope: {},
       //templateUrl: 'my-dialog.html',
       link: function (scope, element) {
-        svgInjectorFactory.injectElement(element[0]);
+        svgInjectorFactory.inject(element[0]);
       }
     };
   }]);

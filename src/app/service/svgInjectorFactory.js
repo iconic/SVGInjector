@@ -1,8 +1,6 @@
-
 angular
   .module('svginjector')
-  .factory('svgInjectorFactory', ['$window', 'injectorOptions', function(win, injectorOptions) {
+  .factory('svgInjectorFactory', ['injectorOptions', function(injectorOptions) {
     console.log('new injector');
     return new SVGInjector(injectorOptions);
-    //return injector;
   }]);

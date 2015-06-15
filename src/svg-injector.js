@@ -280,23 +280,25 @@ var SVGInjector = (function () {
 
   var removeFallbackClassNames = function (element, symbolId, fallbackClassNames) {
     fallbackClassNames =  (typeof fallbackClassNames === 'undefined') ? DEFAULT_FALLBACK_CLASS_NAMES.slice(0) : fallbackClassNames.slice(0);
+    var idxOfCurClass;
+    var curClassNames = element.getAttribute('class').split(' ');
 
-    var curClassNames = element.getAttribute('class');
     if(curClassNames) {
       // replace %s by symbolId
       forEach.call(
         fallbackClassNames,
-        function(curClassName) {
-          curClassName = curClassName.replace('%s', symbolId);
-          if( curClassNames.indexOf(curClassName) >= 0 ){
+        function(curFallbackClassName) {
+          curFallbackClassName = curFallbackClassName.replace('%s', symbolId);
+          idxOfCurClass = curClassNames.indexOf(curFallbackClassName);
+          if( idxOfCurClass >= 0 ){
             //console.log('remove class ' + curClassName);
-            curClassNames = curClassNames.replace(curClassName, '');
+            curClassNames[idxOfCurClass] = '';
           }
 
         }
       );
 
-      element.setAttribute('class', uniqueClasses(curClassNames));
+      element.setAttribute('class', uniqueClasses(curClassNames.join(' ')));
     }
 
   };
@@ -852,5 +854,3 @@ if (STANDALONE) {
     window.SVGInjector = SVGInjector;
   }
 }
-
-//}(window, document));
