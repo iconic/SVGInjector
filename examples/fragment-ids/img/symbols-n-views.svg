@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100px" height="400px">
+
+  <!-- no styling defined -> overrideing with css possible -->
+  <symbol viewBox="0 0 100 100" id="circle-symbol">
+    <ellipse cy="50" cx="50" ry="45" rx="45"/>
+  </symbol>
+
+  <!-- styling with attributes -> overrideing with external-css impossible -->
+  <symbol viewBox="0 0 100 100" id="square-symbol">
+    <rect y="5" x="5" width="90" height="90" stroke-width="5" stroke="#ff0000" fill="none" fill-opacity="0.75" />
+  </symbol>
+
+  <!-- styling with inline-css  -> overrideing with external-css impossible -->
+  <symbol viewBox="0 0 100 100" id="triangle-symbol">
+    <path d="M20,7 L92,50 L6,93 z" style="stroke-width:5px;stroke:#0000ff;fill:#0000ff;fill-opacity:0.75;" />
+  </symbol>
+
+  <!-- class-based styling in style block defined -> overrideing with css possible, but default styles as define here
+     best way to do it -> illustrator can export this way!!! -->
+  <symbol viewBox="0 0 100 100" id="circlestyled-symbol">
+    <defs>
+      <style type="text/css">
+        .circle-styled {
+          stroke-width:5px;
+          stroke:#0000ff;
+          fill:#0000ff;
+          fill-opacity:0.75;
+        }
+      </style>
+    </defs>
+    <ellipse cy="50" cx="50" ry="45" rx="45" class="circle-styled"/>
+  </symbol>
+
+  <!-- define views which can be referenced via fragmentids-->
+  <defs>
+    <view id="circle-view"        viewBox="0 0 100 100" />
+    <view id="square-view"        viewBox="0 100 100 100"/>
+    <view id="triangle-view"      viewBox="0 200 100 100" />
+    <view id="circlestyled-view"  viewBox="0 300 100 100" />
+  </defs>
+
+  <!-- put the symbols on the 'stage' to be able to display them in views -->
+  <use xlink:href="#circle-symbol"       width="100" height="100" x="0" y="0" />
+  <use xlink:href="#square-symbol"       width="100" height="100" x="0" y="100" />
+  <use xlink:href="#triangle-symbol"     width="100" height="100" x="0" y="200" />
+  <use xlink:href="#circlestyled-symbol" width="100" height="100" x="0" y="300" />
+
+</svg>

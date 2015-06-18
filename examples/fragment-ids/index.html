@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SVGInjector Example: SVG Sprites</title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+
+    <!-- reference symbols -->
+    <svg data-src="./img/symbols-n-views.svg#circle-symbol" />
+    <svg data-src="./img/symbols-n-views.svg#square-symbol" />
+    <svg data-src="./img/symbols-n-views.svg#triangle-symbol" />
+    <svg data-src="./img/symbols-n-views.svg#circlestyled-symbol" />
+
+    <!-- reference views -->
+    <svg data-src="./img/symbols-n-views.svg#circle-view" />
+    <svg data-src="./img/symbols-n-views.svg#square-view" />
+    <svg data-src="./img/symbols-n-views.svg#triangle-view" />
+    <svg data-src="./img/symbols-n-views.svg#circlestyled-view" />
+
+    <!-- svg without symbols or views -->
+    <svg data-src="./img/circle.svg" />
+
+    <!-- reference fragments via views - generated with grunt-svg-sprite -->
+    <svg data-src="./img/views.svg#circle" />
+    <svg data-src="./img/views.svg#square" />
+    <svg data-src="./img/views.svg#triangle" />
+
+    <!--<script src="../../dist/svg-injector.min.js"></script>-->
+    <script src="../../svg-injector.js"></script>
+    <script>
+      (function(global, doc){
+          // Options
+          var injectorOptions = {
+              evalScripts: 'once',
+              pngFallback: '.',
+              removeStylesClass: 'icon',
+              each: function(svg){
+                  if (svg){
+                      //console.log('injected: ', svg);
+                  }
+              }
+          };
+
+          // Do the injection
+          global.SVGInjector(doc.querySelectorAll('svg[data-src]'), injectorOptions);
+      })(window, document);
+    </script>
+  </body>
+</html>

@@ -21,8 +21,16 @@
   "node": true,
   "jquery": false,
   "strict": false,
+  "sub": true,
   "globals": {
+    "angular":true,
+    "define":true,
     "app": true,
-    "ignore": true
+    "ignore": true,
+    "SVGSymbolElement": false,
+    "SVGViewElement": false,
+    "SVGUseElement": false,
+    "SVGSVGElement" :false,
+    "Document" :false
   }
 }

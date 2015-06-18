@@ -1,9 +1,10 @@
 {
-  "name": "svg-injector",
-  "version": "1.1.2",
-  "homepage": "https://github.com/iconic/SVGInjector",
+  "name": "svg-injector-2",
+  "version": "2.0.6",
+  "homepage": "https://github.com/flobacher/SVGInjector2",
   "authors": [
-    "Iconic <yourfriends@useiconic.com>"
+    "Iconic <yourfriends@useiconic.com>",
+    "Flo Bacher <flo@digital-fuse.net>"
   ],
   "description": "Fast, caching, dynamic inline SVG DOM injection library",
   "main": "svg-injector.js",
