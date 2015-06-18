@@ -431,7 +431,7 @@ var SVGInjector = (function () {
 
             symbolAttributesToFind = {};
             if (Math.abs(parseInt(viewBox[0])) === 0) {
-              selector += ':not([x]';
+              selector += ':not([x])';
             }
             else {
               symbolAttributesToFind.x = viewBox[0];
@@ -439,7 +439,7 @@ var SVGInjector = (function () {
             }
 
             if (Math.abs(parseInt(viewBox[1])) === 0) {
-              selector += ':not([y]';
+              selector += ':not([y])';
             }
             else {
               symbolAttributesToFind.y = viewBox[1];
