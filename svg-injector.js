@@ -430,15 +430,26 @@ var SVGInjector = (function () {
             var selector = '*[width="' + viewBox[2] + '"][height="'+viewBox[3]+'"]';
 
             symbolAttributesToFind = {};
-            if (Math.abs(parseInt(viewBox[0])) > 0) {
+            if (Math.abs(parseInt(viewBox[0])) === 0) {
+              selector += ':not([x]';
+            }
+            else {
               symbolAttributesToFind.x = viewBox[0];
               selector += '[x="' + viewBox[0] + '"]';
             }
-            if (Math.abs(parseInt(viewBox[1])) > 0) {
+
+            if (Math.abs(parseInt(viewBox[1])) === 0) {
+              selector += ':not([y]';
+            }
+            else {
               symbolAttributesToFind.y = viewBox[1];
               selector += '[y="' + viewBox[1] + '"]';
             }
-            symbolElem = sourceSvg.querySelector(selector);
+            var symobolList = sourceSvg.querySelectorAll(selector);
+            if (symobolList.length > 0) {
+              console.warn('more than one item, with the matching viewbox found!', symobolList);
+            }
+            symbolElem = symobolList[0];
           }
           if (symbolElem && (symbolElem instanceof SVGSVGElement)) {
             newSVG = symbolElem.cloneNode(true);

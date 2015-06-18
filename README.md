@@ -1,7 +1,8 @@
 SVGInjector
 =========
 
-A fast, caching, dynamic inline SVG DOM injection library. Developed by [Waybury](http://waybury.com/) for use in [iconic.js](https://useiconic.com/tools/iconic-js/), part of the [Iconic](https://useiconic.com/) icon system.
+A fast, caching, dynamic inline SVG DOM injection library. Originally developed by [Waybury](http://waybury.com/) for use in [iconic.js](https://useiconic.com/tools/iconic-js/), part of the [Iconic](https://useiconic.com/) icon system. 
+Extended by Flobacher to be able to use with spritesheets and in AngularJS Aoolications
 
 ## Why?
 There are a number of ways to use SVG on a page (`object`, `embed`, `iframe`, `img`, CSS `background-image`) but to unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the full SVG markup must be included directly in the DOM. 
@@ -24,14 +25,15 @@ Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's ide
   * [CommonJS](http://commonjs.org/) via `module.exports` for use with [Browserify](http://browserify.org/) or [Node](http://nodejs.org/)/[PhantomJS](http://phantomjs.org/)
   * [AMD API](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) usage with [RequireJS](http://requirejs.org/)
   * Plain ol' JavaScript via creation of a global function
+  * AngularJS 
   
 ### npm
 
-    npm install svg-injector
+    npm install svg-injector-2
 
 ### Bower
 
-    bower install svg-injector
+    bower install svg-injector-2
     
 ### Manually
 
