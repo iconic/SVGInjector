@@ -446,7 +446,7 @@ var SVGInjector = (function () {
               selector += '[y="' + viewBox[1] + '"]';
             }
             var symobolList = sourceSvg.querySelectorAll(selector);
-            if (symobolList.length > 0) {
+            if (symobolList.length > 1) {
               console.warn('more than one item, with the matching viewbox found!', symobolList);
             }
             symbolElem = symobolList[0];
