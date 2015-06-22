@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <marker id="markerSquare" markerWidth="7" markerHeight="7" refX="4" refY="4" orient="auto">
+      <rect x="1" y="1" width="5" height="5" style="stroke: none; fill:#000000;"/>
+    </marker>
+
+    <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="2" refY="7" orient="auto">
+      <path d="M2,2 L2,13 L8,7 L2,2" style="fill: #000000;" />
+    </marker>
+  </defs>
+
+  <path d="M10,10 l20,0 0,45 l20,0" style="stroke: #0000cc; stroke-width: 1px; fill: none;" marker-start="url(#markerSquare)" marker-mid="url(#markerSquare)" marker-end="url(#markerArrow)" />
+</svg>
