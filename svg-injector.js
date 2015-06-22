@@ -244,10 +244,14 @@
         svg.setAttribute('id', imgId);
       }
 
-      var imgTitle = el.getAttribute('title');
-      if (imgTitle) {
-        svg.setAttribute('title', imgTitle);
+      var imgAlt = el.getAttribute('alt');
+      if (imgAlt) {
+        svg.setAttribute('title', imgAlt);
+        svg.getAttribute('title').setAttribute('id', 'title');
+        svg.setAttribute('aria-labelledby', 'title');
       }
+
+      svg.setAttribute('role', 'img');
 
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
