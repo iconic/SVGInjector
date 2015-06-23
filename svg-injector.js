@@ -280,28 +280,42 @@
       // Reference: https://bugzilla.mozilla.org/show_bug.cgi?id=376027
 
       // Handle all defs elements that have iri capable attributes as defined by w3c: http://www.w3.org/TR/SVG/linking.html#processingIRI
-      var defElements = svg.querySelectorAll('defs *[id]');
-      var defRefAttributes = ['clip-path', 'color-profile', 'cursor', 'fill', 'filter', 'marker', 'marker-start', 'marker-mid', 'marker-end', 'mask', 'stroke'];
-      var newDefName, defAttribute;
+      // Mapping IRI addressable elements to the properties that can reference them:
+      var iriElementsAndProperties = {
+        'clipPath': ['clip-path'],
+        'color-profile': ['color-profile'],
+        'cursor': ['cursor'],
+        'filter': ['filter'],
+        'linearGradient': ['fill', 'stroke'],
+        'marker': ['marker', 'marker-start', 'marker-mid', 'marker-end'],
+        'mask': ['mask'],
+        'pattern': ['fill', 'stroke'],
+        'radialGradient': ['fill', 'stroke']
+      };
 
-      // Iterate defs elements with ids
-      for (var g = 0, defsLen = defElements.length; g < defsLen; g++) {
-        newDefName = defElements[g].id + '-' + injectCount;
+      var element, elementDefs, properties, currentId, newId;
+      Object.keys(iriElementsAndProperties).forEach(function (key) {
+        element = key;
+        properties = iriElementsAndProperties[key];
 
-        // Iterate iri attriubtes
-        for (var h = 0, attributesLen = defRefAttributes.length; h < attributesLen; h++) {
-          defAttribute = defRefAttributes[h];
+        elementDefs = svg.querySelectorAll('defs ' + element + '[id]');
+        for (var i = 0, elementsLen = elementDefs.length; i < elementsLen; i++) {
+          currentId = elementDefs[i].id;
+          newId = currentId + '-' + injectCount;
 
-          // Find elements referencing the defs element in the current attribute
-          // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-          var usingDef = svg.querySelectorAll('[' + defAttribute + '*="' + defElements[g].id + '"]');
-          for (var i = 0, usingDefLen = usingDef.length; i < usingDefLen; i++) {
-            usingDef[i].setAttribute(defAttribute, 'url(#' + newDefName + ')');
-          }
+          // All of the properties that can reference this element type
+          var referencingElements;
+          forEach.call(properties, function (property) {
+            // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
+            referencingElements = svg.querySelectorAll('[' + property + '*="' + currentId + '"]');
+            for (var j = 0, referencingElementLen = referencingElements.length; j < referencingElementLen; j++) {
+              referencingElements[j].setAttribute(property, 'url(#' + newId + ')');
+            }
+          });
+
+          elementDefs[i].id = newId;
         }
-
-        defElements[g].id = newDefName;
-      }
+      });
 
       // Remove any unwanted/invalid namespaces that might have been added by SVG editing tools
       svg.removeAttribute('xmlns:a');
