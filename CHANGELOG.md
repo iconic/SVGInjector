@@ -1,5 +1,13 @@
 ## Change Log
 
+<a name="1.1.3"></a>
+# 1.1.3 (June 23, 2015)
+
+## Updates
+- Merged and extended the [pull request](https://github.com/iconic/SVGInjector/pull/24) adding support for re-enumerating all the rest of the [IRI references](http://www.w3.org/TR/SVG/linking.html#processingIRI), including `color-profile`, `cursor`, `filter`, `linearGradient`, `marker`, `pattern` and `radialGradient`. SVGInjector already supported `clipPath` and `mask`.
+- Added [IRI references test](https://github.com/iconic/SVGInjector/tree/master/tests/iri-attribute-defs).
+
+
 ### 1.1.2 (2014/10/27 21:50 +00:00)
 - [8da3cfb](https://github.com/iconic/SVGInjector/commit/8da3cfbf239b286c6046f7cd1f80261690ad9a5d) changelog update (@protodave)
 - [e498e03](https://github.com/iconic/SVGInjector/commit/e498e03eb2c40d3907c5cddb035a1705bfa5f384) Make sure any mask ids and their references are unique so we can safely use the same SVG multiple times on the same page (like we already do for clipPaths) (@protodave)
