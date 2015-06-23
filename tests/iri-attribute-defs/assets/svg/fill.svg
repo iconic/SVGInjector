@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="linear-gradient">
+      <stop offset="5%" stop-color="#F60" />
+      <stop offset="95%" stop-color="#FF6" />
+    </linearGradient>
+
+    <radialGradient id="radial-gradient" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+        <stop offset="0%" stop-color="SlateGray" />
+        <stop offset="50%" stop-color="blue" />
+        <stop offset="100%" stop-color="olive" />
+      </radialGradient>
+
+    <pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" >
+      <circle cx="10" cy="10" r="10" style="stroke: none; fill: #0000ff" />
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="64" height="64" stroke-width="5" stroke="url(#linear-gradient) black" fill="url(#radial-gradient) CadetBlue"/>
+  <circle cx="32" cy="32" r="18" stroke-width="4" stroke="url(#pattern) white" fill="url(#linear-gradient) coral" />
+</svg>

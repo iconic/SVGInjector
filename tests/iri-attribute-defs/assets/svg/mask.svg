@@ -5,6 +5,6 @@
     </mask>
   </defs>
 
-  <rect x="1" y="1" width="64" height="64" style="stroke: none; fill:plum;"/>
-  <rect x="1" y="1" width="64" height="64" style="stroke: none; fill:grey;" mask="url(#MaskTest)"/>
+  <rect x="1" y="1" width="64" height="64" stroke="none" fill="plum"/>
+  <rect x="1" y="1" width="64" height="64" stroke="none" fill="gray" mask="url(#MaskTest)"/>
 </svg>

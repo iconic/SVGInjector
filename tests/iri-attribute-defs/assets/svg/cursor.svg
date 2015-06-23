@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <cursor id="cursor" xlink:href="assets/svg/cursor.png"/>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" fill="plum" style="cursor:url('#cursor')"/>
+</svg>
