@@ -1,8 +1,21 @@
 ## Change Log
 
-### upcoming (2015/06/18 05:31 +00:00)
+### 2.0.7 (2015/07/09 12:46 +00:00)
+- [5dd714b](https://github.com/flobacher/SVGInjector2/commit/5dd714b557f1c152dedfd178746cbf0753d64816) enable use of data-src in combination with spritesheet
+- [82d7c05](https://github.com/flobacher/SVGInjector2/commit/82d7c05017e0b435d521093fbd76c3cf0f1c1f27) 2.0.7
+
+### 2.0.6 (2015/06/18 06:13 +00:00)
+- [623b590](https://github.com/flobacher/SVGInjector2/commit/623b5900916eb9f643852d1362de1b0b2d6b418b) bugfix (@flobacher)
+- [f25e199](https://github.com/flobacher/SVGInjector2/commit/f25e199212ebcaf1fe77abfb2d94fbf6ecf86fd8) 2.0.6 (@flobacher)
+
+### 2.0.5 (2015/06/18 06:09 +00:00)
+- [6766656](https://github.com/flobacher/SVGInjector2/commit/676665617710bc473c3445530ce9d109885de6f6) bugfix (@flobacher)
+- [eb677a0](https://github.com/flobacher/SVGInjector2/commit/eb677a09a8a55aeef027fe97d7c098157ad4ba48) 2.0.5 (@flobacher)
+
+### 2.0.4 (2015/06/18 05:31 +00:00)
 - [861ed83](https://github.com/flobacher/SVGInjector2/commit/861ed834528c0377a8714ced68c84dfb1322dae3) change name
 - [2067b0c](https://github.com/flobacher/SVGInjector2/commit/2067b0cbfca30ee52caf18ae91c089aeaf8becc1) bug fix: find symbol by view box returned more than one symbol (@flobacher)
+- [dc90149](https://github.com/flobacher/SVGInjector2/commit/dc901496e2e8b0ed5891d97310ecd5bab4a7c30a) Updated CHANGELOG (@flobacher)
 
 ### 2.0.3 (2015/06/15 14:33 +00:00)
 - [d660786](https://github.com/flobacher/SVGInjector2/commit/d6607867b8097e834f97b91454adf4573e0c7080) replace angular.value by provider
