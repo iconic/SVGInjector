@@ -175,7 +175,7 @@
      */
     SVGInjector.prototype.injectElement = function (el, onElementInjectedCallback) {
       var imgUrl;
-      console.log('inject element', el);
+      //console.log('inject element', el);
       if (config.spritesheetURL === false || el.getAttribute('data-src') || el.getAttribute('src') ) {
         // Grab the src or data-src attribute
         imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
@@ -658,7 +658,7 @@
 
 
     var onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el){
-      console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
+      //console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
       var svg = cloneSvg(config, svgCache[url], fragmentId);
       if (typeof svg === 'undefined' || typeof svg === 'string') {
         onElementInjectedCallback(svg);
@@ -883,7 +883,7 @@
         };
       })
       .factory('svgInjectorFactory', ['svgInjectorOptions', function (svgInjectorOptions) {
-        console.log('new injector');
+        //console.log('new injector');
         return new SVGInjector(svgInjectorOptions);
       }])
       .directive('svg', ['svgInjectorFactory', function(svgInjectorFactory) {
