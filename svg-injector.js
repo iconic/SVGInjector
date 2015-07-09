@@ -187,6 +187,9 @@
       }
 
       var imgUrlSplitByFId = imgUrl.split('#');
+      if (imgUrlSplitByFId.length === 1) {
+        imgUrlSplitByFId.push('');
+      }
       var fallbackUrl;
 
       // We can only inject SVG
@@ -288,10 +291,17 @@
 
     var removeFallbackClassNames = function (element, symbolId, fallbackClassNames) {
       fallbackClassNames =  (typeof fallbackClassNames === 'undefined') ? DEFAULT_FALLBACK_CLASS_NAMES.slice(0) : fallbackClassNames.slice(0);
-      var idxOfCurClass;
-      var curClassNames = element.getAttribute('class').split(' ');
 
-      if(curClassNames) {
+      var idxOfCurClass,
+          curClassNames,
+          classAttribute = element.getAttribute('class');
+
+      if (typeof classAttribute === 'undefined' || classAttribute === null) {
+        return;
+      }
+
+      curClassNames = classAttribute.split(' ');
+      if (curClassNames) {
         // replace %s by symbolId
         forEach.call(
           fallbackClassNames,
