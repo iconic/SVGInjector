@@ -176,7 +176,7 @@ var SVGInjector = (function () {
   SVGInjector.prototype.injectElement = function (el, onElementInjectedCallback) {
     var imgUrl;
     console.log('inject element', el);
-    if (config.spritesheetURL === false) {
+    if (config.spritesheetURL === false || el.getAttribute('data-src') || el.getAttribute('src') ) {
       // Grab the src or data-src attribute
       imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
     }
