@@ -375,15 +375,23 @@
 
     var doPrefixStyleTags = function (styleTag, injectCount, svg){
       var srcArr = svg.getAttribute('data-src').split('#');
+      var regex,
+          origPrefixClassName,
+          newPrefixClassName;
+
       if(srcArr.length > 1) {
-
-        var origPrefixClassName = srcArr[1];
-        var regex = new RegExp('\\.' + origPrefixClassName + ' ', 'g');
-        var newPrefixClassName = origPrefixClassName + '-' + injectCount;
-
-        styleTag.textContent = styleTag.textContent.replace(regex, '.' + newPrefixClassName + ' ');
-        svg.setAttribute('class', (svg.getAttribute('class') + ' ' + newPrefixClassName));
+        origPrefixClassName = srcArr[1];
+        newPrefixClassName = origPrefixClassName + '-' + injectCount;
+        regex = new RegExp('\\.' + origPrefixClassName + ' ', 'g');
       }
+      else { //inject a single element.. this has most probaly not gone through preprocessing
+        origPrefixClassName = srcArr[0];
+        newPrefixClassName = origPrefixClassName + '-' + injectCount;
+        //https://medium.com/jotform-form-builder/writing-a-css-parser-in-javascript-3ecaa1719a43
+        regex = new RegExp('([\\s\\S]*?){([\\s\\S]*?)}', 'g');
+      }
+      styleTag.textContent = styleTag.textContent.replace(regex, '.' + newPrefixClassName + ' ');
+      svg.setAttribute('class', (svg.getAttribute('class') + ' ' + newPrefixClassName));
     };
 
     var getClassList = function (svgToCheck) {
