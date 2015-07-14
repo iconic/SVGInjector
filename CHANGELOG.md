@@ -1,5 +1,16 @@
 ## Change Log
 
+### upcoming (2015/07/14 05:58 +00:00)
+- [2dfc3e6](https://github.com/flobacher/SVGInjector2/commit/2dfc3e6facfb56b75f952e6e444cb033fa62b31c) start prefixing of style-blocks if injected svg is not a spritesheet (@flobacher)
+
+### 2.0.8 (2015/07/09 13:41 +00:00)
+- [35d29ae](https://github.com/flobacher/SVGInjector2/commit/35d29ae172b60ed50c104e74a515ec21c4314a39) Updated CHANGELOG
+- [990f631](https://github.com/flobacher/SVGInjector2/commit/990f63122c5a7e2a1ccb95da2252a7cda75f1ccf) fix indentations
+- [4203538](https://github.com/flobacher/SVGInjector2/commit/4203538f7db9a3061b8d7d366af72949f063a8c2) fix indentations
+- [c08fe76](https://github.com/flobacher/SVGInjector2/commit/c08fe76bf96b22115eecbe585ec3a5096610d90c) improve support for combining single svgs with a spritesheet
+- [c8bd742](https://github.com/flobacher/SVGInjector2/commit/c8bd7426603b2459e7779eaef22f98ea6f023a69) remove console-logs
+- [37aca0a](https://github.com/flobacher/SVGInjector2/commit/37aca0ad994b0e250d8dec908b413cdab3874108) 2.0.8
+
 ### 2.0.7 (2015/07/09 12:46 +00:00)
 - [5dd714b](https://github.com/flobacher/SVGInjector2/commit/5dd714b557f1c152dedfd178746cbf0753d64816) enable use of data-src in combination with spritesheet
 - [82d7c05](https://github.com/flobacher/SVGInjector2/commit/82d7c05017e0b435d521093fbd76c3cf0f1c1f27) 2.0.7
