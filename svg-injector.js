@@ -373,24 +373,45 @@
       return svg;
     };
 
+
+
     var doPrefixStyleTags = function (styleTag, injectCount, svg){
       var srcArr = svg.getAttribute('data-src').split('#');
       var regex,
           origPrefixClassName,
-          newPrefixClassName;
+          newPrefixClassName,
+          srcFileNameArr,
+          regexSearchResult,
+          styleTagContent = styleTag.textContent,
+          newContent = '',
+          selectorArr,
+          prefixSelector = function(elem, idx, arr){
+            arr[idx] = '.' + newPrefixClassName + ' ' + elem;
+          };
 
       if(srcArr.length > 1) {
         origPrefixClassName = srcArr[1];
         newPrefixClassName = origPrefixClassName + '-' + injectCount;
         regex = new RegExp('\\.' + origPrefixClassName + ' ', 'g');
+        styleTag.textContent = styleTagContent.replace(regex, '.' + newPrefixClassName + ' ');
       }
       else { //inject a single element.. this has most probaly not gone through preprocessing
-        origPrefixClassName = srcArr[0];
-        newPrefixClassName = origPrefixClassName + '-' + injectCount;
+        srcFileNameArr = srcArr[0].split('/');
+        newPrefixClassName = srcFileNameArr[srcFileNameArr.length-1].replace('.svg', '') + '-' + injectCount;
+        console.info('bla');
         //https://medium.com/jotform-form-builder/writing-a-css-parser-in-javascript-3ecaa1719a43
         regex = new RegExp('([\\s\\S]*?){([\\s\\S]*?)}', 'g');
+
+        while ((regexSearchResult = regex.exec(styleTagContent)) !== null) {
+          selectorArr = regexSearchResult[1].trim().split(', ');
+          selectorArr.forEach(prefixSelector);
+          var tmp =  selectorArr.join(', ') + '{' + regexSearchResult[2] + '}';
+          console.log(tmp);
+          newContent += tmp;
+        }
+        styleTag.textContent = newContent;
       }
-      styleTag.textContent = styleTag.textContent.replace(regex, '.' + newPrefixClassName + ' ');
+
       svg.setAttribute('class', (svg.getAttribute('class') + ' ' + newPrefixClassName));
     };
 
