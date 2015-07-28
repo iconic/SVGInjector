@@ -174,14 +174,19 @@
      * @param {function} eachCallback
      */
     SVGInjector.prototype.injectElement = function (el, onElementInjectedCallback) {
-      var imgUrl;
+      var imgUrl, spriteId;
       //console.log('inject element', el);
       if (config.spritesheetURL === false || el.getAttribute('data-src') || el.getAttribute('src') ) {
         // Grab the src or data-src attribute
         imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
       }
       else {
-        imgUrl = config.spritesheetURL + '#' + getSpriteIdFromClass(el);
+        spriteId = getSpriteIdFromClass(el);
+        if (spriteId === '') {
+          console.warn('neither data-src nor spriteId class found! Nothing to inject here!');
+          return;
+        }
+        imgUrl = config.spritesheetURL + '#' + spriteId;
         //console.log('imgURL: ' + imgUrl);
         el.setAttribute('data-src', imgUrl);
       }
