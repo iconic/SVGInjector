@@ -1,7 +1,11 @@
 ## Change Log
 
-### upcoming (2015/07/14 05:58 +00:00)
+### upcoming (2015/07/28 21:20 +00:00)
+- [2255226](https://github.com/flobacher/SVGInjector2/commit/2255226fdf63f91b5e1cb7116df9d2f3d0fa992d) 2.0.9 (@flobacher)
+
+### 2.0.9 (2015/07/14 05:56 +00:00)
 - [2dfc3e6](https://github.com/flobacher/SVGInjector2/commit/2dfc3e6facfb56b75f952e6e444cb033fa62b31c) start prefixing of style-blocks if injected svg is not a spritesheet (@flobacher)
+- [64b1a8d](https://github.com/flobacher/SVGInjector2/commit/64b1a8da26665d0e296402a666c0cc274d6a929d) prefix style-blocks if injected svg is not a spritesheet (@flobacher)
 
 ### 2.0.8 (2015/07/09 13:41 +00:00)
 - [35d29ae](https://github.com/flobacher/SVGInjector2/commit/35d29ae172b60ed50c104e74a515ec21c4314a39) Updated CHANGELOG
