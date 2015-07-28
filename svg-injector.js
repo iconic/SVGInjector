@@ -923,9 +923,14 @@
         return {
           restrict: 'E',
           link: function (scope, element, attrs) {
-            attrs.$observe('class', function() {
+            if (attrs.hasOwnProperty('class')) {
+              attrs.$observe('class', function() {
+                svgInjectorFactory.inject(element[0]);
+              });
+            } else {
               svgInjectorFactory.inject(element[0]);
-            });
+            }
+
           }
         };
       }])
