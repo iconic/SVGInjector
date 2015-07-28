@@ -790,8 +790,7 @@
       }
 
       // :NOTE: handle styles in style-tags
-      var styleTags = svg.querySelectorAll('style'),
-        prefixClassName = '';
+      var styleTags = svg.querySelectorAll('style');
 
       forEach.call(styleTags, function (styleTag) {
         var svgClassList = getClassList(svg);
