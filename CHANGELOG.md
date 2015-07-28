@@ -1,7 +1,14 @@
 ## Change Log
 
-### upcoming (2015/07/28 21:20 +00:00)
+### upcoming (2015/07/28 23:25 +00:00)
+- [a0c06d9](https://github.com/flobacher/SVGInjector2/commit/a0c06d99dc0d0cc11f9a768e2795d972186bdc60) Updated CHANGELOG (@flobacher)
+
+### 2.0.10 (2015/07/28 21:19 +00:00)
 - [2255226](https://github.com/flobacher/SVGInjector2/commit/2255226fdf63f91b5e1cb7116df9d2f3d0fa992d) 2.0.9 (@flobacher)
+- [72e5a02](https://github.com/flobacher/SVGInjector2/commit/72e5a0204f24667e0857cbff06604fefa0873948) abort injection if no sprite-- class and no data-src found (@flobacher)
+- [768c624](https://github.com/flobacher/SVGInjector2/commit/768c624a82d05adf566c20722e99b6b9340ee76c) remove unused variable (@flobacher)
+- [d29eb5b](https://github.com/flobacher/SVGInjector2/commit/d29eb5b367750c3b88cfc0f29f8f35647a45115b) wrap angular directive into $observe so injection will trigger even if classname is result of an expression evaluation (@flobacher)
+- [05f6d56](https://github.com/flobacher/SVGInjector2/commit/05f6d5680634a285bbab9d7f5bb49804969b45f3) 2.0.10 (@flobacher)
 
 ### 2.0.9 (2015/07/14 05:56 +00:00)
 - [2dfc3e6](https://github.com/flobacher/SVGInjector2/commit/2dfc3e6facfb56b75f952e6e444cb033fa62b31c) start prefixing of style-blocks if injected svg is not a spritesheet (@flobacher)
