@@ -922,10 +922,10 @@
       .directive('svg', ['svgInjectorFactory', function(svgInjectorFactory) {
         return {
           restrict: 'E',
-          replace: true,
-          scope: {},
-          link: function (scope, element) {
-            svgInjectorFactory.inject(element[0]);
+          link: function (scope, element, attrs) {
+            attrs.$observe('class', function() {
+              svgInjectorFactory.inject(element[0]);
+            });
           }
         };
       }])
