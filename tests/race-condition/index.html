@@ -29,13 +29,12 @@
     <script src="js/svg-injector.min.js"></script>
     <script>
 
-      var errorStatus = document.getElementById('thumb-up-errors');
       window.onerror = function(e){
         // visually identify catch js errors
-        errorStatus.setAttribute('style', 'fill:maroon');
+        document.getElementById('thumb-up-errors').setAttribute('style', 'fill:maroon');
       };
 
-      SVGInjector(errorStatus);
+      SVGInjector(document.getElementById('thumb-up-errors'));
 
 
       // Stress Test...
