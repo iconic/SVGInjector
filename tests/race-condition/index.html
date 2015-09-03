@@ -23,9 +23,19 @@
     <img id="thumb-up-two" class="inject-me-twice thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up">
     <img id="thumb-up-three" class="inject-me-three-times thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up">
 
+    <img id="thumb-up-errors" class="thumb-icon" data-src="assets/svg/thumb-up.svg" style="fill:plum;" title="I like it!" alt="js errors">
+
 
     <script src="js/svg-injector.min.js"></script>
     <script>
+
+      window.onerror = function(e){
+        // visually identify catch js errors
+        document.getElementById('thumb-up-errors').setAttribute('style', 'fill:maroon');
+      };
+
+      SVGInjector(document.getElementById('thumb-up-errors'));
+
 
       // Stress Test...
 
@@ -93,6 +103,17 @@
         // Callback after all SVGs are injected
         console.log('[Three] We injected ' + totalSVGsInjected + ' SVG(s)!');
       });
+
+
+      (function(){
+        
+        // Attempt to run SVG injection on an orphaned element
+        var orphan = document.createElement('img');
+        orphan.setAttribute('data-src', 'assets/svg/thumb-up.svg');
+        
+        // Make sure we don't throw a parentNode is null error
+        SVGInjector(orphan); 
+      })();
 
     </script>
   </body>
