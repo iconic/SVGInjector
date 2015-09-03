@@ -224,6 +224,12 @@
       return;
     }
 
+    // If we don't have a parentNode we can not replace the node inline 
+    if (!el.parentNode) {
+      callback('Attempted to process an image that is not in the DOM. SVG to load:' + imgUrl);
+      return;
+    }
+
     // Remember the request to inject this element, in case other injection
     // calls are also trying to replace this element before we finish
     injectedElements.push(el);
