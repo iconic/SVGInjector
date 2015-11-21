@@ -59,7 +59,7 @@
   var injectedElements = [];
 
   // Request Queue
-  var requestQueue = [];
+  var requestQueue = {};
 
   // Script running status
   var ranScripts = {};
