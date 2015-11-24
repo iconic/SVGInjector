@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SVGInjector Test: Prototype.js Compatibility</title>
+  </head>
+  <body>
+    <img class="inject-me" data-src="assets/svg/thumb-up.svg">
+
+    <script src="js/prototype.js"></script>
+    <script src="../../svg-injector.js"></script>
+    <script>
+      // Attempting injection fails asynchronously before f5f05c010.
+      SVGInjector(document.querySelectorAll('img.inject-me'));
+    </script>
+  </body>
+</html>
