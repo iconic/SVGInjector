@@ -259,8 +259,11 @@
       }
 
       // Copy all the data elements to the svg
-      var imgData = [].filter.call(el.attributes, function (at) {
-        return (/^data-\w[\w\-]*$/).test(at.name);
+      var imgData = [];
+      forEach.call(el.attributes, function (attribute) {
+        if ((/^data-\w[\w\-]*$/).test(attribute.name)) {
+          imgData.push(attribute);
+        }
       });
       forEach.call(imgData, function (dataAttr) {
         if (dataAttr.name && dataAttr.value) {
