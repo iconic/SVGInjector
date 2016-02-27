@@ -307,7 +307,7 @@
           var referencingElements;
           forEach.call(properties, function (property) {
             // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-            referencingElements = svg.querySelectorAll('[' + property + '*="' + currentId + '"]');
+            referencingElements = svg.querySelectorAll('[' + property + '="url(#' + currentId + ')"]');
             for (var j = 0, referencingElementLen = referencingElements.length; j < referencingElementLen; j++) {
               referencingElements[j].setAttribute(property, 'url(#' + newId + ')');
             }
