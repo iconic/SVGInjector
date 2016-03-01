@@ -1,7 +1,7 @@
 {
   "name": "svg-injector-2",
   "description": "forked version of iconic/SVGInjector, extended by the ability to use spritesheets and support for angularjs",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "author": "",
   "contributors": [
     {
@@ -40,9 +40,10 @@
     "build": "uglifyjs ./svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
     "commit": "git add ./dist/ && git add CHANGELOG.md && git add package.json && git commit -m ${npm_package_version}",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
-    "release": "for TASK in test build changelog versionpatch commit tag; do npm run $TASK; done",
+    "release": "for TASK in test build changelog versionpatch commit tag publish; do npm run $TASK; done",
     "tag": "git tag ${npm_package_version} && git push --tags",
     "versiontest": "bash -c 'echo $npm_package_version'",
-    "versionpatch": "npm version patch --no-git-tag-version"
+    "versionpatch": "npm version patch --no-git-tag-version",
+    "publish": "npm publish"
   }
 }
