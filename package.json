@@ -38,10 +38,11 @@
   "scripts": {
     "test": "jshint svg-injector.js",
     "build": "uglifyjs ./svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
+    "commit": "git add ./dist/ && git add CHANGELOG.md && git add package.json && git commit -m ${npm_package_version}",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
-    "changelog-post": "git add CHANGELOG.md && git commit -m 'Updated CHANGELOG'",
-    "release": "for TASK in (test build changelog changelog-post tag); do npm run $TASK; done",
+    "release": "for TASK in test build changelog versionpatch commit tag; do npm run $TASK; done",
     "tag": "git tag ${npm_package_version} && git push --tags",
-    "test-version": "bash -c 'echo $npm_package_version'"
+    "versiontest": "bash -c 'echo $npm_package_version'",
+    "versionpatch": "npm version patch --no-git-tag-version"
   }
 }
