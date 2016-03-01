@@ -52,6 +52,8 @@
     var ranScripts;
     var config;
     var env;
+    
+    requestQueue = [];
 
     // - static vars ---------------------------------------------------
     SVGInjector.instanceCounter = 0;
@@ -77,7 +79,6 @@
         elements: []
       };
 
-      requestQueue = [];
       ranScripts = {};
       config = {};
 
