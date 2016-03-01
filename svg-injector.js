@@ -52,7 +52,7 @@
     var ranScripts;
     var config;
     var env;
-    
+
     requestQueue = [];
 
     // - static vars ---------------------------------------------------
@@ -331,9 +331,16 @@
       var defs = [
         {def:'linearGradient', attr:'fill'},
         {def:'radialGradient', attr:'fill'},
+        {def:'linearGradient', attr:'stroke'},
+        {def:'radialGradient', attr:'stroke'},
         {def:'clipPath', attr:'clip-path'},
         {def:'mask', attr:'mask'},
-        {def:'filter', attr:'filter'}
+        {def:'filter', attr:'filter'},
+        {def:'color-profile', attr:'color-profile'},
+        {def:'cursor', attr:'cursor'},
+        {def:'marker', attr:'marker-start'},
+        {def:'marker', attr:'marker-mid'},
+        {def:'marker', attr:'marker-end'}
       ];
 
       var def, attribute, newName;
