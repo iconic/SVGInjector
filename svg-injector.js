@@ -176,7 +176,7 @@
      */
     SVGInjector.prototype.injectElement = function (el, onElementInjectedCallback) {
       var imgUrl, spriteId;
-      //console.log('inject element', el);
+      // console.log('inject element', el);
       if (config.spritesheetURL === false || el.getAttribute('data-src') || el.getAttribute('src') ) {
         // Grab the src or data-src attribute
         imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
@@ -188,7 +188,7 @@
           return;
         }
         imgUrl = config.spritesheetURL + '#' + spriteId;
-        //console.log('imgURL: ' + imgUrl);
+        // console.log('imgURL: ' + imgUrl);
         el.setAttribute('data-src', imgUrl);
       }
 
@@ -315,7 +315,7 @@
             curFallbackClassName = curFallbackClassName.replace('%s', symbolId);
             idxOfCurClass = curClassNames.indexOf(curFallbackClassName);
             if( idxOfCurClass >= 0 ){
-              //console.log('remove class ' + curClassName);
+              // console.log('remove class ' + curClassName);
               curClassNames[idxOfCurClass] = '';
             }
 
@@ -411,7 +411,7 @@
       else { //inject a single element.. this has most probaly not gone through preprocessing
         srcFileNameArr = srcArr[0].split('/');
         newPrefixClassName = srcFileNameArr[srcFileNameArr.length-1].replace('.svg', '') + '-' + injectCount;
-        console.info('bla');
+        console.info('inject complete file: ' + srcArr[0]);
         //https://medium.com/jotform-form-builder/writing-a-css-parser-in-javascript-3ecaa1719a43
         regex = new RegExp('([\\s\\S]*?){([\\s\\S]*?)}', 'g');
 
@@ -419,7 +419,7 @@
           selectorArr = regexSearchResult[1].trim().split(', ');
           selectorArr.forEach(prefixSelector);
           var tmp =  selectorArr.join(', ') + '{' + regexSearchResult[2] + '}';
-          console.log(tmp);
+          // console.log(tmp);
           newContent += tmp;
         }
         styleTag.textContent = newContent;
@@ -513,7 +513,7 @@
             }
           }
           else if(symbolElem && (symbolElem instanceof SVGUseElement)) {
-            //console.log('referenced view shows a SVGUseElement');
+            // console.log('referenced view shows a SVGUseElement');
             var referencedSymbol = sourceSvg.getElementById(
               symbolElem.getAttributeNS(XLINK_NS, 'href').substr(1)
             );
@@ -574,6 +574,7 @@
     var loadSvg = function (onElementInjectedCallback, url, el) {
       var urlArr, fileName, fragId;
       //var state = {onElementInjectedCallback:onElementInjectedCallback, injections:injections, config:config, url:url, el:el, ranScripts:ranScripts};
+      // console.log('loadSvg', url);
       urlArr = url.split('#');
       fileName = urlArr[0];
       fragId = (urlArr.length === 2) ? urlArr[1] : undefined;
@@ -581,9 +582,11 @@
       if (svgCache[fileName] !== undefined) {
         if (svgCache[fileName] instanceof SVGSVGElement) {
           // We already have it in cache, so use it
+          // console.log('We already have it in cache, so use it', fileName, fragId);
           onLoadSVG(fileName, fragId, onElementInjectedCallback, el);
         }
         else {
+          // console.log('We don\'t have it in cache yet, but we are loading it, so queue this request', fileName, fragId);
           // We don't have it in cache yet, but we are loading it, so queue this request
           queueRequest(fileName, fragId, onElementInjectedCallback, el);
         }
@@ -700,7 +703,7 @@
 
 
     var onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el){
-      //console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
+      // console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
       var svg = cloneSvg(config, svgCache[url], fragmentId);
       if (typeof svg === 'undefined' || typeof svg === 'string') {
         onElementInjectedCallback(svg);
@@ -805,7 +808,7 @@
         if ((svgClassList.indexOf(config.removeStylesClass)>=0 || config.removeAllStyles) && (svgClassList.indexOf(config.keepStylesClass)<0) ) {
 
           // remove the styletag if the removeStylesClass is applied to the SVG
-          //console.log('remove styleTag', styleTag);
+          // console.log('remove styleTag', styleTag);
           styleTag.parentNode.removeChild(styleTag);
         }
         else {
@@ -924,7 +927,7 @@
         };
       })
       .factory('svgInjectorFactory', ['svgInjectorOptions', function (svgInjectorOptions) {
-        //console.log('new injector');
+        // console.log('new injector');
         return new SVGInjector(svgInjectorOptions);
       }])
       .directive('svg', ['svgInjectorFactory', function(svgInjectorFactory) {
