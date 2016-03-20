@@ -330,9 +330,11 @@
     var prefixIdReferences = function (svg, suffix) {
       var defs = [
         {def:'linearGradient', attr:'fill'},
-        {def:'radialGradient', attr:'fill'},
         {def:'linearGradient', attr:'stroke'},
+        {def:'linearGradient', attr:'*|href'},
+        {def:'radialGradient', attr:'fill'},
         {def:'radialGradient', attr:'stroke'},
+        {def:'radialGradient', attr:'*|href'},
         {def:'clipPath', attr:'clip-path'},
         {def:'mask', attr:'mask'},
         {def:'filter', attr:'filter'},
@@ -351,11 +353,17 @@
         var definitions = svg.querySelectorAll(def + '[id]');
         for (var g = 0, defLen = definitions.length; g < defLen; g++) {
           newName = definitions[g].id + '-' + suffix;
-          //console.log('suffixxed ' + attribute + ': ' + newName);
+          // console.log('suffixxed ' + attribute + ': ' + newName);
           // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-          var usingElements = svg.querySelectorAll('['+attribute+'*="' + definitions[g].id + '"]');
+          var usingElements = svg.querySelectorAll('[' + attribute + '*="' + definitions[g].id + '"]');
           for (var h = 0, usingElementsLen = usingElements.length; h < usingElementsLen; h++) {
-            usingElements[h].setAttribute(attribute, 'url(#' + newName + ')');
+            if (attribute === '*|href') {
+              // console.log('set link:', newName);
+              usingElements[h].setAttribute(attribute, '#' + newName);
+            } else {
+              // console.log('set url', newName);
+              usingElements[h].setAttribute(attribute, 'url(#' + newName + ')');
+            }
           }
           definitions[g].id = newName;
         }
@@ -429,18 +437,17 @@
     };
 
     var getClassList = function (svgToCheck) {
-      var curClassAttr = svgToCheck.getAttribute('class');
-      return (curClassAttr) ? curClassAttr.split(' '): [];
+      var curClassAttr = svgToCheck.getAttribute('class').trim();
+      return (curClassAttr) ? curClassAttr.split(' ') : [];
     };
 
     var getSpriteIdFromClass = function (element) {
       var classes = getClassList(element);
       var id = '';
       forEach.call(classes, function (curClass) {
-
         if(curClass.indexOf(config.spriteClassIdName) >= 0) {
           id = curClass.replace(config.spriteClassIdName, '');
-          //console.log('class with prefix ' + spriteClassIdName + ' found. id: ' + id);
+          // console.log('class with prefix ' + config.spriteClassIdName + ' found. id: ' + id);
         }
       });
       return id;
@@ -537,7 +544,8 @@
           newSVG.setAttribute('width', viewBox[2]+'px');
           newSVG.setAttribute('height', viewBox[3]+'px');
         }
-
+        newSVG.setAttribute('xmlns', SVG_NS);
+        newSVG.setAttribute('xmlns:xlink', XLINK_NS);
         //curClassAttr = newSVG.getAttribute('class');
         curClassList = getClassList(newSVG);
         var fragIdClassName = config.prefixFragIdClass + fragId;
