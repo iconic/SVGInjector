@@ -1,0 +1,5 @@
+/tests
+/examples
+.jshintrc
+.editorconfig
+bower.json
