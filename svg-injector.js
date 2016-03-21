@@ -349,6 +349,9 @@
           attrs,
           attrLen,
           attrIdx,
+          allLinks,
+          allLinksLen,
+          allLinksIdx,
           links,
           linkLen,
           linkIdx
@@ -373,8 +376,15 @@
           }
 
           // handle xlink:refrences
-          // console.log('handle xlink:refrences', definitions[defIdx].id);
-          links = svg.querySelectorAll('[*|href="#' + definitions[defIdx].id + '"]');
+          // :NOTE: IE does not like the easy way:  links = svg.querySelectorAll('[*|href="#' + definitions[defIdx].id + '"]');
+          allLinks = svg.querySelectorAll('[*|href]');
+          links = [];
+          for (allLinksIdx = 0, allLinksLen = allLinks.length; allLinksIdx < allLinksLen; allLinksIdx++) {
+            if (allLinks[allLinksIdx].getAttributeNS(XLINK_NS, 'href').toString() === '#' + definitions[defIdx].id ) {
+              links.push(allLinks[allLinksIdx]);
+            }
+          }
+
           for (linkIdx = 0, linkLen = links.length; linkIdx < linkLen; linkIdx++) {
             links[linkIdx].setAttributeNS(XLINK_NS, 'href', '#' + newName);
             // console.log('set link', newName, links[linkIdx]);
