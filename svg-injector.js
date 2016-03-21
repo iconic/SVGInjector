@@ -329,43 +329,51 @@
 
     var prefixIdReferences = function (svg, suffix) {
       var defs = [
-        {def:'linearGradient', attr:'fill'},
-        {def:'linearGradient', attr:'stroke'},
-        {def:'linearGradient', attr:'*|href'},
-        {def:'radialGradient', attr:'fill'},
-        {def:'radialGradient', attr:'stroke'},
-        {def:'radialGradient', attr:'*|href'},
-        {def:'clipPath', attr:'clip-path'},
-        {def:'mask', attr:'mask'},
-        {def:'filter', attr:'filter'},
-        {def:'color-profile', attr:'color-profile'},
-        {def:'cursor', attr:'cursor'},
-        {def:'marker', attr:'marker-start'},
-        {def:'marker', attr:'marker-mid'},
-        {def:'marker', attr:'marker-end'}
+        {def:'linearGradient',  attrs: ['fill', 'stroke']},
+        {def:'radialGradient',  attrs: ['fill', 'stroke']},
+        {def:'clipPath',        attrs: ['clip-path'},
+        {def:'mask',            attrs: ['mask'},
+        {def:'filter',          attrs: ['filter'},
+        {def:'color-profile',   attrs: ['color-profile'},
+        {def:'cursor',          attrs: ['cursor'},
+        {def:'marker',          attrs: ['marker', 'marker-start', 'marker-mid', 'marker-end']}
       ];
 
-      var def, attribute, newName;
+      var newName,
+          definitions,
+          defLen,
+          defIdx,
+          refrences,
+          refLen,
+          refIdx,
+          attrs,
+          attrLen,
+          attrIdx
+        ;
 
       forEach.call(defs, function(elem) {
-        def = elem.def;
-        attribute = elem.attr;
-        var definitions = svg.querySelectorAll(def + '[id]');
-        for (var g = 0, defLen = definitions.length; g < defLen; g++) {
-          newName = definitions[g].id + '-' + suffix;
-          // console.log('suffixxed ' + attribute + ': ' + newName);
-          // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-          var usingElements = svg.querySelectorAll('[' + attribute + '*="' + definitions[g].id + '"]');
-          for (var h = 0, usingElementsLen = usingElements.length; h < usingElementsLen; h++) {
-            if (attribute === '*|href') {
-              // console.log('set link:', newName);
-              usingElements[h].setAttribute(attribute, '#' + newName);
-            } else {
+
+        definitions = svg.querySelectorAll(elem.def + '[id]');
+        for (defIdx = 0, defLen = definitions.length; defIdx < defLen; defIdx++) {
+          newName = definitions[defIdx].id + '-' + suffix;
+
+          attrs = elem.attrs;
+          for (attrIdx = 0, attrLen = attrs.length; attrIdx < attrLen; attrIdx++) {
+
+            // console.log('suffixxed ' + attribute + ': ' + newName);
+            // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
+            refrences = svg.querySelectorAll('[' + attrs[attrIdx] + '*="' + definitions[defIdx].id + '"]');
+            for (refIdx = 0, refLen = refrences.length; refIdx < refLen; refIdx++) {
               // console.log('set url', newName);
-              usingElements[h].setAttribute(attribute, 'url(#' + newName + ')');
+              refrences[refIdx].setAttribute(attrs, 'url(#' + newName + ')');
             }
           }
-          definitions[g].id = newName;
+
+          // handle xlink:refrences
+          // if (attrs === '*|href') {
+          // refrences[refIdx].setAttribute(attrs, '#' + newName);
+          // console.log('set link:', newName);
+          definitions[defIdx].id = newName;
         }
       });
 
