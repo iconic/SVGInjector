@@ -327,7 +327,7 @@
 
     };
 
-    var prefixIdReferences = function (svg, suffix) {
+    var suffixIdReferences = function (svg, suffix) {
       var defs = [
         {def:'linearGradient',  attrs: ['fill', 'stroke']},
         {def:'radialGradient',  attrs: ['fill', 'stroke']},
@@ -736,21 +736,53 @@
 
     var onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el){
       // console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
-      var svg = cloneSvg(config, svgCache[url], fragmentId);
+      var svg,
+          imgId,
+          titleText,
+          titleCandidate,
+          titleElem,
+          titleId
+      ;
+
+      svg = cloneSvg(config, svgCache[url], fragmentId);
       if (typeof svg === 'undefined' || typeof svg === 'string') {
         onElementInjectedCallback(svg);
         return false;
       }
 
-      var imgId = el.getAttribute('id');
+      imgId = el.getAttribute('id');
       if (imgId) {
         svg.setAttribute('id', imgId);
       }
 
-      var imgTitle = el.getAttribute('title');
-      if (imgTitle) {
-        svg.setAttribute('title', imgTitle);
+      // take care of accessibility
+      svg.setAttribute('role', 'img');
+
+      // set title
+      titleId = fragmentId + '-title-' + injections.count;
+      titleCandidate = el.querySelector('title');
+      if (titleCandidate) {
+        titleText = titleCandidate.textContent.toString();
+        console.log('injection targt has a title', titleCandidate);
+        addTitle(svg, titleText, titleId);
+      } else {
+        titleCandidate = svg.querySelector('title');
+        if (titleCandidate) {
+          titleElem = titleCandidate;
+          titleElem.setAttribute('id', titleId);
+          console.log('svg already has a title', titleElem);
+        } else {
+          titleText = fragmentId;
+          console.log('use fragId', titleId);
+          addTitle(svg, titleText, titleId);
+        }
+
       }
+
+      //titleElem.setAttributeNS(SVG_NS, 'id', titleId);
+
+      svg.setAttribute('aria-labelledby', titleId);
+
 
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
@@ -783,7 +815,7 @@
       //
       // This addresses the issue of having multiple instances of the
       // same SVG on a page and only the first clipPath, gradient, mask or filter id is referenced.
-      prefixIdReferences(svg, injections.count);
+      suffixIdReferences(svg, injections.count);
 
 
       // Remove any unwanted/invalid namespaces that might have been added by SVG editing tools
@@ -938,6 +970,22 @@
           fn.call(scope, this[i], i, this);
         }
       }
+    };
+
+    var addTitle = function (svg, titleText, titleId) {
+      var existingTitleElem = svg.querySelector('title');
+      if (existingTitleElem) {
+        existingTitleElem.parentNode.removeChild(existingTitleElem);
+      }
+
+      var titleElem = document.createElementNS(SVG_NS, 'title');
+      titleElem.appendChild(document.createTextNode(titleText));
+      titleElem.setAttributeNS(SVG_NS,'id', titleId);
+      console.log('title id set to', titleId, titleElem);
+
+      svg.insertBefore(titleElem, svg.firstChild);
+
+      return titleElem;
     };
 
     return SVGInjector;
