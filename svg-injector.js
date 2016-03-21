@@ -331,11 +331,11 @@
       var defs = [
         {def:'linearGradient',  attrs: ['fill', 'stroke']},
         {def:'radialGradient',  attrs: ['fill', 'stroke']},
-        {def:'clipPath',        attrs: ['clip-path'},
-        {def:'mask',            attrs: ['mask'},
-        {def:'filter',          attrs: ['filter'},
-        {def:'color-profile',   attrs: ['color-profile'},
-        {def:'cursor',          attrs: ['cursor'},
+        {def:'clipPath',        attrs: ['clip-path']},
+        {def:'mask',            attrs: ['mask']},
+        {def:'filter',          attrs: ['filter']},
+        {def:'color-profile',   attrs: ['color-profile']},
+        {def:'cursor',          attrs: ['cursor']},
         {def:'marker',          attrs: ['marker', 'marker-start', 'marker-mid', 'marker-end']}
       ];
 
@@ -348,7 +348,10 @@
           refIdx,
           attrs,
           attrLen,
-          attrIdx
+          attrIdx,
+          links,
+          linkLen,
+          linkIdx
         ;
 
       forEach.call(defs, function(elem) {
@@ -362,17 +365,20 @@
 
             // console.log('suffixxed ' + attribute + ': ' + newName);
             // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
-            refrences = svg.querySelectorAll('[' + attrs[attrIdx] + '*="' + definitions[defIdx].id + '"]');
+            refrences = svg.querySelectorAll('[' + attrs[attrIdx] + '="url(#' + definitions[defIdx].id + ')"]');
             for (refIdx = 0, refLen = refrences.length; refIdx < refLen; refIdx++) {
               // console.log('set url', newName);
-              refrences[refIdx].setAttribute(attrs, 'url(#' + newName + ')');
+              refrences[refIdx].setAttribute(attrs[attrIdx], 'url(#' + newName + ')');
             }
           }
 
           // handle xlink:refrences
-          // if (attrs === '*|href') {
-          // refrences[refIdx].setAttribute(attrs, '#' + newName);
-          // console.log('set link:', newName);
+          // console.log('handle xlink:refrences', definitions[defIdx].id);
+          links = svg.querySelectorAll('[*|href="#' + definitions[defIdx].id + '"]');
+          for (linkIdx = 0, linkLen = links.length; linkIdx < linkLen; linkIdx++) {
+            links[linkIdx].setAttributeNS(XLINK_NS, 'href', '#' + newName);
+            // console.log('set link', newName, links[linkIdx]);
+          }
           definitions[defIdx].id = newName;
         }
       });
