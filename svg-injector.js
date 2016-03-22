@@ -53,9 +53,37 @@
     var config;
     var env;
 
+    // - private member funcs --------------------------------------
+    var
+      setFallbackClassNames,
+      removeFallbackClassNames,
+      suffixIdReferences,
+      copyAttributes,
+      cloneSymbolAsSVG,
+      doPrefixStyleTags,
+      getClassList,
+      getSpriteIdFromClass,
+      cloneSvg,
+      queueRequest,
+      processRequestQueue,
+      loadSvg,
+      writeDefaultClass,
+      replaceNoSVGClass,
+      onLoadSVG,
+      uniqueClasses,
+      isFunction,
+      isArray,
+      svgElemSetClassName,
+      forEach,
+      setRootLevelElem,
+      addRootLevelElem
+    ;
+
+
+
     requestQueue = [];
 
-    // - static vars ---------------------------------------------------
+    // - static vars -----------------------------------------------
     SVGInjector.instanceCounter = 0;
 
     // - public member vars ----------------------------------------
@@ -281,7 +309,7 @@
     };
 
     // - private member functions -----------------------------------------------
-    var setFallbackClassNames = function (element, symbolId, classNames) {
+    setFallbackClassNames = function (element, symbolId, classNames) {
       var className =  (typeof classNames === 'undefined') ? DEFAULT_FALLBACK_CLASS_NAMES : classNames.slice(0);
 
       // replace %s by symbolId
@@ -295,7 +323,7 @@
       svgElemSetClassName(element, className);
     };
 
-    var removeFallbackClassNames = function (element, symbolId, fallbackClassNames) {
+    removeFallbackClassNames = function (element, symbolId, fallbackClassNames) {
       fallbackClassNames =  (typeof fallbackClassNames === 'undefined') ? DEFAULT_FALLBACK_CLASS_NAMES.slice(0) : fallbackClassNames.slice(0);
 
       var idxOfCurClass,
@@ -327,7 +355,7 @@
 
     };
 
-    var suffixIdReferences = function (svg, suffix) {
+    suffixIdReferences = function (svg, suffix) {
       var defs = [
         {def:'linearGradient',  attrs: ['fill', 'stroke']},
         {def:'radialGradient',  attrs: ['fill', 'stroke']},
@@ -395,7 +423,7 @@
 
     };
 
-    var copyAttributes = function (svgElemSource, svgElemTarget, attributesToIgnore) {
+    copyAttributes = function (svgElemSource, svgElemTarget, attributesToIgnore) {
       var curAttr;
       if (typeof attributesToIgnore === 'undefined') { attributesToIgnore = ['id', 'viewBox']; }
 
@@ -407,7 +435,7 @@
       }
     };
 
-    var cloneSymbolAsSVG = function (svgSymbol) {
+    cloneSymbolAsSVG = function (svgSymbol) {
       var svg = document.createElementNS(SVG_NS, 'svg');
       forEach.call(svgSymbol.childNodes, function(child){
 
@@ -420,7 +448,7 @@
 
 
 
-    var doPrefixStyleTags = function (styleTag, injectCount, svg){
+    doPrefixStyleTags = function (styleTag, injectCount, svg){
       var srcArr = svg.getAttribute('data-src').split('#');
       var regex,
           origPrefixClassName,
@@ -460,12 +488,12 @@
       svg.setAttribute('class', (svg.getAttribute('class') + ' ' + newPrefixClassName));
     };
 
-    var getClassList = function (svgToCheck) {
+    getClassList = function (svgToCheck) {
       var curClassAttr = svgToCheck.getAttribute('class').trim();
       return (curClassAttr) ? curClassAttr.split(' ') : [];
     };
 
-    var getSpriteIdFromClass = function (element) {
+    getSpriteIdFromClass = function (element) {
       var classes = getClassList(element);
       var id = '';
       forEach.call(classes, function (curClass) {
@@ -477,7 +505,7 @@
       return id;
     };
 
-    var cloneSvg = function (config, sourceSvg, fragId) {
+    cloneSvg = function (config, sourceSvg, fragId) {
 
       var svgElem,
         newSVG,
@@ -583,12 +611,12 @@
     };
 
     //queueRequest(requestQueue, fileName, fragId, onElementInjectedCallback, el);
-    var queueRequest = function (fileName, fragId, callback, el) {
+    queueRequest = function (fileName, fragId, callback, el) {
       requestQueue[fileName] = requestQueue[fileName] || [];
       requestQueue[fileName].push({callback:callback, fragmentId:fragId, element:el});
     };
 
-    var processRequestQueue = function (url) {
+    processRequestQueue = function (url) {
       var requestQueueElem;
       for (var i = 0, len = requestQueue[url].length; i < len; i++) {
         // Make these calls async so we avoid blocking the page/renderer
@@ -603,7 +631,7 @@
       }
     };
 
-    var loadSvg = function (onElementInjectedCallback, url, el) {
+    loadSvg = function (onElementInjectedCallback, url, el) {
       var urlArr, fileName, fragId;
       //var state = {onElementInjectedCallback:onElementInjectedCallback, injections:injections, config:config, url:url, el:el, ranScripts:ranScripts};
       // console.log('loadSvg', url);
@@ -708,7 +736,7 @@
       }
     };
 
-    var writeDefaultClass = function(removeStylesClass) {
+    writeDefaultClass = function(removeStylesClass) {
       var css = 'svg.' + removeStylesClass + ' {fill: currentColor;}',
         head = document.head || document.getElementsByTagName('head')[0],
         style = document.createElement('style');
@@ -724,7 +752,7 @@
       console.info( 'default class written: ', css );
     };
 
-    var replaceNoSVGClass = function(element, noSVGClassName, hasSvgSupport) {
+    replaceNoSVGClass = function(element, noSVGClassName, hasSvgSupport) {
       if(hasSvgSupport) {
         element.className.replace(noSVGClassName, '');
       }
@@ -734,7 +762,7 @@
     };
 
 
-    var onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el){
+    onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el){
       // console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
       var svg,
           imgId,
@@ -898,7 +926,7 @@
   //  });
   //}
 
-    var uniqueClasses = function(list) {
+    uniqueClasses = function(list) {
       list = list.split(' ');
 
       var hash = {};
@@ -914,15 +942,15 @@
       return out.join(' ');
     };
 
-    var isFunction = function(obj) {
+    isFunction = function(obj) {
       return !!(obj && obj.constructor && obj.call && obj.apply);
     };
 
-    var isArray = function(obj) {
+    isArray = function(obj) {
       return Object.prototype.toString.call(obj) === '[object Array]';
     };
 
-    var svgElemSetClassName = function(el, newClassNames){
+    svgElemSetClassName = function(el, newClassNames){
       var curClasses = el.getAttribute('class');
       curClasses = curClasses ? curClasses : '';
 
@@ -939,7 +967,7 @@
      * cache (or polyfill for <= IE8) Array.forEach()
      * source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
      */
-    var forEach = Array.prototype.forEach || function (fn, scope) {
+    forEach = Array.prototype.forEach || function (fn, scope) {
       if (this === void 0 || this === null || typeof fn !== 'function') {
         throw new TypeError();
       }
@@ -955,7 +983,7 @@
       }
     };
 
-    var setRootLevelElem = function (type, svg, el, fragmentId) {
+    setRootLevelElem = function (type, svg, el, fragmentId) {
       var
         titleId = fragmentId + '-' + type + '-' + injections.count,
         titleCandidate
@@ -975,7 +1003,7 @@
       return titleId;
     };
 
-    var addRootLevelElem = function (type, svg, text, id, insertBefore) {
+    addRootLevelElem = function (type, svg, text, id, insertBefore) {
       var existingElem = svg.querySelector(type);
       if (existingElem) {
         existingElem.parentNode.removeChild(existingElem);
