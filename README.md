@@ -21,7 +21,7 @@ Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's ide
 
 ## Install
 
-> **SVGInjector** is compatible with:
+> **SVGInjector2** is compatible with:
   * [CommonJS](http://commonjs.org/) via `module.exports` for use with [Browserify](http://browserify.org/) or [Node](http://nodejs.org/)/[PhantomJS](http://phantomjs.org/)
   * [AMD API](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) usage with [RequireJS](http://requirejs.org/)
   * Plain ol' JavaScript via creation of a global function
@@ -53,8 +53,8 @@ Include the **SVGInjector** script on your page.
 Add some SVG `img` tags.
 
 ```html
-<img class="inject-me" src="image-one.svg">
-<img class="inject-me" src="image-two.svg">
+<svg class="inject-me" src="image-one.svg">
+<svg class="inject-me" src="image-two.svg">
 ```
 
 Inject 'em.
@@ -119,13 +119,13 @@ A function to call once all the requested SVG elements have been injected. Recei
 ### Full Example
 
 ```html
-<img id="image-one" class="inject-me" data-src="image-one.svg">
-<img id="image-two" class="inject-me" data-src="image-two.svg">
+<svg id="image-one" class="inject-me" data-src="image-one.svg">
+<svg id="image-two" class="inject-me" data-src="image-two.svg">
 ```
 
 ```js
 // Elements to inject
-var mySVGsToInject = document.querySelectorAll('img.inject-me');
+var mySVGsToInject = document.querySelectorAll('svg.inject-me');
 
 // Options
 var injectorOptions = {
@@ -154,9 +154,17 @@ See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examp
 <style>
   .thumb-green {fill: #A6A93C;}
 </style>
-<img class="thumb-green inject-me" data-src="svg/thumb-up.svg" data-fallback="png/thumb-up-green.png">
+<svg class="thumb-green inject-me" data-src="svg/thumb-up.svg" data-fallback="png/thumb-up-green.png">
 
 ```
+
+### Performance tip
+add 
+```html
+<link rel="prefetch" href="(pathToSpritesheet)"/>
+```
+to let the browser download the file, even before it was requested via xhr
+
 
 
 # Licence
