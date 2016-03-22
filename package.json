@@ -18,7 +18,7 @@
   "homepage": "https://github.com/flobacher/SVGInjector2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/flobacher/SVGInjector"
+    "url": "https://github.com/flobacher/SVGInjector2.git"
   },
   "keywords": [
     "SVG",
@@ -43,6 +43,6 @@
     "commit": "git add ./dist/ && git add CHANGELOG.md && git add package.json && git commit -m ${npm_package_version}",
     "tag": "git tag ${npm_package_version}",
     "release": "for TASK in test build changelog versionpatch commit tag; do npm run $TASK; done",
-    "publish": "git push && git push --tags"
+    "prepublish": "git push && git push --tags"
   }
 }
