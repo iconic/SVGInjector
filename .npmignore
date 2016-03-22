@@ -1,5 +1,13 @@
-/tests
-/examples
+#dirs
+.idea
+.DS_Store
+
+tests
+examples
+
+
+#files
 .jshintrc
 .editorconfig
 bower.json
+npm-debug.log

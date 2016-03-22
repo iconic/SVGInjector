@@ -1,5 +1,9 @@
-node_modules
-.tmp
-.DS_Store
+#dires
 .idea
+.DS_Store
+
+node_modules
+
+
+#files
 npm-debug.log
