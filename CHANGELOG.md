@@ -1,6 +1,10 @@
 ## Change Log
 
-### upcoming (2016/03/22 09:07 +00:00)
+### upcoming (2016/03/22 09:14 +00:00)
+- [6292886](https://github.com/flobacher/SVGInjector2/commit/629288681977a04c9b85277ec833766801c56fdd) update repo url and scripts (@flobacher)
+
+### 2.0.15 (2016/03/22 09:07 +00:00)
+- [fc29aea](https://github.com/flobacher/SVGInjector2/commit/fc29aea8a6406b0fb4831da03613034984071a9e) 2.0.15 (@flobacher)
 - [9d91dc3](https://github.com/flobacher/SVGInjector2/commit/9d91dc380bf490c457b74eac75d9fc25308d0dc0) update gitignore (@flobacher)
 - [359a256](https://github.com/flobacher/SVGInjector2/commit/359a256235e33953308e185a0c2e4f49e1be561c) add support for the desc element and add the role="presentation" to all elements
 - [ef029f2](https://github.com/flobacher/SVGInjector2/commit/ef029f2748469fac90f4f292b53d7fd3f8a3f117) add support to set title for accessibility
