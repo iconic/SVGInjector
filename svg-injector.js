@@ -766,9 +766,7 @@
       titleId = setRootLevelElem('title', svg, el, fragmentId);
       svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
 
-
-
-
+      
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
       svg.setAttribute('class', uniqueClasses(classMerge));
