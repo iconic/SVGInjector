@@ -1,5 +1,5 @@
 /**
- * SVGInjector v2.0.0 - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v2.0.26 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/flobacher/SVGInjector2
  * forked from:
  * https://github.com/iconic/SVGInjector
@@ -514,7 +514,8 @@
         symbolAttributesToFind,
         curClassList,
         setViewboxOnNewSVG = false,
-        symbolElem = null;
+        symbolElem = null,
+        symobolList;
 
       if(fragId === undefined){
         return sourceSvg.cloneNode(true);
@@ -556,7 +557,7 @@
               symbolAttributesToFind.y = viewBox[1];
               selector += '[y="' + viewBox[1] + '"]';
             }
-            var symobolList = sourceSvg.querySelectorAll(selector);
+            symobolList = sourceSvg.querySelectorAll(selector);
             if (symobolList.length > 1) {
               console.warn('more than one item, with the matching viewbox found!', symobolList);
             }
