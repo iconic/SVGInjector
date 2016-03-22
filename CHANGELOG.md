@@ -1,6 +1,12 @@
 ## Change Log
 
-### upcoming (2016/03/21 14:33 +00:00)
+### upcoming (2016/03/22 09:07 +00:00)
+- [9d91dc3](https://github.com/flobacher/SVGInjector2/commit/9d91dc380bf490c457b74eac75d9fc25308d0dc0) update gitignore (@flobacher)
+- [359a256](https://github.com/flobacher/SVGInjector2/commit/359a256235e33953308e185a0c2e4f49e1be561c) add support for the desc element and add the role="presentation" to all elements
+- [ef029f2](https://github.com/flobacher/SVGInjector2/commit/ef029f2748469fac90f4f292b53d7fd3f8a3f117) add support to set title for accessibility
+
+### 2.0.14 (2016/03/21 14:33 +00:00)
+- [7c25536](https://github.com/flobacher/SVGInjector2/commit/7c25536aeeb61eaadd7dad4d00c11314e74c58fd) 2.0.14 (@flobacher)
 - [571dec2](https://github.com/flobacher/SVGInjector2/commit/571dec21fa1b716f7148f46d94f3b03313dec435) add support for IE
 - [f189ab4](https://github.com/flobacher/SVGInjector2/commit/f189ab46d1773468b1719485c07d834cbcf0b9d8) elements can also be referenced via xlink:href. this time it works
 - [eccb575](https://github.com/flobacher/SVGInjector2/commit/eccb575bf60a9fcc02a1c339a79fce5414926156) fix: previous version added suffix multiple times (@flobacher)
