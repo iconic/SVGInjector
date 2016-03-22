@@ -165,6 +165,12 @@ add
 ```
 to let the browser download the file, even before it was requested via xhr
 
+### Accessibility
+`role="img"` and `aria-labelledby` gets added to the root svg element. `aria-labelledby` points to the id of the `desc` and `title` tags inside the injected svg.
+The contents of those tags comes from corresponding tags inside the element which is the injection target, if not found there, they are taken from the svg-instance that gets
+injected, and if missing there as well defaults to the fragmentid or filename of the injectable. `role="presentation"` gets added to all elements 
+in all proper browsers (so no IE).
+
 
 
 # Licence
