@@ -1004,12 +1004,14 @@
     };
 
     addRootLevelElem = function (type, svg, text, id, insertBefore) {
-      var existingElem = svg.querySelector(type);
+      var newElem,
+          existingElem = svg.querySelector(type);
+
       if (existingElem) {
         existingElem.parentNode.removeChild(existingElem);
       }
 
-      var newElem = document.createElementNS(SVG_NS, type);
+      newElem = document.createElementNS(SVG_NS, type);
       newElem.appendChild(document.createTextNode(text));
       newElem.setAttributeNS(SVG_NS,'id', id);
 
