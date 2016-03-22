@@ -1,6 +1,15 @@
 ## Change Log
 
-### upcoming (2016/03/22 10:11 +00:00)
+### ${npm_package_version} (2016/03/22 11:14 +00:00)
+- [ff5578d](https://github.com/flobacher/SVGInjector2/commit/ff5578d442010529db2d133deb7837611f9f4616) ${npm_package_version}
+- [ec44146](https://github.com/flobacher/SVGInjector2/commit/ec44146b4b52dc7156fd296411e108cd848edc26) IE does not support Children on SVGElement!
+
+### 2.0.22 (2016/03/22 10:22 +00:00)
+- [8453317](https://github.com/flobacher/SVGInjector2/commit/8453317d09226d4295f72775d1c6fe4117194f62) 2.0.22 (@flobacher)
+- [84fd93c](https://github.com/flobacher/SVGInjector2/commit/84fd93cd5a406d1f119f207a67c72e4a19cf5c82) update ignore rules (@flobacher)
+
+### 2.0.21 (2016/03/22 10:11 +00:00)
+- [33afd04](https://github.com/flobacher/SVGInjector2/commit/33afd04de4a5d745d6faaa6efa3a23c69e27cb3e) 2.0.21 (@flobacher)
 - [4f2317e](https://github.com/flobacher/SVGInjector2/commit/4f2317e21d8d02b59bd8cfd94636071144062514) update readme (@flobacher)
 
 ### 2.0.20 (2016/03/22 09:47 +00:00)
