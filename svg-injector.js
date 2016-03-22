@@ -461,8 +461,8 @@
     };
 
     var getClassList = function (svgToCheck) {
-      var curClassAttr = svgToCheck.getAttribute('class').trim();
-      return (curClassAttr) ? curClassAttr.split(' ') : [];
+      var curClassAttr = svgToCheck.getAttribute('class');
+      return (curClassAttr) ? curClassAttr.trim().split(' ') : [];
     };
 
     var getSpriteIdFromClass = function (element) {
