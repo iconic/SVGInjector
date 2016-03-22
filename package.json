@@ -39,9 +39,9 @@
     "test": "jshint svg-injector.js",
     "build": "uglifyjs ./svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
-    "versionpatch": "npm version patch",
-    "commit": "git add ./dist/ && git add CHANGELOG.md && git add package.json && git commit --amend",
-    "release": "npm run changelog & npm run test && npm run build && npm run versionpatch && npm run commit",
+    "versionpatch": "npm version patch --force",
+    "commit": "git add ./dist/ && git add CHANGELOG.md && git add package.json && git commit --amend --no-edit",
+    "release": "npm run changelog & npm run test && npm run build && npm version patch --force && npm run commit",
     "prepublish": "git push --follow-tags"
   }
 }
