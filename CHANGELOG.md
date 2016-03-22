@@ -1,6 +1,14 @@
 ## Change Log
 
-### ${npm_package_version} (2016/03/22 11:14 +00:00)
+### v2.0.24 (2016/03/22 12:55 +00:00)
+- [dec40de](https://github.com/flobacher/SVGInjector2/commit/dec40de1191c38fea293eb639082b51cbcc3876f) 2.0.24
+- [7ae93d3](https://github.com/flobacher/SVGInjector2/commit/7ae93d321ec228339c1ac7c2871a222f9fb0ad06) add shortcut script
+- [5b5b00a](https://github.com/flobacher/SVGInjector2/commit/5b5b00aae15bca85c5367b4d2c0475a7f4fcb4ce) make npm scripts work on windows as well
+- [a721de4](https://github.com/flobacher/SVGInjector2/commit/a721de4e732e5551a4afea529148c4e5c5256c0d) make npm scripts work on windows as well
+- [9480d16](https://github.com/flobacher/SVGInjector2/commit/9480d167c1b9310edf307311d356cc1a106b03e2) codestyle
+- [d945474](https://github.com/flobacher/SVGInjector2/commit/d9454742b29e0ea5f040f7eec544adef1dd074f4) make npm scripts work on windows as well
+- [216993c](https://github.com/flobacher/SVGInjector2/commit/216993c903adcc3d51519d18e531fe1e2516e33c) 2.0.23
+- [e425f4e](https://github.com/flobacher/SVGInjector2/commit/e425f4e5366c85548fcd75a77091a81216259edd) avoid latedef warnings
 - [ff5578d](https://github.com/flobacher/SVGInjector2/commit/ff5578d442010529db2d133deb7837611f9f4616) ${npm_package_version}
 - [ec44146](https://github.com/flobacher/SVGInjector2/commit/ec44146b4b52dc7156fd296411e108cd848edc26) IE does not support Children on SVGElement!
 
