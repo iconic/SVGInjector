@@ -1,6 +1,26 @@
 ## Change Log
 
-### upcoming (2016/03/22 09:14 +00:00)
+### upcoming (2016/03/22 10:11 +00:00)
+- [4f2317e](https://github.com/flobacher/SVGInjector2/commit/4f2317e21d8d02b59bd8cfd94636071144062514) update readme (@flobacher)
+
+### 2.0.20 (2016/03/22 09:47 +00:00)
+- [c508c18](https://github.com/flobacher/SVGInjector2/commit/c508c1852a94e3f9d11e5613cce086e69c1da17b) 2.0.20 (@flobacher)
+- [cfa5475](https://github.com/flobacher/SVGInjector2/commit/cfa5475d847d20603e20253a354210b7841e94c8) update scripts (@flobacher)
+
+### 2.0.19 (2016/03/22 09:30 +00:00)
+- [045205b](https://github.com/flobacher/SVGInjector2/commit/045205b03426ce7dd904cda3a96734bcb4898f26) 2.0.19 (@flobacher)
+- [da5f9e4](https://github.com/flobacher/SVGInjector2/commit/da5f9e4a7a98d59a361f9bf260039417a2b2a18d) cleanup (@flobacher)
+
+### 2.0.18 (2016/03/22 09:23 +00:00)
+- [52f5fe4](https://github.com/flobacher/SVGInjector2/commit/52f5fe4fd4cf79c1cde6903a3011664e69807cb4) 2.0.18 (@flobacher)
+
+### 2.0.17 (2016/03/22 09:19 +00:00)
+- [c39a16f](https://github.com/flobacher/SVGInjector2/commit/c39a16faac8b1fdb4eab78d68aae3caf7151dc3c) 2.0.17 (@flobacher)
+- [41f86cc](https://github.com/flobacher/SVGInjector2/commit/41f86cc92455d76f075de681ee2a433c6084a58e) update scripts (@flobacher)
+- [49cceae](https://github.com/flobacher/SVGInjector2/commit/49cceaea132570c55414a884cdb099c26d28a78a) update repo url and scripts (@flobacher)
+
+### 2.0.16 (2016/03/22 09:14 +00:00)
+- [5e7774e](https://github.com/flobacher/SVGInjector2/commit/5e7774ecb413d477b35868c1ce7d00225702f122) 2.0.16 (@flobacher)
 - [6292886](https://github.com/flobacher/SVGInjector2/commit/629288681977a04c9b85277ec833766801c56fdd) update repo url and scripts (@flobacher)
 
 ### 2.0.15 (2016/03/22 09:07 +00:00)
