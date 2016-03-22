@@ -41,6 +41,9 @@
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
     "add": "git add ./dist/ && git add CHANGELOG.md",
     "version": "npm run changelog & npm run test && npm run build && npm run add",
+
+    "release": "npm version patch",
+
     "prepublish": "git push && git push --tags"
   }
 }
