@@ -738,10 +738,8 @@
       // console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
       var svg,
           imgId,
-          titleText,
-          titleCandidate,
-          titleElem,
-          titleId
+          titleId,
+          descId
       ;
 
       svg = cloneSvg(config, svgCache[url], fragmentId);
@@ -757,31 +755,18 @@
 
       // take care of accessibility
       svg.setAttribute('role', 'img');
-
-      // set title
-      titleId = fragmentId + '-title-' + injections.count;
-      titleCandidate = el.querySelector('title');
-      if (titleCandidate) {
-        titleText = titleCandidate.textContent.toString();
-        console.log('injection targt has a title', titleCandidate);
-        addTitle(svg, titleText, titleId);
-      } else {
-        titleCandidate = svg.querySelector('title');
-        if (titleCandidate) {
-          titleElem = titleCandidate;
-          titleElem.setAttribute('id', titleId);
-          console.log('svg already has a title', titleElem);
-        } else {
-          titleText = fragmentId;
-          console.log('use fragId', titleId);
-          addTitle(svg, titleText, titleId);
+      forEach.call(svg.children, function (curChildElem) {
+        if (!(curChildElem instanceof SVGDefsElement)) {
+          curChildElem.setAttribute('role', 'presentation');
         }
+      });
 
-      }
+      // set desc + title
+      descId = setRootLevelElem('desc', svg, el, fragmentId);
+      titleId = setRootLevelElem('title', svg, el, fragmentId);
+      svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
 
-      //titleElem.setAttributeNS(SVG_NS, 'id', titleId);
 
-      svg.setAttribute('aria-labelledby', titleId);
 
 
       // Concat the SVG classes + 'injected-svg' + the img classes
@@ -972,20 +957,39 @@
       }
     };
 
-    var addTitle = function (svg, titleText, titleId) {
-      var existingTitleElem = svg.querySelector('title');
-      if (existingTitleElem) {
-        existingTitleElem.parentNode.removeChild(existingTitleElem);
+    var setRootLevelElem = function (type, svg, el, fragmentId) {
+      var
+        titleId = fragmentId + '-' + type + '-' + injections.count,
+        titleCandidate
+      ;
+
+      titleCandidate = el.querySelector(type);
+      if (titleCandidate) {
+        addRootLevelElem(type, svg, titleCandidate.textContent, titleId, svg.firstChild);
+      } else {
+        titleCandidate = svg.querySelector(type);
+        if (titleCandidate) {
+          titleCandidate.setAttribute('id', titleId);
+        } else {
+          addRootLevelElem(type, svg, fragmentId, titleId, svg.firstChild);
+        }
+      }
+      return titleId;
+    };
+
+    var addRootLevelElem = function (type, svg, text, id, insertBefore) {
+      var existingElem = svg.querySelector(type);
+      if (existingElem) {
+        existingElem.parentNode.removeChild(existingElem);
       }
 
-      var titleElem = document.createElementNS(SVG_NS, 'title');
-      titleElem.appendChild(document.createTextNode(titleText));
-      titleElem.setAttributeNS(SVG_NS,'id', titleId);
-      console.log('title id set to', titleId, titleElem);
+      var newElem = document.createElementNS(SVG_NS, type);
+      newElem.appendChild(document.createTextNode(text));
+      newElem.setAttributeNS(SVG_NS,'id', id);
 
-      svg.insertBefore(titleElem, svg.firstChild);
+      svg.insertBefore(newElem, insertBefore);
 
-      return titleElem;
+      return newElem;
     };
 
     return SVGInjector;
