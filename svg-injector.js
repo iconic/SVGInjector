@@ -755,7 +755,7 @@
 
       // take care of accessibility
       svg.setAttribute('role', 'img');
-      forEach.call(svg.children, function (curChildElem) {
+      forEach.call(svg.children || [], function (curChildElem) { // IE does not support Children on SVGElement!
         if (!(curChildElem instanceof SVGDefsElement)) {
           curChildElem.setAttribute('role', 'presentation');
         }
@@ -766,7 +766,7 @@
       titleId = setRootLevelElem('title', svg, el, fragmentId);
       svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
 
-      
+
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
       svg.setAttribute('class', uniqueClasses(classMerge));
