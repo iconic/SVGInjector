@@ -768,8 +768,8 @@
       var svg,
           imgId,
           titleId,
-          descId
-      ;
+          descId,
+          ariaHidden;
 
       svg = cloneSvg(config, svgCache[url], fragmentId);
       if (typeof svg === 'undefined' || typeof svg === 'string') {
@@ -795,6 +795,11 @@
       titleId = setRootLevelElem('title', svg, el, fragmentId);
       svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
 
+      // set aria-hidden attribute
+      ariaHidden = el.getAttribute('aria-hidden');
+      if (ariaHidden) {
+        svg.setAttribute('aria-hidden', 'true');
+      }
 
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
