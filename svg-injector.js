@@ -809,24 +809,27 @@
       svg.setAttribute('role', 'img');
       forEach.call(svg.children || [], function (curChildElem) { // IE does not support Children on SVGElement!
         if (
-          !(curChildElem instanceof SVGDefsElement) /*&&
+          !(curChildElem instanceof SVGDefsElement) &&
           !(curChildElem instanceof SVGTitleElement) &&
-          !(curChildElem instanceof SVGDescElement)*/
+          !(curChildElem instanceof SVGDescElement)
         ) {
           curChildElem.setAttribute('role', 'presentation');
         }
       });
 
-      // set desc + title
-      descId = setRootLevelElem('desc', svg, el, fragmentId, name);
-      titleId = setRootLevelElem('title', svg, el, fragmentId, name);
-      svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
 
       // set aria-hidden attribute
       ariaHidden = el.getAttribute('aria-hidden');
+
+      // set desc + title
+      descId = setRootLevelElem('desc', svg, el, fragmentId, name, !ariaHidden);
+      titleId = setRootLevelElem('title', svg, el, fragmentId, name, !ariaHidden);
       if (ariaHidden) {
         svg.setAttribute('aria-hidden', 'true');
+      } else {
+        svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
       }
+
 
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
@@ -1024,7 +1027,7 @@
       }
     };
 
-    setRootLevelElem = function (type, svg, el, fragmentId) {
+    setRootLevelElem = function (type, svg, el, fragmentId, addDefault) {
       var
         elemId = fragmentId ? fragmentId + '-' : '',
         existingElem
@@ -1038,8 +1041,14 @@
         existingElem = svg.querySelector(type);
         if (existingElem) { // element exists in the svg to inject, only update its id
           existingElem.setAttribute('id', elemId);
-        } else { // neither injection target nor the svg to inject contain this element -> create with default content
-          addRootLevelElem(type, svg, fragmentId, elemId, svg.firstChild);
+        } else {
+
+          if (addDefault) {
+            // neither injection target nor the svg to inject contain this element -> create with default content
+            addRootLevelElem(type, svg, fragmentId, elemId, svg.firstChild);
+          } else {
+            elemId = '';
+          }
         }
       }
       return elemId;
