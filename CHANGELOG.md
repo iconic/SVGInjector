@@ -1,5 +1,22 @@
 ## Change Log
 
+### upcoming (2016/04/03 23:39 +00:00)
+- [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
+- [bd6213b](https://github.com/flobacher/SVGInjector2/commit/bd6213b62931d61563579e0641d7b03c95aadfc1) update/move examples (@flobacher)
+- [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
+- [#3](https://github.com/flobacher/SVGInjector2/pull/3) added support for aria-hidden attribute on svg element (@dgoerdes)
+- [f8cf0fe](https://github.com/flobacher/SVGInjector2/commit/f8cf0fe3706f6008eb39549363742dccc4c7ce0c) added support for aria-hidden attribute on svg element (@dgoerdes)
+
+### v2.0.26 (2016/03/22 13:47 +00:00)
+- [9487319](https://github.com/flobacher/SVGInjector2/commit/94873198cca125917abf3a85baa7b803772e12ce) 2.0.26
+- [07217d8](https://github.com/flobacher/SVGInjector2/commit/07217d88739a7144c7f8c68846d8873a579457fb) codestyle
+- [8310c96](https://github.com/flobacher/SVGInjector2/commit/8310c9672b423acd866ea469aa454576452613b3) add accessibility section
+
+### v2.0.25 (2016/03/22 13:07 +00:00)
+- [94916ed](https://github.com/flobacher/SVGInjector2/commit/94916ed7ceebebf4802bff9a6081f13e718ac674) 2.0.25
+- [b59d1d8](https://github.com/flobacher/SVGInjector2/commit/b59d1d8488187815cd5664fc96d8d642cf79cc76) Merge branch 'hochitom-master'
+- [4ce5a2b](https://github.com/flobacher/SVGInjector2/commit/4ce5a2bc873a8145b6d71b6a5a39ec51a69efe48) Conflicts: 	svg-injector.js
+
 ### v2.0.24 (2016/03/22 12:55 +00:00)
 - [dec40de](https://github.com/flobacher/SVGInjector2/commit/dec40de1191c38fea293eb639082b51cbcc3876f) 2.0.24
 - [7ae93d3](https://github.com/flobacher/SVGInjector2/commit/7ae93d321ec228339c1ac7c2871a222f9fb0ad06) add shortcut script
@@ -11,6 +28,7 @@
 - [e425f4e](https://github.com/flobacher/SVGInjector2/commit/e425f4e5366c85548fcd75a77091a81216259edd) avoid latedef warnings
 - [ff5578d](https://github.com/flobacher/SVGInjector2/commit/ff5578d442010529db2d133deb7837611f9f4616) ${npm_package_version}
 - [ec44146](https://github.com/flobacher/SVGInjector2/commit/ec44146b4b52dc7156fd296411e108cd848edc26) IE does not support Children on SVGElement!
+- [66f4ede](https://github.com/flobacher/SVGInjector2/commit/66f4ede7820ab4b5b6a5bfab7022912e7b5871a5) use .trim() only if element has a class attribute (@hochitom)
 
 ### 2.0.22 (2016/03/22 10:22 +00:00)
 - [8453317](https://github.com/flobacher/SVGInjector2/commit/8453317d09226d4295f72775d1c6fe4117194f62) 2.0.22 (@flobacher)
