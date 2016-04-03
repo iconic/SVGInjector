@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="svginjectordemo">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SVGInjector Example: SVG Sprites</title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+
+
+    <!-- svg without symbols or views -->
+    <svg data-src="assets/svg/circle.svg" />
+
+    <svg data-src="assets/svg/logo-gradients.svg">
+      <title>Default Tilte replace</title>
+      <desc>Same thing for description</desc>
+    </svg>
+
+    <!-- reference fragments via views - generated with gulp-svg-sprite -->
+    <svg class="sprite--circle" />
+    <svg class="sprite--square" />
+    <svg class="sprite--triangle" />
+    <svg class="sprite--logo-gradients" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular.min.js"></script>
+    <!--<script src="../dist/svg-injector.min.js"></script>-->
+    <script src="../svg-injector.js"></script>
+    <script>
+      (function(global, doc){
+
+
+        var injectorOptions = {
+          //forceFallbacks:     true, // -> enable to test png-fallbacks in svg-capable browsers
+          fallbackClassName: ['sprite'], // optional function -> function(element, symbolId) {},
+          removeStylesClass: 'icon',
+          removeAllStyles: false,
+          spritesheetURL:     'assets/svg/views.svg'
+        };
+
+
+
+        angular.module('svginjectordemo', ['svginjector'])
+          .config(['svgInjectorOptionsProvider', function (svgInjectorOptionsProvider) {
+            svgInjectorOptionsProvider.set(injectorOptions);
+          }])
+          .run(['$rootScope', function ($rootScope) {
+            /*
+             angular.element.prototype.find = function(selector) {
+             return this[0].querySelectorAll(selector);
+             };
+             */
+
+            //$rootScope.arrowSpriteName = 'arrow-down-circular';
+          }])
+        ;
+
+
+      })(window, document);
+    </script>
+  </body>
+</html>

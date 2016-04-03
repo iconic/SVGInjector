@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="84" height="58" viewBox="0 0 84 58">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #a61a32;
+      }
+
+      .cls-2 {
+        fill: #d7182a;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient-4);
+      }
+
+      .cls-7 {
+        fill: url(#linear-gradient-5);
+      }
+
+      .cls-8 {
+        fill: #ffd400;
+      }
+
+      .cls-9 {
+        fill: #1d1d1b;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="3.059" y1="29.665" x2="38.519" y2="29.665" gradientTransform="matrix(1, 0, 0, -1, 0, 60)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fdb913"/>
+      <stop offset="1" stop-color="#ffe293"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="24.275" y1="8.021" x2="33.905" y2="8.021" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="23.069" y1="8.021" x2="35.111" y2="8.021" gradientTransform="matrix(1, 0, 0, -1, 0, 60)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a61a32"/>
+      <stop offset="1" stop-color="#d7182a"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="7.603" y1="8.021" x2="17.233" y2="8.021" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-5" x1="6.397" y1="8.021" x2="18.439" y2="8.021" xlink:href="#linear-gradient-3"/>
+  </defs>
+  <title>Generic Logo</title>
+  <desc>Generic Logo that contains gradients</desc>
+  <g id="handlerear">
+    <polygon class="cls-1" points="12.795 2.604 12.795 2.472 12.899 2.392 14.606 1.072 10.97 1.072 7.603 3.676 7.603 13.94 10.97 13.94 10.97 4.439 12.795 4.439 12.795 2.604"/>
+    <polygon class="cls-1" points="16.698 3.635 16.698 4.439 19.687 4.439 19.687 13.94 23.055 13.94 23.055 3.676 23.002 3.635 16.698 3.635"/>
+  </g>
+  <path id="wheelrearleft" class="cls-1" d="M6.106,51.979a6.317,6.317,0,0,1,7.867-6.12,6.326,6.326,0,1,0-6.2,10.386A6.28,6.28,0,0,1,6.106,51.979Z"/>
+  <path id="wheelrearright" class="cls-1" d="M22.738,51.979a6.312,6.312,0,0,1,7.817-6.131,6.326,6.326,0,1,0-6.144,10.409A6.286,6.286,0,0,1,22.738,51.979Z"/>
+  <polyline id="handlefront" class="cls-2" points="25.147 0 28.515 2.604 28.515 12.869 25.147 12.869 25.147 3.367 16.43 3.367 16.43 12.869 13.063 12.869 13.063 2.604 16.43 0 25.147 0"/>
+  <rect id="front" class="cls-3" x="3.059" y="8.691" width="35.46" height="43.288"/>
+  <polygon id="side" class="cls-2" points="3.059 51.979 0 48.381 0 10.868 3.059 8.691 3.059 51.979"/>
+  <g id="wheelright">
+    <circle class="cls-4" cx="29.09" cy="51.979" r="4.815"/>
+    <path class="cls-5" d="M29.09,58a6.021,6.021,0,1,1,6.021-6.021A6.028,6.028,0,0,1,29.09,58Zm0-9.63A3.609,3.609,0,1,0,32.7,51.979,3.613,3.613,0,0,0,29.09,48.37Z"/>
+  </g>
+  <g id="wheelleft">
+    <circle id="wheelleftfill" class="cls-6" cx="12.418" cy="51.979" r="4.815"/>
+    <path id="wheelleftborder" class="cls-7" d="M12.418,58a6.021,6.021,0,1,1,6.021-6.021A6.028,6.028,0,0,1,12.418,58Zm0-9.63a3.609,3.609,0,1,0,3.609,3.609A3.613,3.613,0,0,0,12.418,48.37Z"/>
+  </g>
+  <g id="logo">
+    <rect id="bg" class="cls-2" x="6.141" y="21.085" width="30.192" height="12.845" transform="translate(-3.346 2.945) rotate(-7.354)"/>
+  </g>
+
+</svg>
