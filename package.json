@@ -42,6 +42,7 @@
     "add": "git add ./dist/ && git add CHANGELOG.md",
     "version": "npm run changelog & npm run test && npm run build && npm run add",
     "release": "npm version patch",
-    "prepublish": "git push && git push --tags"
+    "prepublish": "git push && git push --tags",
+    "start": "static-server"
   }
 }
