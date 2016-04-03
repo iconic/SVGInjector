@@ -58,6 +58,7 @@
       setFallbackClassNames,
       removeFallbackClassNames,
       suffixIdReferences,
+      suffixIdReferencesInStyles,
       copyAttributes,
       cloneSymbolAsSVG,
       doPrefixStyleTags,
@@ -355,6 +356,23 @@
 
     };
 
+    suffixIdReferencesInStyles = function (styleTag, suffix, svg, name) {
+      //var referencedIds = styleTag.textContent.match(/url\(('|")*#.+('|")*\)/g) || [];
+      /*referencedIds.forEach(function (elem, idx, arr) {
+        //elem =  elem.replace(/url\(('|")*#/g, '');
+        arr[idx] = elem.replace(/\)/g, '-' + suffix + ')');
+        console.log('style', arr[idx]);
+      });
+      */
+      var numRefs = 0;
+      styleTag.textContent = styleTag.textContent.replace(/url\(('|")*#.+('|")*(?=\))/g, function (match) {
+        //console.log('match', match + '-' + suffix);
+        numRefs++;
+        return match + '-' + suffix;
+      });
+      return numRefs;
+    };
+
     suffixIdReferences = function (svg, suffix) {
       var defs = [
         {def:'linearGradient',  attrs: ['fill', 'stroke']},
@@ -420,7 +438,6 @@
           definitions[defIdx].id = newName;
         }
       });
-
     };
 
     copyAttributes = function (svgElemSource, svgElemTarget, attributesToIgnore) {
@@ -460,7 +477,8 @@
           selectorArr,
           prefixSelector = function(elem, idx, arr){
             arr[idx] = '.' + newPrefixClassName + ' ' + elem;
-          };
+          },
+          stylerule = '';
 
       if(srcArr.length > 1) {
         origPrefixClassName = srcArr[1];
@@ -478,8 +496,8 @@
         while ((regexSearchResult = regex.exec(styleTagContent)) !== null) {
           selectorArr = regexSearchResult[1].trim().split(', ');
           selectorArr.forEach(prefixSelector);
-          var tmp =  selectorArr.join(', ') + '{' + regexSearchResult[2] + '}';
-          // console.log(tmp);
+
+          var tmp =  selectorArr.join(', ') + '{' + regexSearchResult[2] + '}\n';
           newContent += tmp;
         }
         styleTag.textContent = newContent;
@@ -614,7 +632,7 @@
     //queueRequest(requestQueue, fileName, fragId, onElementInjectedCallback, el);
     queueRequest = function (fileName, fragId, callback, el) {
       requestQueue[fileName] = requestQueue[fileName] || [];
-      requestQueue[fileName].push({callback:callback, fragmentId:fragId, element:el});
+      requestQueue[fileName].push({callback:callback, fragmentId:fragId, element:el, name: name});
     };
 
     processRequestQueue = function (url) {
@@ -625,7 +643,7 @@
         (function (index) {
           setTimeout(function () {
             requestQueueElem = requestQueue[url][index];
-            onLoadSVG(url, requestQueueElem.fragmentId, requestQueueElem.callback, requestQueueElem.element);
+            onLoadSVG(url, requestQueueElem.fragmentId, requestQueueElem.callback, requestQueueElem.element, requestQueueElem.name);
           }, 0);
         })(i);
         /* jshint loopfunc: false */
@@ -633,23 +651,28 @@
     };
 
     loadSvg = function (onElementInjectedCallback, url, el) {
-      var urlArr, fileName, fragId;
+      var urlArr, fileUrl, fragId, name, pathArr;
       //var state = {onElementInjectedCallback:onElementInjectedCallback, injections:injections, config:config, url:url, el:el, ranScripts:ranScripts};
       // console.log('loadSvg', url);
       urlArr = url.split('#');
-      fileName = urlArr[0];
+      fileUrl = urlArr[0];
       fragId = (urlArr.length === 2) ? urlArr[1] : undefined;
+      //name = fragId ? undefined : ;
+      if (typeof fragId !== 'undefined') {
+        pathArr = fileUrl.split('/');
+        name = pathArr[pathArr.length-1].replace('.svg', '');
+      }
 
-      if (svgCache[fileName] !== undefined) {
-        if (svgCache[fileName] instanceof SVGSVGElement) {
+      if (svgCache[fileUrl] !== undefined) {
+        if (svgCache[fileUrl] instanceof SVGSVGElement) {
           // We already have it in cache, so use it
           // console.log('We already have it in cache, so use it', fileName, fragId);
-          onLoadSVG(fileName, fragId, onElementInjectedCallback, el);
+          onLoadSVG(fileUrl, fragId, onElementInjectedCallback, el, name);
         }
         else {
           // console.log('We don\'t have it in cache yet, but we are loading it, so queue this request', fileName, fragId);
           // We don't have it in cache yet, but we are loading it, so queue this request
-          queueRequest(fileName, fragId, onElementInjectedCallback, el);
+          queueRequest(fileUrl, fragId, onElementInjectedCallback, el, name);
         }
       }
       else {
@@ -660,8 +683,8 @@
         }
 
         // Seed the cache to indicate we are loading this URL already
-        svgCache[fileName] = {};
-        queueRequest(fileName, fragId, onElementInjectedCallback, el);
+        svgCache[fileUrl] = {};
+        queueRequest(fileUrl, fragId, onElementInjectedCallback, el, name);
 
         var httpRequest = new XMLHttpRequest();
 
@@ -671,7 +694,7 @@
 
             // Handle status
             if (httpRequest.status === 404 || httpRequest.responseXML === null) {
-              onElementInjectedCallback('Unable to load SVG file: ' + fileName);
+              onElementInjectedCallback('Unable to load SVG file: ' + fileUrl);
 
               // @check this!
               //if (env.isLocal) {
@@ -687,7 +710,7 @@
 
               if (httpRequest.responseXML instanceof Document) {
                 // Cache it
-                svgCache[fileName] = httpRequest.responseXML.documentElement;
+                svgCache[fileUrl] = httpRequest.responseXML.documentElement;
               }
 
               // IE9 doesn't create a responseXML Document object from loaded SVG,
@@ -713,12 +736,12 @@
                 }
                 else {
                   // Cache it
-                  svgCache[fileName] = xmlDoc.documentElement;
+                  svgCache[fileUrl] = xmlDoc.documentElement;
                 }
               }
 
               // We've loaded a new asset, so process any requests waiting for it
-              processRequestQueue(fileName);
+              processRequestQueue(fileUrl);
             }
             else {
               onElementInjectedCallback('There was a problem injecting the SVG: ' + httpRequest.status + ' ' + httpRequest.statusText);
@@ -727,7 +750,7 @@
           }
         };
 
-        httpRequest.open('GET', fileName);
+        httpRequest.open('GET', fileUrl);
 
         // Treat and parse the response as XML, even if the
         // server sends us a different mimetype>
@@ -763,8 +786,8 @@
     };
 
 
-    onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el){
-      // console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el);
+    onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el, name){
+      // console.log('onLoadSVG', url, fragmentId, onElementInjectedCallback, el, name);
       var svg,
           imgId,
           titleId,
@@ -785,14 +808,18 @@
       // take care of accessibility
       svg.setAttribute('role', 'img');
       forEach.call(svg.children || [], function (curChildElem) { // IE does not support Children on SVGElement!
-        if (!(curChildElem instanceof SVGDefsElement)) {
+        if (
+          !(curChildElem instanceof SVGDefsElement) /*&&
+          !(curChildElem instanceof SVGTitleElement) &&
+          !(curChildElem instanceof SVGDescElement)*/
+        ) {
           curChildElem.setAttribute('role', 'presentation');
         }
       });
 
       // set desc + title
-      descId = setRootLevelElem('desc', svg, el, fragmentId);
-      titleId = setRootLevelElem('title', svg, el, fragmentId);
+      descId = setRootLevelElem('desc', svg, el, fragmentId, name);
+      titleId = setRootLevelElem('title', svg, el, fragmentId, name);
       svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
 
       // set aria-hidden attribute
@@ -832,7 +859,7 @@
       //
       // This addresses the issue of having multiple instances of the
       // same SVG on a page and only the first clipPath, gradient, mask or filter id is referenced.
-      suffixIdReferences(svg, injections.count);
+      suffixIdReferences(svg, injections.count, name);
 
 
       // Remove any unwanted/invalid namespaces that might have been added by SVG editing tools
@@ -885,7 +912,8 @@
       var styleTags = svg.querySelectorAll('style');
 
       forEach.call(styleTags, function (styleTag) {
-        var svgClassList = getClassList(svg);
+        var svgClassList = getClassList(svg),
+          stylesUntouched = true;
         if ((svgClassList.indexOf(config.removeStylesClass)>=0 || config.removeAllStyles) && (svgClassList.indexOf(config.keepStylesClass)<0) ) {
 
           // remove the styletag if the removeStylesClass is applied to the SVG
@@ -893,10 +921,17 @@
           styleTag.parentNode.removeChild(styleTag);
         }
         else {
-          if(config.prefixStyleTags){
-            doPrefixStyleTags(styleTag, injections.count, svg);
+
+          if (suffixIdReferencesInStyles(styleTag, injections.count, svg, name) > 0) {
+            stylesUntouched = false;
           }
-          else{
+
+          if (config.prefixStyleTags){
+            doPrefixStyleTags(styleTag, injections.count, svg, name);
+            stylesUntouched = false;
+          }
+
+          if (stylesUntouched) {
             // :WORKAROUND:
             // IE doesn't evaluate <style> tags in SVGs that are dynamically added to the page.
             // This trick will trigger IE to read and use any existing SVG <style> tags.
@@ -991,35 +1026,36 @@
 
     setRootLevelElem = function (type, svg, el, fragmentId) {
       var
-        titleId = fragmentId + '-' + type + '-' + injections.count,
-        titleCandidate
+        elemId = fragmentId ? fragmentId + '-' : '',
+        existingElem
       ;
+      elemId += type + '-' + injections.count;
 
-      titleCandidate = el.querySelector(type);
-      if (titleCandidate) {
-        addRootLevelElem(type, svg, titleCandidate.textContent, titleId, svg.firstChild);
+      existingElem = el.querySelector(type);
+      if (existingElem) { // element exists in the injection target
+        addRootLevelElem(type, svg, existingElem.textContent, elemId, svg.firstChild);
       } else {
-        titleCandidate = svg.querySelector(type);
-        if (titleCandidate) {
-          titleCandidate.setAttribute('id', titleId);
-        } else {
-          addRootLevelElem(type, svg, fragmentId, titleId, svg.firstChild);
+        existingElem = svg.querySelector(type);
+        if (existingElem) { // element exists in the svg to inject, only update its id
+          existingElem.setAttribute('id', elemId);
+        } else { // neither injection target nor the svg to inject contain this element -> create with default content
+          addRootLevelElem(type, svg, fragmentId, elemId, svg.firstChild);
         }
       }
-      return titleId;
+      return elemId;
     };
 
     addRootLevelElem = function (type, svg, text, id, insertBefore) {
       var newElem,
           existingElem = svg.querySelector(type);
 
-      if (existingElem) {
+      if (existingElem) { // remove
         existingElem.parentNode.removeChild(existingElem);
       }
 
       newElem = document.createElementNS(SVG_NS, type);
       newElem.appendChild(document.createTextNode(text));
-      newElem.setAttributeNS(SVG_NS,'id', id);
+      newElem.setAttribute('id', id);
 
       svg.insertBefore(newElem, insertBefore);
 
