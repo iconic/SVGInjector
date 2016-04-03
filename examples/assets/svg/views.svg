@@ -45,7 +45,7 @@
         }
 
         .cls-3 {
-          fill: url(#linear-gradient);
+          fill: url(#linear-gradient-1);
         }
 
         .cls-4 {
@@ -72,16 +72,16 @@
           fill: #1d1d1b;
         }
       </style>
-      <linearGradient id="linear-gradient" x1="3.059" y1="29.665" x2="38.519" y2="29.665" gradientTransform="matrix(1, 0, 0, -1, 0, 60)" gradientUnits="userSpaceOnUse">
+      <linearGradient id="linear-gradient-1" x1="3.059" y1="29.665" x2="38.519" y2="29.665" gradientTransform="matrix(1, 0, 0, -1, 0, 60)" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#fdb913"/>
         <stop offset="1" stop-color="#ffe293"/>
       </linearGradient>
-      <linearGradient id="linear-gradient-2" x1="24.275" y1="8.021" x2="33.905" y2="8.021" xlink:href="#linear-gradient"/>
+      <linearGradient id="linear-gradient-2" x1="24.275" y1="8.021" x2="33.905" y2="8.021" xlink:href="#linear-gradient-1"/>
       <linearGradient id="linear-gradient-3" x1="23.069" y1="8.021" x2="35.111" y2="8.021" gradientTransform="matrix(1, 0, 0, -1, 0, 60)" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#a61a32"/>
         <stop offset="1" stop-color="#d7182a"/>
       </linearGradient>
-      <linearGradient id="linear-gradient-4" x1="7.603" y1="8.021" x2="17.233" y2="8.021" xlink:href="#linear-gradient"/>
+      <linearGradient id="linear-gradient-4" x1="7.603" y1="8.021" x2="17.233" y2="8.021" xlink:href="#linear-gradient-1"/>
       <linearGradient id="linear-gradient-5" x1="6.397" y1="8.021" x2="18.439" y2="8.021" xlink:href="#linear-gradient-3"/>
     </defs>
     <title>Generic Logo</title>
