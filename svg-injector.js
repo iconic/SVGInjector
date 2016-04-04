@@ -819,7 +819,7 @@
 
 
       // set aria-hidden attribute
-      ariaHidden = el.getAttribute('aria-hidden');
+      ariaHidden = el.getAttribute('aria-hidden') || svg.getAttribute('aria-hidden');
 
       // set desc + title
       descId = setRootLevelElem('desc', svg, el, fragmentId, name, !ariaHidden);
