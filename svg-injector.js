@@ -145,23 +145,11 @@
             //
             // :NOTE: IE8 and older doesn't have DOMParser, but they can't do SVG either, so...
             else if (DOMParser && (DOMParser instanceof Function)) {
-              var xmlDoc;
-              try {
-                var parser = new DOMParser();
-                xmlDoc = parser.parseFromString(httpRequest.responseText, 'text/xml');
-              }
-              catch (e) {
-                xmlDoc = undefined;
-              }
-
-              if (!xmlDoc || xmlDoc.getElementsByTagName('parsererror').length) {
+              var parsedSvg = parseSvg(httpRequest.responseText);
+              if(parsedSvg)
+                svgCache[url] = parsedSvg;
+              else
                 callback('Unable to parse SVG file: ' + url);
-                return false;
-              }
-              else {
-                // Cache it
-                svgCache[url] = xmlDoc.documentElement;
-              }
             }
 
             // We've loaded a new asset, so process any requests waiting for it
@@ -183,6 +171,23 @@
       httpRequest.send();
     }
   };
+
+  // Returns SVGSVGElement or undefined
+  var parseSvg = function(svgString){
+    if (DOMParser && (DOMParser instanceof Function)) {
+      var xmlDoc;
+      try {
+        var parser = new DOMParser();
+        xmlDoc = parser.parseFromString(svgString, 'text/xml');
+      }
+      catch (e) {
+        return;
+      }
+
+      if (xmlDoc && !xmlDoc.getElementsByTagName('parsererror').length)
+        return xmlDoc;
+    }
+  }
 
   // Inject a single element
   var injectElement = function (el, evalScripts, pngFallback, callback) {
@@ -462,19 +467,26 @@
    * @param {url} url to insert in the cache
    * @param {svg} SVGDocument or SVGSVGElement
    * @param {png} optional data url cache for preloading pngs
+   * @return {bool} true if svg or png was loaded
    */
   SVGInjector.cacheSvg = function(url, svg, png){
     if (!!svg && hasSvgSupport){
+      if(svg instanceof String){
+        svg = parseSvg(svg);
+      }
+      if(svg instanceof Document){ 
+        svg = svg.firstChild;
+      } 
       if(svg instanceof SVGSVGElement){
         svgCache[url] = svg;
-      }
-      else if(svg instanceof Document) // handle SVGDocument
-      {
-          svgCache[url] = svg.firstChild;
+        return true;
       }
     }
-    // Warm cache, keep old values if params are undefined
-    pngCache[url] = png || pngCache[url];
+    if(!!png && !hasSvgSupport){
+      pngCache[url] = png;
+      return true;
+    }
+    return false;
   };
 
   /* global module, exports: true, define */
