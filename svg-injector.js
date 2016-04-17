@@ -201,7 +201,7 @@
     // either defined per-element via data-fallback or data-png,
     // or globally via the pngFallback directory setting
     if (!hasSvgSupport) {
-      var perElementFallback = el.getAttribute('data-fallback') || el.getAttribute('data-png') || pngCache[imgUrl];
+      var perElementFallback = pngCache[imgUrl] || el.getAttribute('data-fallback') || el.getAttribute('data-png');
 
       // Per-element specific PNG fallback defined, so use that
       if (perElementFallback) {
