@@ -12,7 +12,9 @@
 
   // Environment
   var isLocal = window.location.protocol === 'file:';
-  var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
+  // hasfeature deprecated: https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation/hasFeature
+  var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1')
+  || (document.createElementNS && !! document.createElementNS(SVG.ns,'svg').createSVGRect);
 
   function uniqueClasses(list) {
     list = list.split(' ');
@@ -53,6 +55,8 @@
 
   // SVG Cache
   var svgCache = {};
+  // PNG Cache
+  var pngCache = {};
 
   var injectCount = 0;
   var injectedElements = [];
@@ -141,23 +145,11 @@
             //
             // :NOTE: IE8 and older doesn't have DOMParser, but they can't do SVG either, so...
             else if (DOMParser && (DOMParser instanceof Function)) {
-              var xmlDoc;
-              try {
-                var parser = new DOMParser();
-                xmlDoc = parser.parseFromString(httpRequest.responseText, 'text/xml');
-              }
-              catch (e) {
-                xmlDoc = undefined;
-              }
-
-              if (!xmlDoc || xmlDoc.getElementsByTagName('parsererror').length) {
+              var parsedSvg = parseSvg(httpRequest.responseText);
+              if(parsedSvg)
+                svgCache[url] = parsedSvg;
+              else
                 callback('Unable to parse SVG file: ' + url);
-                return false;
-              }
-              else {
-                // Cache it
-                svgCache[url] = xmlDoc.documentElement;
-              }
             }
 
             // We've loaded a new asset, so process any requests waiting for it
@@ -180,14 +172,32 @@
     }
   };
 
+  // Returns SVGSVGElement or undefined
+  var parseSvg = function(svgString){
+    if (DOMParser && (DOMParser instanceof Function)) {
+      var xmlDoc;
+      try {
+        var parser = new DOMParser();
+        xmlDoc = parser.parseFromString(svgString, 'text/xml');
+      }
+      catch (e) {
+        return;
+      }
+
+      if (xmlDoc && !xmlDoc.getElementsByTagName('parsererror').length)
+        return xmlDoc;
+    }
+  }
+
   // Inject a single element
   var injectElement = function (el, evalScripts, pngFallback, callback) {
 
     // Grab the src or data-src attribute
     var imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
 
-    // We can only inject SVG
-    if (!(/\.svg/i).test(imgUrl)) {
+    // We can only load SVG, test for warm cache, and check 
+    // extension if not already loaded
+    if (!(svgCache[imgUrl] || (!hasSvgSupport && pngCache[imgUrl])) && !(/\.svg/i).test(imgUrl)) {
       callback('Attempted to inject a file with a non-svg extension: ' + imgUrl);
       return;
     }
@@ -196,14 +206,14 @@
     // either defined per-element via data-fallback or data-png,
     // or globally via the pngFallback directory setting
     if (!hasSvgSupport) {
-      var perElementFallback = el.getAttribute('data-fallback') || el.getAttribute('data-png');
+      var perElementFallback = el.getAttribute('data-fallback') || el.getAttribute('data-png') || pngCache[imgUrl];
 
       // Per-element specific PNG fallback defined, so use that
       if (perElementFallback) {
         el.setAttribute('src', perElementFallback);
         callback(null);
       }
-      // Global PNG fallback directoriy defined, use the same-named PNG
+      // Global PNG fallback directory defined, use the same-named PNG
       else if (pngFallback) {
         el.setAttribute('src', pngFallback + '/' + imgUrl.split('/').pop().replace('.svg', '.png'));
         callback(null);
@@ -442,6 +452,41 @@
         if (done) done(0);
       }
     }
+  };
+
+  /**
+   * cacheSvg
+   *
+   * Warm up the svg cache with any externally loaded svgs. Does not validate objects.
+   *
+   * :NOTE: We are using get/setAttribute with SVG because the SVG DOM spec differs from HTML DOM and
+   * can return other unexpected object types when trying to directly access svg properties.
+   * ex: "className" returns a SVGAnimatedString with the class value found in the "baseVal" property,
+   * instead of simple string like with HTML Elements.
+   *
+   * @param {url} url to insert in the cache
+   * @param {svg} SVGDocument or SVGSVGElement
+   * @param {png} optional data url cache for preloading pngs
+   * @return {bool} true if svg or png was loaded
+   */
+  SVGInjector.cacheSvg = function(url, svg, png){
+    if (!!svg && hasSvgSupport){
+      if(svg instanceof String){
+        svg = parseSvg(svg);
+      }
+      if(svg instanceof Document){ 
+        svg = svg.firstChild;
+      } 
+      if(svg instanceof SVGSVGElement){
+        svgCache[url] = svg;
+        return true;
+      }
+    }
+    if(!!png && !hasSvgSupport){
+      pngCache[url] = png;
+      return true;
+    }
+    return false;
   };
 
   /* global module, exports: true, define */

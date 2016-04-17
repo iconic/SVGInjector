@@ -114,6 +114,28 @@ A single DOM element or array of elements, with `src` or `data-src` attributes d
 
 A function to call once all the requested SVG elements have been injected. Receives a count of the total SVGs injected as a parameter.
 
+### Pre-load Cache
+
+You can warm the svg cache used by SVGInjector with pre-loaded resources
+```js
+SVGInjector.cacheSvg(url, svg, png);
+```
+#### `url` - String
+
+Cache key, corresponds to the value data-url or url on element you want to inject.
+
+#### `svg` - SVGSVGElement or Document or String
+
+Svg to load into cache. If a string is provided, DOMParser will attempt to parse to svg. If svg is not supported in browser this argument is ignored.
+
+#### `png` - url for png fallback
+
+Png to load as a fallback. This can be overriden by the per-element configuration.
+
+#### `returns` - bool
+
+true if svg was cached.
+
 ### Full Example
 
 ```html
