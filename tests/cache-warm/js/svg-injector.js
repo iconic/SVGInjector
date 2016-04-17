@@ -12,9 +12,7 @@
 
   // Environment
   var isLocal = window.location.protocol === 'file:';
-  // hasfeature deprecated: https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation/hasFeature
-  var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1')
-  || (document.createElementNS && !! document.createElementNS(SVG.ns,'svg').createSVGRect);
+  var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
 
   function uniqueClasses(list) {
     list = list.split(' ');
@@ -190,9 +188,8 @@
     // Grab the src or data-src attribute
     var imgUrl = el.getAttribute('data-src') || el.getAttribute('src');
 
-    // We can only load SVG, test for warm cache, and check 
-    // extension if not already loaded
-    if (!(svgCache[imgUrl] || (!hasSvgSupport && pngCache[imgUrl])) && !(/\.svg/i).test(imgUrl)) {
+    // We can only inject SVG
+    if (!(/\.svg/i).test(imgUrl)) {
       callback('Attempted to inject a file with a non-svg extension: ' + imgUrl);
       return;
     }
