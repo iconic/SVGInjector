@@ -305,6 +305,7 @@
 
           // All of the properties that can reference this element type
           var referencingElements;
+          /* jshint loopfunc: true */
           forEach.call(properties, function (property) {
             // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
             referencingElements = svg.querySelectorAll('[' + property + '*="' + currentId + '"]');
@@ -312,6 +313,7 @@
               referencingElements[j].setAttribute(property, 'url(#' + newId + ')');
             }
           });
+          /* jshint loopfunc: true */
 
           elementDefs[i].id = newId;
         }
@@ -448,7 +450,6 @@
       }
     }
   };
-
   /* global module, exports: true, define */
   // Node.js or CommonJS
   if (typeof module === 'object' && typeof module.exports === 'object') {
