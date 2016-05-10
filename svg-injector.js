@@ -373,6 +373,11 @@
         styleTag.textContent += '';
       });
 
+      // Fix for browser (IE, maybe other too) which are throwing 'WrongDocumentError'
+      // if you replace an element which is not in the document
+      if (document.importNode) {
+        svg = document.importNode('svg', true);
+      }
       // Replace the image with the svg
       el.parentNode.replaceChild(svg, el);
 
