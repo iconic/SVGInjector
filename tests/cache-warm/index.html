@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVGInjector Test: CORS</title>
+    <style>
+      .thumb-icon {
+        width:64px;
+        height:64px;
+        display: block;
+        margin: 100px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Svg Supported: <span id="svg-loaded"></span><div>
+    <div><span>Bad svg extension should throw: </span><span id='throw-result'>Failed</span><div>
+    <div><span>cacheSvg returns true when warmed: </span><span id='warm-result'>Failed</span><div>
+    <div><span>cacheSvg returns false when not warmed: </span><span id='cold-result'>Failed</span><div>
+    <img id="thumb-up1" class="inject-me thumb-icon" data-src="acachekey" title="I like it!" alt="thumb up">
+    <img id="thumb-up2" class="inject-me thumb-icon" data-src="acachekey.svg" title="I like it!" alt="thumb up">
+    <img id="thumb-up3" class="inject-me thumb-icon" data-src="badextensioncheck" title="I like it!" alt="thumb up">
+    <script src="js/svg-injector.min.js"></script>
+    <script>
+      var svg;
+      try {
+        svg = new DOMParser().parseFromString('<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">  <path d="M4.47 0c-.19.02-.37.15-.47.34-.13.26-1.09 2.19-1.28 2.38-.19.19-.44.28-.72.28v4h3.5c.21 0 .39-.13.47-.31 0 0 1.03-2.91 1.03-3.19 0-.28-.22-.5-.5-.5h-1.5c-.28 0-.5-.25-.5-.5s.39-1.58.47-1.84c.08-.26-.05-.54-.31-.63-.07-.02-.12-.04-.19-.03zm-4.47 3v4h1v-4h-1z"/></svg>', 'image/svg+xml');
+      } catch (ex) {}
+      var png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABCSURBVBiVY2BABXIMDAwXkQWY0BQ0MTAwvGfAASwZGBj+MDAwzEaX+I9EI+NH2KxABqcIKViLz4oPDAwMfHg0IwAARZMQhfyKxW8AAAAASUVORK5CYII=';
+      // Display svg support
+      document.getElementById('svg-loaded').innerHTML = !!svg;
+
+      // Test a bad extension cache load (should work)
+      document.getElementById('warm-result').innerHTML = SVGInjector.cacheSvg('acachekey', svg, png) ? 'Passed' : 'Failed';
+      // Test a good extension cache load (should use cache)
+      SVGInjector.cacheSvg('acachekey.svg', svg, png);
+
+      document.getElementById('cold-result').innerHTML = SVGInjector.cacheSvg('failtowarm', "notansvg", null) ? 'Failed' : 'Passed';
+      SVGInjector(document.querySelectorAll('img.inject-me'), {
+        each: function (injectedSvg) {
+
+          // Callback after each SVG is injected
+          if (svg && injectedSvg instanceof SVGSVGElement) {
+            injectedSvg.setAttribute('style', 'fill:plum');
+          } else if (!!injectedSvg) {
+            // Make sure non-precached svgs still require an extension
+            if(injectedSvg.indexOf('badextensioncheck') !== -1){
+              document.getElementById('throw-result').innerHTML = 'Passed';
+            }
+          } 
+        }
+      }, function (totalSVGsInjected) {
+        document.getElementById('thumb-up3').style.display = 'none';
+        // Callback after all SVGs are injected
+        console.log('[CORS] We injected ' + totalSVGsInjected + ' SVG(s)!');
+      });
+
+    </script>
+  </body>
+</html>
