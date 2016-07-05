@@ -471,7 +471,7 @@
    */
   SVGInjector.cacheSvg = function(url, svg, png){
     if (!!svg && hasSvgSupport){
-      if(svg instanceof String){
+      if(typeof svg === 'string' || svg instanceof String){
         svg = parseSvg(svg);
       }
       if(svg instanceof Document){ 
