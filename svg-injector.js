@@ -17,13 +17,12 @@
   function uniqueClasses(list) {
     list = list.split(' ');
 
-    var hasOwn = Object.prototype.hasOwnProperty;
     var hash = {};
     var i = list.length;
     var out = [];
 
     while (i--) {
-      if (!hasOwn.call(hash, list[i])) {
+      if (!hash.hasOwnProperty(list[i])) {
         hash[list[i]] = 1;
         out.unshift(list[i]);
       }
