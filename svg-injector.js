@@ -147,7 +147,6 @@
                 xmlDoc = parser.parseFromString(httpRequest.responseText, 'text/xml');
               }
               catch (e) {
-                xmlDoc = undefined;
               }
 
               if (!xmlDoc || xmlDoc.getElementsByTagName('parsererror').length) {
