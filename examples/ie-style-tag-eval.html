@@ -18,20 +18,10 @@
 
     <img id="style-test-svg" src="style-tag-test.svg" class="inject-me">
 
-    <script src="js/svg-injector.min.js"></script>
+    <script src="../dist/svg-injector.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function (event) {
-        SVGInjector(document.querySelectorAll('img.inject-me'), {
-          each: function (svg) {
-            // Callback after each SVG is injected
-            if (svg) {
-              console.log('[IE Style Tag Use] SVG injected: ' + svg.getAttribute('id'));
-            }
-          }
-        }, function (totalSVGsInjected) {
-          // Callback after all SVGs are injected
-          console.log('IE Style Tag Use] We injected ' + totalSVGsInjected + ' SVG(s)!');
-        });
+        new SVGInjector().inject(document.querySelectorAll('img.inject-me'));
       });
     </script>
   </body>

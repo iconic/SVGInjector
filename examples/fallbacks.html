@@ -30,15 +30,13 @@
     <img class="thumb-icon thumb-default inject-me" data-src="assets/svg/thumb-up.svg" data-fallback="assets/png/thumb-up-default.png" title="Like it" alt="thumb">
     <img class="thumb-icon thumb-green inject-me" data-src="assets/svg/thumb-up.svg" data-fallback="assets/png/thumb-up-green.png" title="Liked!" alt="thumb">
 
-    <script src="../../dist/svg-injector.min.js"></script>
+    <script src="../dist/svg-injector.min.js"></script>
     <script>
       // Elements to inject
       var mySVGsToInject = document.querySelectorAll('img.inject-me');
 
       // Trigger the injection
-      SVGInjector(mySVGsToInject, {
-        pngFallback: 'assets/png'
-      });
+      new SVGInjector().inject(mySVGsToInject);
     </script>
   </body>
 </html>
