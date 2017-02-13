@@ -1,11 +1,11 @@
 SVGInjector
 =========
 
-A fast, caching, dynamic inline SVG DOM injection library. Originally developed by [Waybury](http://waybury.com/) for use in [iconic.js](https://useiconic.com/tools/iconic-js/), part of the [Iconic](https://useiconic.com/) icon system. 
+A fast, caching, dynamic inline SVG DOM injection library. Originally developed by [Waybury](http://waybury.com/) for use in [iconic.js](https://useiconic.com/tools/iconic-js/), part of the [Iconic](https://useiconic.com/) icon system.
 Extended by Flobacher to be able to use with spritesheets and in AngularJS Aoolications
 
 ## Why?
-There are a number of ways to use SVG on a page (`object`, `embed`, `iframe`, `img`, CSS `background-image`) but to unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the full SVG markup must be included directly in the DOM. 
+There are a number of ways to use SVG on a page (`object`, `embed`, `iframe`, `img`, CSS `background-image`) but to unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the full SVG markup must be included directly in the DOM.
 
 Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's idea of good time, so **SVGInjector** lets you work with simple `img` tag elements (or other tag of your choosing) and does the heavy lifting of swapping in the SVG markup inline for you.
 
@@ -25,8 +25,8 @@ Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's ide
   * [CommonJS](http://commonjs.org/) via `module.exports` for use with [Browserify](http://browserify.org/) or [Node](http://nodejs.org/)/[PhantomJS](http://phantomjs.org/)
   * [AMD API](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) usage with [RequireJS](http://requirejs.org/)
   * Plain ol' JavaScript via creation of a global function
-  * AngularJS 
-  
+  * AngularJS
+
 ### npm
 
     npm install svg-injector-2
@@ -34,7 +34,7 @@ Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's ide
 ### Bower
 
     bower install svg-injector-2
-    
+
 ### Manually
 
 Download the [dist/svg-injector.min.js](https://github.com/iconic/SVGInjector/blob/master/dist/svg-injector.min.js) file from this repository and add it to your project.
@@ -50,7 +50,7 @@ Include the **SVGInjector** script on your page.
 <script src="svg-injector.min.js"></script>
 ```
 
-Add some SVG `img` tags.
+Add some SVG `svg` tags.
 
 ```html
 <svg class="inject-me" src="image-one.svg">
@@ -65,11 +65,11 @@ Inject 'em.
   var mySVGsToInject = document.querySelectorAll('img.inject-me');
 
   // Do the injection
-  SVGInjector(mySVGsToInject);
+  new SVGInjector().inject(mySVGsToInject);
 </script>
 ```
 
-The `img` tags have now been replaced with the full SVG markup.
+The `svg` tags have now been replaced with the full SVG markup.
 
 
 ### Configuration
@@ -77,7 +77,7 @@ The `img` tags have now been replaced with the full SVG markup.
 In addition to passing elements to inject, an options object and callback function can optionally be defined.
 
 ```js
-SVGInjector(elements, options, callback);
+new SVGInjector(options).inject(elements, afterAllInjectionsFinishedCallback, perInjectionCallback);
 ```
 
 #### `elements`
@@ -89,8 +89,7 @@ A single DOM element or array of elements, with `src` or `data-src` attributes d
 ```js
 {
   evalScripts: [always|once|never],
-  pngFallback: [PNG directory],
-  each: [function]
+  pngFallback: [PNG directory]
 }
 ```
 
@@ -130,18 +129,21 @@ var mySVGsToInject = document.querySelectorAll('svg.inject-me');
 // Options
 var injectorOptions = {
   evalScripts: 'once',
-  pngFallback: 'assets/png',
-  each: function (svg) {
-    // Callback after each SVG is injected
-    console.log('SVG injected: ' + svg.getAttribute('id'));
-  }
+  pngFallback: 'assets/png'
 };
 
 // Trigger the injection
-SVGInjector(mySVGsToInject, injectorOptions, function (totalSVGsInjected) {
-  // Callback after all SVGs are injected
-  console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
-});
+new SVGInjector(injectorOptions).inject(
+  mySVGsToInject,
+  function (totalSVGsInjected) {
+    // Callback after all SVGs are injected
+    console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
+  },
+  function (svg) {
+    // Callback after each SVG is injected
+    console.log('SVG injected: ' + svg.getAttribute('id'));
+  }
+);
 ```
 
 ### Per-element PNG fallback
@@ -168,12 +170,12 @@ ids (it is possible to create a fallback-png spritesheet for those). The injecto
 via comparing its viewbox to that of the view. If no png fallback is needed, the first approach is the most
 prefereable. If using nodejs build-tools like gulp or grunt, take a look at [svg-sprite](https://github.com/jkphl/svg-sprite).
 See [examples/spritesheet](https://github.com/iconic/SVGInjector/tree/master/examples/spritesheet) for more details.
-  
+
 #### Classbased fragment ids
 
-When using spritesheets, having to type the same data-src=urltospritesheet.svg#fragmentid can become cumbersome. 
-Thats why there is a config options that allows to set a default url to a spritesheet. The fragment id can then be provided via 
-a simple class. 
+When using spritesheets, having to type the same data-src=urltospritesheet.svg#fragmentid can become cumbersome.
+Thats why there is a config options that allows to set a default url to a spritesheet. The fragment id can then be provided via
+a simple class.
 See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examples/spritesheet-classbased) for more details.
 
 
@@ -183,7 +185,7 @@ SVGInjector is also available as configurable Service / Directive combination.
  See [examples/angular-spritesheet](https://github.com/iconic/SVGInjector/tree/master/examples/angular-spritesheet) for more details.
 
 #### Performance tip
-add 
+add
 ```html
 <link rel="prefetch" href="(pathToSpritesheet)"/>
 ```
@@ -192,7 +194,7 @@ to let the browser download the file, even before it was requested via xhr
 ### Accessibility
 `role="img"` and `aria-labelledby` gets added to the root svg element. `aria-labelledby` points to the id of the `desc` and `title` tags inside the injected svg.
 The contents of those tags comes from corresponding tags inside the element which is the injection target, if not found there, they are taken from the svg-instance that gets
-injected, and if missing there as well defaults to the fragmentid or filename of the injectable. `role="presentation"` gets added to all elements 
+injected, and if missing there as well defaults to the fragmentid or filename of the injectable. `role="presentation"` gets added to all elements
 in all proper browsers (so no IE).
 
 
