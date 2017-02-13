@@ -10,44 +10,39 @@
   <body>
 
     <!-- reference symbols -->
-    <svg data-src="./img/symbols-n-views.svg#circle-symbol" />
-    <svg data-src="./img/symbols-n-views.svg#square-symbol" />
-    <svg data-src="./img/symbols-n-views.svg#triangle-symbol" />
-    <svg data-src="./img/symbols-n-views.svg#circlestyled-symbol" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#circle-symbol" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#square-symbol" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#triangle-symbol" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#circlestyled-symbol" />
 
     <!-- reference views -->
-    <svg data-src="./img/symbols-n-views.svg#circle-view" />
-    <svg data-src="./img/symbols-n-views.svg#square-view" />
-    <svg data-src="./img/symbols-n-views.svg#triangle-view" />
-    <svg data-src="./img/symbols-n-views.svg#circlestyled-view" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#circle-view" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#square-view" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#triangle-view" />
+    <svg data-src="./assets/svg/symbols-n-views.svg#circlestyled-view" />
 
     <!-- svg without symbols or views -->
-    <svg data-src="./img/circle.svg" />
+    <svg data-src="./assets/svg/circle.svg" />
 
     <!-- reference fragments via views - generated with grunt-svg-sprite -->
-    <svg data-src="./img/views.svg#circle" />
-    <svg data-src="./img/views.svg#square" />
-    <svg data-src="./img/views.svg#triangle" />
+    <svg data-src="./assets/svg/views.svg#circle" />
+    <svg data-src="./assets/svg/views.svg#square" />
+    <svg data-src="./assets/svg/views.svg#triangle" />
 
-    <!--<script src="../../dist/svg-injector.min.js"></script>-->
-    <script src="../../svg-injector.js"></script>
+
+    <script src="../dist/svg-injector.min.js"></script>
     <script>
-      (function(global, doc){
+      (function(window, document){
           // Options
           var injectorOptions = {
               evalScripts: 'once',
               pngFallback: '.',
               removeStylesClass: 'icon',
-              each: function(svg){
-                  if (svg){
-                      //console.log('injected: ', svg);
-                  }
-              }
           };
 
           // Do the injection
-          global.SVGInjector(doc.querySelectorAll('svg[data-src]'), injectorOptions);
-      })(window, document);
+          new SVGInjector(injectorOptions).inject(document.querySelectorAll('svg[data-src]'));
+      }(window, document));
     </script>
   </body>
 </html>

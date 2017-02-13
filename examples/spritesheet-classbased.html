@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SVGInjector Example: SVG Sprites</title>
+    <style>
+      .external-styling {
+        color: #666;
+      }
+      .external-styling .green {
+        color: #0f0;
+      }
+      .external-styling .icon--styled {
+        color: #900;
+        stroke: #f00;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <section>
+      <!-- single svg -->
+      <svg data-src="./assets/svg/circle.svg" />
+    </section>
+    <section>
+
+      <!-- reference fragments via views - generated with grunt-svg-sprite -->
+      <svg class="sprite--logo-gradients" />
+      <svg class="sprite--triangle" />
+    </section>
+
+    <section class="external-styling">
+      <p class="green">
+        <svg class="sprite--triangle icon" />
+      </p>
+      <svg class="sprite--triangle icon icon--styled" />
+    </section>
+
+    <script src="../dist/svg-injector.min.js"></script>
+    <script>
+      (function(window, document){
+          // Options
+          var injectorOptions = {
+              evalScripts: 'once',
+              pngFallback: '.',
+              spritesheetURL: './assets/svg/views.svg'
+          };
+
+          // Do the injection
+          var injector = new SVGInjector(injectorOptions);
+
+          // inject single svg
+          injector.inject(document.querySelectorAll('svg[data-src]'));
+
+          // inject svgs from spritesheets
+          injector.inject(document.querySelectorAll('svg[class^=sprite-]'));
+
+      })(window, document);
+    </script>
+  </body>
+</html>

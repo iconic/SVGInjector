@@ -158,7 +158,31 @@ See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examp
 
 ```
 
-### Performance tip
+### Spritesheets
+
+To save http requests, you can combine your svgs to a spritesheet, where every single svg is represented
+as a `<symbol>` or an `<svg>`. To inject the symbol with the id `thumb-up` from a spritesheet, on the element where you want
+the injection to happen write :  `data-src = "url-to-spritesheet.svg#thumb-up"`.
+Besides spritesheets consisting of symbols, you can also use Spritesheets that specify `<view>` elements with
+ids (it is possible to create a fallback-png spritesheet for those). The injector will try to find the symbol/svg element
+via comparing its viewbox to that of the view. If no png fallback is needed, the first approach is the most
+prefereable. If using nodejs build-tools like gulp or grunt, take a look at [svg-sprite](https://github.com/jkphl/svg-sprite).
+See [examples/spritesheet](https://github.com/iconic/SVGInjector/tree/master/examples/spritesheet) for more details.
+  
+#### Classbased fragment ids
+
+When using spritesheets, having to type the same data-src=urltospritesheet.svg#fragmentid can become cumbersome. 
+Thats why there is a config options that allows to set a default url to a spritesheet. The fragment id can then be provided via 
+a simple class. 
+See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examples/spritesheet-classbased) for more details.
+
+
+### AngularJS
+
+SVGInjector is also available as configurable Service / Directive combination.
+ See [examples/angular-spritesheet](https://github.com/iconic/SVGInjector/tree/master/examples/angular-spritesheet) for more details.
+
+#### Performance tip
 add 
 ```html
 <link rel="prefetch" href="(pathToSpritesheet)"/>

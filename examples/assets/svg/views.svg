@@ -32,10 +32,12 @@
   </svg>
 
 
-  <view id="logo-gradients" viewBox="542 326.375 84 58"/>
-  <svg x="542" y="326.375" width="84" height="58" viewBox="0 0 84 58" class="sprite--logo-gradients">
+  <view id="logo-gradients"                       viewBox="542 326.375 84 58"/>
+  <svg class="logo-gradients" width="84" height="58" viewBox="0 0 84 58" x="542" y="326.375">
+    <title>Generic Logo</title>
+    <desc>Generic Logo that contains gradients</desc>
     <defs>
-      <style>
+      <style type="text/css">
         .cls-1 {
           fill: #a61a32;
         }
@@ -84,8 +86,6 @@
       <linearGradient id="linear-gradient-4" x1="7.603" y1="8.021" x2="17.233" y2="8.021" xlink:href="#linear-gradient-1"/>
       <linearGradient id="linear-gradient-5" x1="6.397" y1="8.021" x2="18.439" y2="8.021" xlink:href="#linear-gradient-3"/>
     </defs>
-    <title>Generic Logo</title>
-    <desc>Generic Logo that contains gradients</desc>
     <g id="handlerear">
       <polygon class="cls-1" points="12.795 2.604 12.795 2.472 12.899 2.392 14.606 1.072 10.97 1.072 7.603 3.676 7.603 13.94 10.97 13.94 10.97 4.439 12.795 4.439 12.795 2.604"/>
       <polygon class="cls-1" points="16.698 3.635 16.698 4.439 19.687 4.439 19.687 13.94 23.055 13.94 23.055 3.676 23.002 3.635 16.698 3.635"/>

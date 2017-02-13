@@ -3,25 +3,24 @@
   <head>
     <title>SVGInjector Example: Simple</title>
     <style>
-      #thumb-icon {
+      .icon--thumb {
         width:64px;
         height:64px;
         display: block;
         margin: 100px auto;
+        color: red;
       }
     </style>
   </head>
   <body>
 
-    <img id="thumb-icon" class="inject-me" src="thumb-up.svg" title="I like it!" alt="thumb">
+    <svg class="icon icon--thumb" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
 
     <script src="../../dist/svg-injector.min.js"></script>
     <script>
-      // Elements to inject
-      var mySVGsToInject = document.querySelectorAll('img.inject-me');
 
       // Do the injection
-      SVGInjector(mySVGsToInject);
+      new SVGInjector().inject(document.querySelectorAll('.icon'));
     </script>
 
   </body>

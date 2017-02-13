@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SVGInjector Example: All The Things</title>
     <style>
-      #thumb-icon {
+      .icon--thumb {
         width:64px;
         height:64px;
         display: block;
         margin: 100px auto;
+        color: green;
       }
     </style>
   </head>
   <body>
 
-    <svg id="thumb-icon" class="inject-me" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb"></svg>
+    <svg class="inject-me icon icon--thumb" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb"></svg>
 
     <script src="../dist/svg-injector.min.js"></script>
     <script>
@@ -24,23 +25,26 @@
       if (!window.console){ console = {log: function() {}}; };
 
       // Elements to inject
-      var mySVGsToInject = document.querySelectorAll('img.inject-me');
+      var mySVGsToInject = document.querySelectorAll('.inject-me');
 
       // Options
       var injectorOptions = {
         evalScripts: 'once',
-        pngFallback: 'assets/png',
-        each: function (svg) {
-          // Callback after each SVG is injected
-          if (svg) console.log('SVG injected: ' + svg.getAttribute('id'));
-        }
+        pngFallback: 'assets/png'
       };
 
       // Trigger the injection
-      SVGInjector(mySVGsToInject, injectorOptions, function (totalSVGsInjected) {
-        // Callback after all SVGs are injected
-        console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
-      });
+      new SVGInjector(injectorOptions).inject(
+        mySVGsToInject,
+        function (totalSVGsInjected) {
+          // Callback after all SVGs are injected
+          console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
+        },
+        function (svg) {
+          // Callback after each SVG is injected
+          if (svg) console.log('SVG injected: ' + svg.getAttribute('id'));
+        }
+      );
     </script>
   </body>
 </html>

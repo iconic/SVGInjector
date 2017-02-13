@@ -25,16 +25,14 @@
    */
   var SVGInjector = (function () {
 
+
     /**
      * Constructor Function
      * @param {object} options
      */
     function SVGInjector (options) {
       SVGInjector.instanceCounter++;
-      if(typeof options !== 'undefined') {
-        this.init(options);
-      }
-
+      this.init(options);
     }
 
     // - private constants -----------------------------------------
@@ -800,11 +798,6 @@
         return false;
       }
 
-      imgId = el.getAttribute('id');
-      if (imgId) {
-        svg.setAttribute('id', imgId);
-      }
-
       // take care of accessibility
       svg.setAttribute('role', 'img');
       forEach.call(svg.children || [], function (curChildElem) { // IE does not support Children on SVGElement!
@@ -830,32 +823,13 @@
         svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
       }
 
+      // copy attributes of original element to new svg excluding class
+      copyAttributes(el, svg, ['class']);
+
 
       // Concat the SVG classes + 'injected-svg' + the img classes
       var classMerge = [].concat(svg.getAttribute('class') || [], 'injected-svg', el.getAttribute('class') || []).join(' ');
       svg.setAttribute('class', uniqueClasses(classMerge));
-
-      var imgStyle = el.getAttribute('style');
-      if (imgStyle) {
-        svg.setAttribute('style', imgStyle);
-      }
-
-      // Copy all the data elements to the svg
-      var imgData = [].filter.call(el.attributes, function (at) {
-        return (/^data-\w[\w\-]*$/).test(at.name);
-      });
-      forEach.call(imgData, function (dataAttr) {
-        if (dataAttr.name && dataAttr.value) {
-          svg.setAttribute(dataAttr.name, dataAttr.value);
-        }
-      });
-
-      // Copy preserveAspectRatio of elem if exists
-      var presARAttr = el.getAttribute('preserveAspectRatio');
-      if(presARAttr){
-        svg.setAttribute('preserveAspectRatio', presARAttr);
-      }
-
 
       // Make sure any internally referenced ids and their
       // references are unique.

@@ -14,7 +14,7 @@
       "email": "flo@digital-fuse.net"
     }
   ],
-  "main": "svg-injector.js",
+  "main": "src/svg-injector.js",
   "homepage": "https://github.com/flobacher/SVGInjector2",
   "repository": {
     "type": "git",
@@ -31,18 +31,24 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.18.6",
+    "github-changes": "^1.0.2",
     "jshint": "^2.5.0",
+    "parallelshell": "^2.0.0",
     "uglify-js": "^2.4.13",
-    "github-changes": "^1.0.2"
+    "watch": "^1.0.1"
   },
   "scripts": {
     "test": "jshint svg-injector.js",
-    "build": "uglifyjs ./svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
+    "build": "uglifyjs ./src/svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./dist/svg-injector.min.js --source-map ./dist/svg-injector.map.js --source-map-include-sources",
+    "build:watch": "watch 'npm run build' ./src",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
     "add": "git add ./dist/ && git add CHANGELOG.md",
     "version": "npm run changelog & npm run test && npm run build && npm run add",
     "release": "npm version patch",
-    "prepublish": "git push && git push --tags",
-    "start": "static-server"
+    "prepush": "git push && git push --tags",
+    "push": "npm run publish",
+    "start": "parallelshell 'npm run browser-sync' 'npm run build:watch'",
+    "browser-sync": "browser-sync start -s . -f ./dist/*.js --index --directory --startPath ./examples/index.html"
   }
 }
