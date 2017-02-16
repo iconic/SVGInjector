@@ -169,7 +169,7 @@ Besides spritesheets consisting of symbols, you can also use Spritesheets that s
 ids (it is possible to create a fallback-png spritesheet for those). The injector will try to find the symbol/svg element
 via comparing its viewbox to that of the view. If no png fallback is needed, the first approach is the most
 prefereable. If using nodejs build-tools like gulp or grunt, take a look at [svg-sprite](https://github.com/jkphl/svg-sprite).
-See [examples/spritesheet](https://github.com/iconic/SVGInjector/tree/master/examples/spritesheet) for more details.
+See [examples/spritesheet](https://github.com/flobacher/SVGInjector2/blob/master/examples/angular-spritesheet.html) for more details.
 
 #### Classbased fragment ids
 
