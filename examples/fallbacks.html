@@ -36,7 +36,7 @@
       var mySVGsToInject = document.querySelectorAll('img.inject-me');
 
       // Trigger the injection
-      new SVGInjector().inject(mySVGsToInject);
+      new SVGInjector({forceFallbacks: true, pngFallback: 'assets/png'}).inject(mySVGsToInject);
     </script>
   </body>
 </html>

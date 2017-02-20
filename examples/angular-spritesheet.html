@@ -28,13 +28,13 @@
     <svg data-src="assets/svg/views.svg#circle" />
     <svg data-src="assets/svg/views.svg#square" />
     <svg data-src="assets/svg/views.svg#triangle" />
+    <svg data-src="assets/svg/views.svg#logo-gradients" />
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular.min.js"></script>
-    <!--<script src="../dist/svg-injector.min.js"></script>-->
-    <script src="../dist/svg-injector.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+    <script src="../dist/svg-injector.min.js"></script>
     <script>
-      (function(global, doc){
+      (function(window, document, angular){
 
 
         var injectorOptions = {
@@ -52,18 +52,11 @@
             svgInjectorOptionsProvider.set(injectorOptions);
           }])
           .run(['$rootScope', function ($rootScope) {
-            /*
-             angular.element.prototype.find = function(selector) {
-             return this[0].querySelectorAll(selector);
-             };
-             */
-
             $rootScope.arrowSpriteName = 'arrow-down-circular';
           }])
         ;
 
-
-      })(window, document);
+      }(window, document, angular));
     </script>
   </body>
 </html>

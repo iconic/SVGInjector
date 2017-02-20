@@ -23,9 +23,9 @@
       <!-- single svg -->
       <svg data-src="./assets/svg/circle.svg" />
     </section>
-    <section>
 
-      <!-- reference fragments via views - generated with grunt-svg-sprite -->
+    <section>
+      <!-- inject from spriteeet -->
       <svg class="sprite--logo-gradients" />
       <svg class="sprite--triangle" />
     </section>
@@ -43,11 +43,11 @@
           // Options
           var injectorOptions = {
               evalScripts: 'once',
-              pngFallback: '.',
+              // reference fragments via views - generated with grunt-svg-sprite
               spritesheetURL: './assets/svg/views.svg'
           };
 
-          // Do the injection
+          // Setup the injector
           var injector = new SVGInjector(injectorOptions);
 
           // inject single svg

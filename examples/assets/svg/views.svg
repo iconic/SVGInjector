@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 100 358" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <view id="circle"                            viewBox="0 0 100 100" />
   <svg class="circle" width="100" height="100" viewBox="0 0 100 100">
@@ -32,8 +32,8 @@
   </svg>
 
 
-  <view id="logo-gradients"                       viewBox="542 326.375 84 58"/>
-  <svg class="logo-gradients" width="84" height="58" viewBox="0 0 84 58" x="542" y="326.375">
+  <view id="logo-gradients"                       viewBox="0 300 84 58"/>
+  <svg class="logo-gradients" width="84" height="58" viewBox="0 0 84 58" y="300">
     <title>Generic Logo</title>
     <desc>Generic Logo that contains gradients</desc>
     <defs>
