@@ -47,7 +47,7 @@
     "version": "npm run changelog & npm run test && npm run build && npm run add",
     "release": "npm version patch",
     "prepush": "git push && git push --tags",
-    "push": "npm run publish",
+    "push": "npm publish",
     "start": "parallelshell \"npm run browser-sync\" \"npm run watch\"",
     "browser-sync": "browser-sync start -s . -f ./dist/*.js --index --directory --startPath ./examples/index.html"
   }
