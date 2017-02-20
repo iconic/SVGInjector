@@ -252,26 +252,27 @@
         // Global PNG fallback directory defined, use the same-named PNG
         else if (config.pngFallback) {
 
-          if (imgUrlSplitByFId.length > 1) {
+          if (imgUrlSplitByFId.length > 1 && imgUrlSplitByFId[1]) {
             fallbackUrl = imgUrlSplitByFId[1] + '.png';
+            if (isArray(config.fallbackClassName)) {
+              setFallbackClassNames(el, imgUrlSplitByFId[1], config.fallbackClassName);
+            }
+            else if (isFunction(config.fallbackClassName)) {
+              // console.info('custom function to create fallbackClassName');
+              config.fallbackClassName(el, imgUrlSplitByFId[1]);
+            }
+            else if (typeof config.fallbackClassName === 'string') {
+              svgElemSetClassName(el, config.fallbackClassName);
+            }
+            else {
+              el.setAttribute('src', config.pngFallback + '/' + fallbackUrl);
+            }
           }
           else {
             fallbackUrl = imgUrl.split('/').pop().replace('.svg', '.png');
-          }
-
-          if (isArray(config.fallbackClassName)) {
-            setFallbackClassNames(el, imgUrlSplitByFId[1], config.fallbackClassName);
-          }
-          else if (isFunction(config.fallbackClassName)) {
-            console.info('custom function to create fallbackClassName');
-            config.fallbackClassName(el, imgUrlSplitByFId[1]);
-          }
-          else if (typeof config.fallbackClassName === 'string') {
-            svgElemSetClassName(el, config.fallbackClassName);
-          }
-          else {
             el.setAttribute('src', config.pngFallback + '/' + fallbackUrl);
           }
+
           onElementInjectedCallback(null);
         }
         // um...
@@ -487,7 +488,7 @@
       else { //inject a single element.. this has most probaly not gone through preprocessing
         srcFileNameArr = srcArr[0].split('/');
         newPrefixClassName = srcFileNameArr[srcFileNameArr.length-1].replace('.svg', '') + '-' + injectCount;
-        console.info('inject complete file: ' + srcArr[0]);
+        // console.info('inject complete file: ' + srcArr[0]);
         //https://medium.com/jotform-form-builder/writing-a-css-parser-in-javascript-3ecaa1719a43
         regex = new RegExp('([\\s\\S]*?){([\\s\\S]*?)}', 'g');
 
@@ -771,7 +772,7 @@
         style.appendChild(document.createTextNode(css));
       }
       head.appendChild(style);
-      console.info( 'default class written: ', css );
+      // console.info( 'default class written: ', css );
     };
 
     replaceNoSVGClass = function(element, noSVGClassName, hasSvgSupport) {
