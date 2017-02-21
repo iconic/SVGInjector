@@ -14,7 +14,7 @@
       "email": "flo@digital-fuse.net"
     }
   ],
-  "main": "src/svg-injector.js",
+  "main": "dist/svg-injector.min.js",
   "homepage": "https://github.com/flobacher/SVGInjector2",
   "repository": {
     "type": "git",
