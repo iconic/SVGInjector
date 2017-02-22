@@ -1,6 +1,16 @@
 ## Change Log
 
-### v2.0.29 (2017/02/20 09:34 +00:00)
+### upcoming (2017/02/22 21:09 +00:00)
+- [#10](https://github.com/flobacher/SVGInjector2/pull/10) Update README links (@TheCopartnery)
+- [febe4b2](https://github.com/flobacher/SVGInjector2/commit/febe4b22d331baeafaabefb00171ca767f8942af) update links (@TheCopartnery)
+
+### v2.0.30 (2017/02/21 18:10 +00:00)
+- [759c681](https://github.com/flobacher/SVGInjector2/commit/759c681a56dcb88b3ac2aa64d8b448b115e15010) 2.0.30 (@flobacher)
+- [41f49c8](https://github.com/flobacher/SVGInjector2/commit/41f49c8292c203b826b97f1bef5d8fe013909112) fix main entry in package.json (@flobacher)
+- [60b98b1](https://github.com/flobacher/SVGInjector2/commit/60b98b1c2c0d089a3583aec252c5cd4c7ff512b8) fix package script (@flobacher)
+
+### v2.0.29 (2017/02/20 09:51 +00:00)
+- [95bfd75](https://github.com/flobacher/SVGInjector2/commit/95bfd758356fc4839a028e6503dada49b6ceea2e) 2.0.29 (@flobacher)
 - [c5e6c81](https://github.com/flobacher/SVGInjector2/commit/c5e6c816c42c247b709985b3789509ea87ec6381) fix package scripts (@flobacher)
 - [b1ccb91](https://github.com/flobacher/SVGInjector2/commit/b1ccb91466fc96196da9fb69bd8dc7319ac1a866) update examples (@flobacher)
 - [58f4acd](https://github.com/flobacher/SVGInjector2/commit/58f4acde207ac1d4ba8f797c52204e766902a47a) do not remove console.logs (@flobacher)
@@ -20,9 +30,9 @@
 - [2cb030f](https://github.com/flobacher/SVGInjector2/commit/2cb030f52aacd9d4afebe00e70b9caabe3ed04d9) 2.0.27 (@flobacher)
 - [aadf829](https://github.com/flobacher/SVGInjector2/commit/aadf8299ecae7b5cd1213802f84d4fc2617c3d8d) correct those id-refs in sample sprite sheet.. this needs fixing in injector though (@flobacher)
 - [24e397d](https://github.com/flobacher/SVGInjector2/commit/24e397dae2b936829ecac1a4a42524faa4b11520) do not add role=presentation to title and desc (@flobacher)
+- [bd6213b](https://github.com/flobacher/SVGInjector2/commit/bd6213b62931d61563579e0641d7b03c95aadfc1) update/move examples (@flobacher)
 - [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
 - [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
-- [bd6213b](https://github.com/flobacher/SVGInjector2/commit/bd6213b62931d61563579e0641d7b03c95aadfc1) update/move examples (@flobacher)
 - [#3](https://github.com/flobacher/SVGInjector2/pull/3) added support for aria-hidden attribute on svg element (@dgoerdes)
 - [f8cf0fe](https://github.com/flobacher/SVGInjector2/commit/f8cf0fe3706f6008eb39549363742dccc4c7ce0c) added support for aria-hidden attribute on svg element (@dgoerdes)
 
