@@ -6,7 +6,7 @@
     "Flo Bacher <flo@digital-fuse.net>"
   ],
   "description": "Fast, caching, dynamic inline SVG DOM injection library",
-  "main": "svg-injector.js",
+  "main": "dist/svg-injector.min.js",
   "moduleType": [
     "node",
     "amd",
