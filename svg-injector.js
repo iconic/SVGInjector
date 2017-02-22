@@ -76,18 +76,16 @@
             }
         };
         SVGInjector.prototype.injectElement = function(el, onElementInjectedCallback) {
-            var imgUrl, spriteId;
-            if (config.spritesheetURL === false || el.getAttribute("data-src") || el.getAttribute("src")) {
-                imgUrl = el.getAttribute("data-src") || el.getAttribute("src");
-            } else {
+            var imgUrl = el.getAttribute("data-src") || el.getAttribute("src"), spriteId;
+            if (config.spritesheetURL && !imgUrl) {
                 spriteId = getSpriteIdFromClass(el);
                 if (spriteId === "") {
                     console.warn("neither data-src nor spriteId class found! Nothing to inject here!");
                     return;
                 }
                 imgUrl = config.spritesheetURL + "#" + spriteId;
-                el.setAttribute("data-src", imgUrl);
             }
+            el.setAttribute("data-src", imgUrl);
             var imgUrlSplitByFId = imgUrl.split("#");
             if (imgUrlSplitByFId.length === 1) {
                 imgUrlSplitByFId.push("");
