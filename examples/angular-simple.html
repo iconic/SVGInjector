@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="svginjectordemo">
+  <head>
+    <title>SVGInjector Example: Simple</title>
+    <style>
+      .icon--thumb {
+        width:64px;
+        height:64px;
+        display: block;
+        margin: 100px auto;
+      }
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+
+    <svg class="icon icon--thumb red" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
+    <svg class="icon icon--thumb green" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
+    <svg src="assets/svg/logo-gradients.svg">
+      <title>Default Tilte replace</title>
+      <desc>Same thing for description</desc>
+    </svg>
+
+    <svg src="assets/svg/circle.svg" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+    <script src="../dist/svg-injector.min.js"></script>
+    <script>
+
+      (function(window, document, angular){
+
+        angular.module('svginjectordemo', ['svginjector']);
+
+      }(window, document, angular));
+
+    </script>
+  </body>
+</html>
