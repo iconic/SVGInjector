@@ -40,7 +40,8 @@
   },
   "scripts": {
     "test": "jshint src/svg-injector.js",
-    "build": "uglifyjs ./src/svg-injector.js --stats --compress drop_console=false --mangle --comments --output ./dist/svg-injector.min.js --source-map ./dist/svg-injector.map.js --source-map-include-sources",
+    "copy": "uglifyjs ./src/svg-injector.js -b --output svg-injector.js",
+    "build": "npm run copy && uglifyjs ./src/svg-injector.js --stats --compress drop_console=false --mangle --comments --output ./dist/svg-injector.min.js --source-map ./dist/svg-injector.map.js --source-map-include-sources",
     "watch": "watch \"npm run build\" ./src",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
     "add": "git add ./dist/ && git add CHANGELOG.md",
