@@ -2,7 +2,7 @@ SVGInjector
 =========
 
 A fast, caching, dynamic inline SVG DOM injection library. Originally developed by [Waybury](http://waybury.com/) for use in [iconic.js](https://useiconic.com/tools/iconic-js/), part of the [Iconic](https://useiconic.com/) icon system.
-Extended by Flobacher to be able to use with spritesheets and in AngularJS Aoolications
+Extended by Flobacher to be able to use with spritesheets and in AngularJS Applications
 
 ## Why?
 There are a number of ways to use SVG on a page (`object`, `embed`, `iframe`, `img`, CSS `background-image`) but to unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the full SVG markup must be included directly in the DOM.
@@ -37,7 +37,7 @@ Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's ide
 
 ### Manually
 
-Download the [dist/svg-injector.min.js](https://github.com/iconic/SVGInjector/blob/master/dist/svg-injector.min.js) file from this repository and add it to your project.
+Download the [dist/svg-injector.min.js](https://github.com/flobacher/SVGInjector2/blob/master/dist/svg-injector.min.js) file from this repository and add it to your project.
 
 
 ## Usage
@@ -150,7 +150,7 @@ new SVGInjector(injectorOptions).inject(
 
 Since you might be using a single SVG styled in multiple ways, you can also define per-element fallbacks by adding a `data-fallback` or `data-png` attribute to your `img` tags to define a unique PNG for each context.
 
-See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examples/fallbacks) for more details.
+See [examples/fallbacks](https://github.com/flobacher/SVGInjector2/blob/master/examples/fallbacks.html) for more details.
 
 ```html
 <style>
@@ -176,13 +176,13 @@ See [examples/spritesheet](https://github.com/flobacher/SVGInjector2/blob/master
 When using spritesheets, having to type the same data-src=urltospritesheet.svg#fragmentid can become cumbersome.
 Thats why there is a config options that allows to set a default url to a spritesheet. The fragment id can then be provided via
 a simple class.
-See [examples/fallbacks](https://github.com/iconic/SVGInjector/tree/master/examples/spritesheet-classbased) for more details.
+See [examples/fallbacks](https://github.com/flobacher/SVGInjector2/blob/master/examples/spritesheet-classbased.html) for more details.
 
 
 ### AngularJS
 
 SVGInjector is also available as configurable Service / Directive combination.
- See [examples/angular-spritesheet](https://github.com/iconic/SVGInjector/tree/master/examples/angular-spritesheet) for more details.
+ See [examples/angular-spritesheet](https://github.com/flobacher/SVGInjector2/blob/master/examples/angular-spritesheet.html) for more details.
 
 #### Performance tip
 add
