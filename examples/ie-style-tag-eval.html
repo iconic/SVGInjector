@@ -16,13 +16,13 @@
     <p>This page tests if the SVGInjector workaround for this issue is effective.</p>
     <p><a href="https://github.com/iconic/SVGInjector/issues/23">Reference</a></p>
 
-    <img id="style-test-svg" src="style-tag-test.svg" class="inject-me">
+    <svg id="style-test-svg" data-src="style-tag-test.svg" />
 
     <script src="../dist/svg-injector.min.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function (event) {
-        new SVGInjector().inject(document.querySelectorAll('img.inject-me'));
-      });
+
+      new SVGInjector().inject(document.querySelectorAll('svg[data-src]'));
+
     </script>
   </body>
 </html>

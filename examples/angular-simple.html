@@ -19,25 +19,21 @@
   </head>
   <body>
 
-    <svg class="icon icon--thumb red" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
-    <svg class="icon icon--thumb green" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
-    <svg src="assets/svg/logo-gradients.svg">
+    <svg class="icon icon--thumb red" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
+    <svg class="icon icon--thumb green" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
+    <svg data-src="assets/svg/logo-gradients.svg">
       <title>Default Tilte replace</title>
       <desc>Same thing for description</desc>
     </svg>
 
-    <svg src="assets/svg/circle.svg" />
+    <svg data-src="assets/svg/circle.svg" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
     <script src="../dist/svg-injector.min.js"></script>
     <script>
-
-      (function(window, document, angular){
-
+        // define the module with the name of the ng-app directive and define
+        // the `svginjector` module as dependency
         angular.module('svginjectordemo', ['svginjector']);
-
-      }(window, document, angular));
-
     </script>
   </body>
 </html>

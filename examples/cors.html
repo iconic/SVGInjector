@@ -19,15 +19,15 @@
   <body>
 
     <!-- Local Origin SVG source -->
-    <svg class="inject-me thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up"></svg>
+    <svg class="thumb-icon" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb up"></svg>
 
     <!-- Cross Origin SVG source -->
-    <svg class="inject-me thumb-icon thumb-icon--cors" data-src="http://support.useiconic.com/svginjector-cors-test/svg/thumb-up.svg" title="I like it!" alt="thumb up"></svg>
+    <svg class="thumb-icon thumb-icon--cors" data-src="http://support.useiconic.com/svginjector-cors-test/svg/thumb-up.svg" title="I like it!" alt="thumb up"></svg>
 
     <script src="../dist/svg-injector.min.js"></script>
     <script>
 
-      new SVGInjector().inject(document.querySelectorAll('.inject-me'));
+      new SVGInjector().inject(document.querySelectorAll('svg[data-src]'));
 
     </script>
   </body>

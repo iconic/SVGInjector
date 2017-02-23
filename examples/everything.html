@@ -16,7 +16,7 @@
   </head>
   <body>
 
-    <svg class="inject-me icon icon--thumb" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb"></svg>
+    <svg class="icon icon--thumb" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb"></svg>
 
     <script src="../dist/svg-injector.min.js"></script>
     <script>
@@ -25,12 +25,12 @@
       if (!window.console){ console = {log: function() {}}; };
 
       // Elements to inject
-      var mySVGsToInject = document.querySelectorAll('.inject-me');
+      var mySVGsToInject = document.querySelectorAll('svg[data-src]');
 
       // Options
       var injectorOptions = {
         evalScripts: 'once',
-        pngFallback: 'assets/png'
+
       };
 
       // Trigger the injection

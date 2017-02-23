@@ -294,7 +294,7 @@
       injections.elements.push(el);
 
       // Try to avoid loading the orginal image src if possible.
-      el.setAttribute('src', '');
+      // el.setAttribute('src', '');
 
       // Load it up
       loadSvg(onElementInjectedCallback, imgUrl, el);

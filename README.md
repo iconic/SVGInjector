@@ -53,8 +53,8 @@ Include the **SVGInjector** script on your page.
 Add some SVG `svg` tags.
 
 ```html
-<svg class="inject-me" src="image-one.svg">
-<svg class="inject-me" src="image-two.svg">
+<svg data-src="image-one.svg" />
+<svg data-src="image-two.svg" />
 ```
 
 Inject 'em.
@@ -62,7 +62,7 @@ Inject 'em.
 ```html
 <script>
   // Elements to inject
-  var mySVGsToInject = document.querySelectorAll('img.inject-me');
+  var mySVGsToInject = document.querySelectorAll('svg[data-src]');
 
   // Do the injection
   new SVGInjector().inject(mySVGsToInject);
@@ -70,7 +70,7 @@ Inject 'em.
 ```
 
 The `svg` tags have now been replaced with the full SVG markup.
-
+Also see [examples/simple](https://github.com/flobacher/SVGInjector2/blob/master/examples/simple.html) for more details.
 
 ### Configuration
 
@@ -82,7 +82,7 @@ new SVGInjector(options).inject(elements, afterAllInjectionsFinishedCallback, pe
 
 #### `elements`
 
-A single DOM element or array of elements, with `src` or `data-src` attributes defined, to inject.
+A single DOM element or array of elements, with `data-src` attributes defined, to inject.
 
 #### `options`
 
@@ -103,28 +103,28 @@ A single DOM element or array of elements, with `src` or `data-src` attributes d
 
 * `pngFallback` - String
 
-  The directory where fallback PNGs are located for use if the browser doesn't [support SVG](http://caniuse.com/svg). This will look for a file with a `.png` extension matching the SVG filename defined in the `src` (or `data-src`).
+  The directory where fallback PNGs are located for use if the browser doesn't [support SVG](http://caniuse.com/svg). This will look for a file with a `.png` extension matching the SVG filename defined in the `data-src`. For this to work, use `img` instead of `svg` elements.
 
   For additional flexibility, per-element fallbacks are also [available](#per-element-png-fallback).
 
-* `each(svg)` - function
+* `perInjectionCallback(svg)` - function
 
   A function to call after each SVG is injected. Receives the newly injected SVG DOM element as a parameter.
 
-#### `callback(count)` - function
+#### `afterAllInjectionsFinishedCallback(count)` - function
 
 A function to call once all the requested SVG elements have been injected. Receives a count of the total SVGs injected as a parameter.
 
 ### Full Example
 
 ```html
-<svg id="image-one" class="inject-me" data-src="image-one.svg">
-<svg id="image-two" class="inject-me" data-src="image-two.svg">
+<svg id="image-one" data-src="image-one.svg">
+<svg id="image-two" data-src="image-two.svg">
 ```
 
 ```js
 // Elements to inject
-var mySVGsToInject = document.querySelectorAll('svg.inject-me');
+var mySVGsToInject = document.querySelectorAll('svg[data-src]');
 
 // Options
 var injectorOptions = {
@@ -141,14 +141,16 @@ new SVGInjector(injectorOptions).inject(
   },
   function (svg) {
     // Callback after each SVG is injected
-    console.log('SVG injected: ' + svg.getAttribute('id'));
+    console.log('SVG injected: ' + svg);
   }
 );
 ```
+Also see [examples/everything](https://github.com/flobacher/SVGInjector2/blob/master/examples/everything.html) for more details.
+
 
 ### Per-element PNG fallback
 
-Since you might be using a single SVG styled in multiple ways, you can also define per-element fallbacks by adding a `data-fallback` or `data-png` attribute to your `img` tags to define a unique PNG for each context.
+Since you might be using a single SVG styled in multiple ways, you can also define per-element fallbacks by adding a `data-fallback` or `data-png` attribute to your `img` tags (remember for png fallbacks to work you need to use img-tags) to define a unique PNG for each context.
 
 See [examples/fallbacks](https://github.com/flobacher/SVGInjector2/blob/master/examples/fallbacks.html) for more details.
 
@@ -156,7 +158,7 @@ See [examples/fallbacks](https://github.com/flobacher/SVGInjector2/blob/master/e
 <style>
   .thumb-green {fill: #A6A93C;}
 </style>
-<svg class="thumb-green inject-me" data-src="svg/thumb-up.svg" data-fallback="png/thumb-up-green.png">
+<img class="thumb-green inject-me" data-src="svg/thumb-up.svg" data-fallback="png/thumb-up-green.png" />
 
 ```
 
@@ -182,7 +184,16 @@ See [examples/fallbacks](https://github.com/flobacher/SVGInjector2/blob/master/e
 ### AngularJS
 
 SVGInjector is also available as configurable Service / Directive combination.
- See [examples/angular-spritesheet](https://github.com/flobacher/SVGInjector2/blob/master/examples/angular-spritesheet.html) for more details.
+The svg-element-directive will automatically inject the svg. Just define the `svginjector` module as a dependency of your module.
+See [examples/angular-simple](https://github.com/flobacher/SVGInjector2/blob/master/examples/angular-simple.html) for more details.
+
+To configure the SVGInjector Service use the svgInjectorOptionsProvider available during the config-phase and use it to set
+the options-object. For details
+see [examples/angular-spritesheet](https://github.com/flobacher/SVGInjector2/blob/master/examples/angular-spritesheet.html).
+This example also demonstrates, that of course the angular wrapper can also be used in combination with a spritesheet.
+
+Last but not least check [examples/angular-spritesheet-classbased](https://github.com/flobacher/SVGInjector2/blob/master/examples/angular-spritesheet-classbased.html) to see the convenience the use of classbased injection offers.
+
 
 #### Performance tip
 add
