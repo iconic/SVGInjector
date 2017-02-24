@@ -5,12 +5,12 @@ A fast, caching, dynamic inline SVG DOM injection library. Originally developed 
 Extended by Flobacher to be able to use with spritesheets and in AngularJS Applications
 
 ## Why?
-There are a number of ways to use SVG on a page (`object`, `embed`, `iframe`, `img`, CSS `background-image`) but to unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the full SVG markup must be included directly in the DOM.
+Linking to an external SVG on a page usually only allows you to display the SVG 'as is'. To unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the markup of the SVG must be included directly in the DOM.
 
-Wrangling and maintaining a bunch of inline SVG on your pages isn't anyone's idea of good time, so **SVGInjector** lets you work with simple `img` tag elements (or other tag of your choosing) and does the heavy lifting of swapping in the SVG markup inline for you.
+Maintaining a bunch of inline SVG on your pages isn't anyone's idea of good time, so **SVGInjector** lets you specifiy external SVGs and embeds the contents directly into the DOM alongside your HTML.
 
 ## How?
-* Any DOM element, or array of elements, passed to **SVGInjector** with an SVG file `src` or `data-src` attribute will be replaced with the full SVG markup inline. The async loaded SVG is also cached so multiple uses of an SVG only requires a single server request.
+* Any DOM element (`img`, `object`, `embed`, `iframe`,`svg`, etc) or array of elements, passed to **SVGInjector** will be replaced with the full SVG markup inline. The async loaded SVG is also cached so multiple uses of an SVG only requires a single server request.
 
 * Any embedded JavaScript in the SVG will optionally be extracted, cached and evaluated.
 
@@ -50,7 +50,7 @@ Include the **SVGInjector** script on your page.
 <script src="svg-injector.min.js"></script>
 ```
 
-Add some SVG `svg` tags.
+Add some `svg` tags.
 
 ```html
 <svg data-src="image-one.svg" />
@@ -70,7 +70,8 @@ Inject 'em.
 ```
 
 The `svg` tags have now been replaced with the full SVG markup.
-Also see [examples/simple](https://github.com/flobacher/SVGInjector2/blob/master/examples/simple.html) for more details.
+
+Also see [examples/simple-with-img-tag](https://github.com/flobacher/SVGInjector2/blob/master/examples/simple-with-img-tag.html) for another example that illustrates how to inject `img` elements using `src` with a specific classname such as `inject-me`.
 
 ### Configuration
 
