@@ -5,12 +5,12 @@ A fast, caching, dynamic inline SVG DOM injection library. Originally developed 
 Extended by Flobacher to be able to use with spritesheets and in AngularJS Applications
 
 ## Why?
-Linking to an external SVG on a page usually only allows you to display the SVG 'as is'. To unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the markup of the SVG must be included directly in the DOM.
+Linking to an external SVG on a page (via `object`, `embed`, `iframe`, `img`, CSS `background-image`) usually only allows you to display the SVG 'as is'. To unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the markup of the SVG must be included directly in the DOM.
 
 Maintaining a bunch of inline SVG on your pages isn't anyone's idea of good time, so **SVGInjector** lets you specifiy external SVGs and embeds the contents directly into the DOM alongside your HTML.
 
 ## How?
-* Any DOM element (`img`, `object`, `embed`, `iframe`,`svg`, etc) or array of elements, passed to **SVGInjector** will be replaced with the full SVG markup inline. The async loaded SVG is also cached so multiple uses of an SVG only requires a single server request.
+* Any DOM element or array of elements (recommended are `svg`-tags for clarity or `img`-tags if you need support for fallback pngs, but there are no technical limitations), passed to **SVGInjector** that contains a `data-src` attribute will be replaced with the full SVG markup available via this URL inline. The async loaded SVG is also cached so multiple uses of an SVG only requires a single server request.
 
 * Any embedded JavaScript in the SVG will optionally be extracted, cached and evaluated.
 
@@ -68,7 +68,7 @@ Inject 'em.
 
 The `svg` tags have now been replaced with the full SVG markup.
 
-Also see [examples/simple-with-img-tag](https://github.com/flobacher/SVGInjector2/blob/master/examples/simple-with-img-tag.html) for another example that illustrates how to inject `img` elements using `src` with a specific classname such as `inject-me`.
+Also see [examples/simple](https://github.com/flobacher/SVGInjector2/blob/master/examples/simple.html) for another example that illustrates how to inject `svg` elements using `data-src` with a specific classname such as `inject-me`.
 
 
 ### Full Example incl. Configuration
@@ -101,7 +101,7 @@ var perInjectionCallback = function (svg) {
   console.log('SVG injected: ' + svg);
 };
 
-// create injector configured by optiosn
+// create injector configured by options
 var injector = new SVGInjector(injectorOptions);
 
 // Trigger the injection
@@ -129,8 +129,8 @@ Also see [examples/everything](https://github.com/flobacher/SVGInjector2/blob/ma
   prefixStyleTags: true|false, // true
 
   // spritesheet relevant options
-  spritesheetURL: 'urltospritesheet', false // only needed for classbased injeciton
-  onlyInjectVisiblePart: true|false, // true
+  spritesheetURL: 'urlToSpritesheet', false // only needed for classbased injection
+  onlyInjectVisiblePart: true|false, // true -> if the fragmentId specifies an svg-view element, only inject the part that is visible due to the specified view
 
   // testing
   forceFallbacks: true|false, // false

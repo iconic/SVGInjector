@@ -14,13 +14,13 @@
   </head>
   <body>
 
-    <svg class="icon icon--thumb" src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
+    <svg class="icon icon--thumb inject-me" data-src="assets/svg/thumb-up.svg" title="I like it!" alt="thumb" onclick="console.log('clicked');"/>
 
     <script src="../dist/svg-injector.min.js"></script>
     <script>
 
       // Do the injection
-      new SVGInjector().inject(document.querySelectorAll('.icon'));
+      new SVGInjector().inject(document.querySelectorAll('.inject-me'));
     </script>
 
   </body>
