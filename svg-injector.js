@@ -131,7 +131,6 @@
                 return;
             }
             injections.elements.push(el);
-            el.setAttribute("src", "");
             loadSvg(onElementInjectedCallback, imgUrl, el);
         };
         SVGInjector.prototype.getEnv = function() {
