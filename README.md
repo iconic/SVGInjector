@@ -118,21 +118,22 @@ Also see [examples/everything](https://github.com/flobacher/SVGInjector2/blob/ma
 ```js
 // default values as comment after the line
 {
-  evalScripts: ['always'|'once'|'never'], // 'always'
-  pngFallback: ['url to directory with fallbackpngs'],
-  keepStylesClass
-  spriteClassName
-spriteClassIdName
-removeStylesClass
-removeAllStyles
-fallbackClassName
-prefixStyleTags
+  evalScripts: 'always'|'once'|'never', // 'always'
+  pngFallback: 'url to directory with fallbackpngs', // false
+  keepStylesClass: 'className', // ''
+  spriteClassName: 'className', // 'sprite'
+  spriteClassIdName: 'classNameInclSeperator', // 'sprite--'
+  removeStylesClass: 'className', // 'icon' -> this will remove all styles from the svg so it is easy to style with external css. works best with monochrome icons
+  removeAllStyles: true|false, // false
+  fallbackClassName: 'className', // 'sprite'
+  prefixStyleTags: true|false, // true
+
   // spritesheet relevant options
-  spritesheetURL // only needed for classbased injeciton
-  onlyInjectVisiblePart
+  spritesheetURL: 'urltospritesheet', false // only needed for classbased injeciton
+  onlyInjectVisiblePart: true|false, // true
 
   // testing
-  forceFallbacks
+  forceFallbacks: true|false, // false
 }
 ```
 
