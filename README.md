@@ -50,7 +50,7 @@ Include the **SVGInjector** script on your page.
 <script src="svg-injector.min.js"></script>
 ```
 
-Add some SVG `svg` tags.
+Add some `svg` tags.
 
 ```html
 <svg data-src="image-one.svg" />
@@ -61,35 +61,77 @@ Inject 'em.
 
 ```html
 <script>
-  // Elements to inject
-  var mySVGsToInject = document.querySelectorAll('svg[data-src]');
-
-  // Do the injection
-  new SVGInjector().inject(mySVGsToInject);
+  // Do the injection for the selected Nodelist
+  new SVGInjector().inject(document.querySelectorAll('svg[data-src]'));
 </script>
 ```
 
 The `svg` tags have now been replaced with the full SVG markup.
 Also see [examples/simple](https://github.com/flobacher/SVGInjector2/blob/master/examples/simple.html) for more details.
 
-### Configuration
 
-In addition to passing elements to inject, an options object and callback function can optionally be defined.
+### Full Example incl. Configuration
 
-```js
-new SVGInjector(options).inject(elements, afterAllInjectionsFinishedCallback, perInjectionCallback);
+In addition to passing elements to inject, an options object to configure the injector instance and callback functions for the injections can optionally be defined.
+
+
+```html
+<svg id="image-one" data-src="image-one.svg">
+<svg id="image-two" data-src="image-two.svg">
 ```
 
-#### `elements`
+```js
+// Elements to inject
+var elementsToInject = document.querySelectorAll('svg[data-src]');
 
-A single DOM element or array of elements, with `data-src` attributes defined, to inject.
+// Options
+var injectorOptions = {
+  evalScripts: 'once',
+  pngFallback: 'assets/png'
+};
+
+var afterAllInjectionsFinishedCallback = function (totalSVGsInjected) {
+  // Callback after all SVGs are injected
+  console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
+};
+
+var perInjectionCallback = function (svg) {
+  // Callback after each SVG is injected
+  console.log('SVG injected: ' + svg);
+};
+
+// create injector configured by optiosn
+var injector = new SVGInjector(injectorOptions);
+
+// Trigger the injection
+injector.inject(
+  elementsToInject,
+  afterAllInjectionsFinishedCallback,
+  perInjectionCallback
+);
+```
+Also see [examples/everything](https://github.com/flobacher/SVGInjector2/blob/master/examples/everything.html) for more details.
 
 #### `options`
 
 ```js
+// default values as comment after the line
 {
-  evalScripts: [always|once|never],
-  pngFallback: [PNG directory]
+  evalScripts: ['always'|'once'|'never'], // 'always'
+  pngFallback: ['url to directory with fallbackpngs'],
+  keepStylesClass
+  spriteClassName
+spriteClassIdName
+removeStylesClass
+removeAllStyles
+fallbackClassName
+prefixStyleTags
+  // spritesheet relevant options
+  spritesheetURL // only needed for classbased injeciton
+  onlyInjectVisiblePart
+
+  // testing
+  forceFallbacks
 }
 ```
 
@@ -107,7 +149,13 @@ A single DOM element or array of elements, with `data-src` attributes defined, t
 
   For additional flexibility, per-element fallbacks are also [available](#per-element-png-fallback).
 
-* `perInjectionCallback(svg)` - function
+
+#### `elements`
+
+A single DOM element or array of elements, with `data-src` attributes defined, to inject.
+
+
+#### `perInjectionCallback(svg)` - function
 
   A function to call after each SVG is injected. Receives the newly injected SVG DOM element as a parameter.
 
@@ -115,37 +163,6 @@ A single DOM element or array of elements, with `data-src` attributes defined, t
 
 A function to call once all the requested SVG elements have been injected. Receives a count of the total SVGs injected as a parameter.
 
-### Full Example
-
-```html
-<svg id="image-one" data-src="image-one.svg">
-<svg id="image-two" data-src="image-two.svg">
-```
-
-```js
-// Elements to inject
-var mySVGsToInject = document.querySelectorAll('svg[data-src]');
-
-// Options
-var injectorOptions = {
-  evalScripts: 'once',
-  pngFallback: 'assets/png'
-};
-
-// Trigger the injection
-new SVGInjector(injectorOptions).inject(
-  mySVGsToInject,
-  function (totalSVGsInjected) {
-    // Callback after all SVGs are injected
-    console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
-  },
-  function (svg) {
-    // Callback after each SVG is injected
-    console.log('SVG injected: ' + svg);
-  }
-);
-```
-Also see [examples/everything](https://github.com/flobacher/SVGInjector2/blob/master/examples/everything.html) for more details.
 
 
 ### Per-element PNG fallback
