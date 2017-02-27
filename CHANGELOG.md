@@ -1,6 +1,16 @@
 ## Change Log
 
-### upcoming (2017/02/22 22:58 +00:00)
+### upcoming (2017/02/27 23:15 +00:00)
+- [2658876](https://github.com/flobacher/SVGInjector2/commit/2658876a641c1384b5afe6877b3f5185612a5525) add options (@flobacher)
+- [#14](https://github.com/flobacher/SVGInjector2/pull/14) Update README.md (@TheCopartnery)
+- [#13](https://github.com/flobacher/SVGInjector2/pull/13) Add simple with img tag example (@TheCopartnery)
+- [35a3f6a](https://github.com/flobacher/SVGInjector2/commit/35a3f6ab8efab2863c702738b546e717c7fb1eb5) update README.md (@flobacher)
+- [00838d8](https://github.com/flobacher/SVGInjector2/commit/00838d84dcd7ebc746b21eef37c57426c7a85c89) Update README.md (@TheCopartnery)
+- [caedbeb](https://github.com/flobacher/SVGInjector2/commit/caedbebe345c666812600e2ec60b9468a16faff5) Add simple with img tag example (@TheCopartnery)
+- [69ecf67](https://github.com/flobacher/SVGInjector2/commit/69ecf67708ce5a60a2c32d5326f2a1761d40842b) update/streamline examples and read (@flobacher)
+
+### v2.0.32 (2017/02/22 22:58 +00:00)
+- [d534db0](https://github.com/flobacher/SVGInjector2/commit/d534db0a68c66162165b190c5bb7249ec9bcc937) 2.0.32 (@flobacher)
 - [794d4f5](https://github.com/flobacher/SVGInjector2/commit/794d4f5997fbbb4557e13c81bcfb2e9f47854c21) add a basic, non-spritesheet example (@flobacher)
 - [50eaafb](https://github.com/flobacher/SVGInjector2/commit/50eaafb874c37b4dadc917c36a24f748206b3f29) always set data-src even if only src was specified (@flobacher)
 
