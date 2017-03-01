@@ -214,12 +214,16 @@
         imgUrl = config.spritesheetURL + '#' + spriteId;
         // console.log('imgURL: ' + imgUrl);
       }
-      el.setAttribute('data-src', imgUrl);
 
-      var imgUrlSplitByFId = imgUrl.split('#');
-      if (imgUrlSplitByFId.length === 1) {
-        imgUrlSplitByFId.push('');
+      if (imgUrl) {
+        el.setAttribute('data-src', imgUrl);
+
+        var imgUrlSplitByFId = imgUrl.split('#');
+        if (imgUrlSplitByFId.length === 1) {
+          imgUrlSplitByFId.push('');
+        }
       }
+
       var fallbackUrl;
 
       // We can only inject SVG
