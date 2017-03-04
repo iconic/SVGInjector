@@ -7,7 +7,7 @@ Extended by Flobacher to be able to use with spritesheets and in AngularJS Appli
 ## Why?
 Linking to an external SVG on a page (via `object`, `embed`, `iframe`, `img`, CSS `background-image`) usually only allows you to display the SVG 'as is'. To unlock the full potential of SVG, including full element-level CSS styling and evaluation of embedded JavaScript, the markup of the SVG must be included directly in the DOM.
 
-Maintaining a bunch of inline SVG on your pages isn't anyone's idea of good time, so **SVGInjector** lets you specifiy external SVGs and embeds the contents directly into the DOM alongside your HTML.
+Maintaining a bunch of inline SVG on your pages isn't anyone's idea of good time, so **SVGInjector** lets you specify external SVGs and embeds the contents directly into the DOM alongside your HTML.
 
 ## How?
 * Any DOM element or array of elements (recommended are `svg`-tags for clarity or `img`-tags if you need support for fallback pngs, but there are no technical limitations), passed to **SVGInjector** that contains a `data-src` attribute will be replaced with the full SVG markup available via this URL inline. The async loaded SVG is also cached so multiple uses of an SVG only requires a single server request.
