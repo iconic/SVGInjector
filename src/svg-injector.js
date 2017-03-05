@@ -564,7 +564,7 @@
         else if (svgElem instanceof SVGViewElement) {
           symbolElem = null;
           if (config.onlyInjectVisiblePart) {
-            var selector = '*[width="' + viewBox[2] + '"][height="'+viewBox[3]+'"]';
+            var selector = '*[width="' + viewBox[2] + '"][height="' + viewBox[3] + '"]';
 
             symbolAttributesToFind = {};
             if (Math.abs(parseInt(viewBox[0])) === 0) {
@@ -1073,7 +1073,6 @@
         };
       })
       .factory('svgInjectorFactory', ['svgInjectorOptions', function (svgInjectorOptions) {
-        // console.log('new injector');
         return new SVGInjector(svgInjectorOptions);
       }])
       .directive('svg', ['svgInjectorFactory', function(svgInjectorFactory) {
