@@ -312,6 +312,10 @@
       return env;
     };
 
+    SVGInjector.prototype.getConfig = function() {
+      return config;
+    };
+
     // - private member functions -----------------------------------------------
     setFallbackClassNames = function (element, symbolId, classNames) {
       var className =  (typeof classNames === 'undefined') ? DEFAULT_FALLBACK_CLASS_NAMES : classNames.slice(0);
