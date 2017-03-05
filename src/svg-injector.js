@@ -205,23 +205,26 @@
       var imgUrl = el.getAttribute('data-src') || el.getAttribute('src'),
           spriteId;
 
-      if (config.spritesheetURL && !imgUrl ) {
-        spriteId = getSpriteIdFromClass(el);
-        if (spriteId === '') {
-          console.warn('neither data-src nor spriteId class found! Nothing to inject here!');
+      if (!imgUrl) {
+        if (config.spritesheetURL) {
+          spriteId = getSpriteIdFromClass(el);
+          if (spriteId === '') {
+            // console.warn('neither data-src nor spriteId class found! Nothing to inject here!');
+            return;
+          }
+          imgUrl = config.spritesheetURL + '#' + spriteId;
+          // console.log('imgURL: ' + imgUrl);
+        } else {
+          // console.warn('neither data-src nor spritesheetURL specified! Nothing to inject here!');
           return;
         }
-        imgUrl = config.spritesheetURL + '#' + spriteId;
-        // console.log('imgURL: ' + imgUrl);
       }
 
-      if (imgUrl) {
-        el.setAttribute('data-src', imgUrl);
+      el.setAttribute('data-src', imgUrl);
 
-        var imgUrlSplitByFId = imgUrl.split('#');
-        if (imgUrlSplitByFId.length === 1) {
-          imgUrlSplitByFId.push('');
-        }
+      var imgUrlSplitByFId = imgUrl.split('#');
+      if (imgUrlSplitByFId.length === 1) {
+        imgUrlSplitByFId.push('');
       }
 
       var fallbackUrl;
