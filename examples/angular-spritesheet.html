@@ -35,6 +35,8 @@
     <svg data-src="assets/svg/views.svg#triangle" />
     <svg data-src="assets/svg/views.svg#logo-gradients" />
 
+    <!-- interpolate sprite-id - not yet possible need to specify $sce -->
+    <!-- <svg data-src="assets/svg/views.svg#{{spriteName}}"/> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
     <script src="../dist/svg-injector.min.js"></script>
@@ -56,9 +58,9 @@
           .config(['svgInjectorOptionsProvider', function (svgInjectorOptionsProvider) {
             svgInjectorOptionsProvider.set(injectorOptions);
           }])
-          .run(['$rootScope', function ($rootScope) {
-            $rootScope.arrowSpriteName = 'arrow-down-circular';
-          }])
+          // .run(['$rootScope', function ($rootScope) {
+          //   $rootScope.spriteName = 'circle';
+          // }])
         ;
 
       }(window, document, angular));
