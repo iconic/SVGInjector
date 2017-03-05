@@ -77,13 +77,16 @@
         };
         SVGInjector.prototype.injectElement = function(el, onElementInjectedCallback) {
             var imgUrl = el.getAttribute("data-src") || el.getAttribute("src"), spriteId;
-            if (config.spritesheetURL && !imgUrl) {
-                spriteId = getSpriteIdFromClass(el);
-                if (spriteId === "") {
-                    console.warn("neither data-src nor spriteId class found! Nothing to inject here!");
+            if (!imgUrl) {
+                if (config.spritesheetURL) {
+                    spriteId = getSpriteIdFromClass(el);
+                    if (spriteId === "") {
+                        return;
+                    }
+                    imgUrl = config.spritesheetURL + "#" + spriteId;
+                } else {
                     return;
                 }
-                imgUrl = config.spritesheetURL + "#" + spriteId;
             }
             el.setAttribute("data-src", imgUrl);
             var imgUrlSplitByFId = imgUrl.split("#");
@@ -135,6 +138,9 @@
         };
         SVGInjector.prototype.getEnv = function() {
             return env;
+        };
+        SVGInjector.prototype.getConfig = function() {
+            return config;
         };
         setFallbackClassNames = function(element, symbolId, classNames) {
             var className = typeof classNames === "undefined" ? DEFAULT_FALLBACK_CLASS_NAMES : classNames.slice(0);
@@ -600,14 +606,16 @@
         }).factory("svgInjectorFactory", [ "svgInjectorOptions", function(svgInjectorOptions) {
             return new SVGInjector(svgInjectorOptions);
         } ]).directive("svg", [ "svgInjectorFactory", function(svgInjectorFactory) {
+            var cfg = svgInjectorFactory.getConfig();
             return {
                 restrict: "E",
                 link: function(scope, element, attrs) {
-                    if (attrs.hasOwnProperty("class")) {
+                    var attrToObserve;
+                    if (attrs["class"] && attrs["class"].indexOf(cfg.spriteClassIdName) === 0) {
                         attrs.$observe("class", function() {
                             svgInjectorFactory.inject(element[0]);
                         });
-                    } else {
+                    } else if (attrs.dataSrc || attrs.src) {
                         svgInjectorFactory.inject(element[0]);
                     }
                 }
