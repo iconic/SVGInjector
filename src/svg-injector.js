@@ -1076,14 +1076,15 @@
         return new SVGInjector(svgInjectorOptions);
       }])
       .directive('svg', ['svgInjectorFactory', function(svgInjectorFactory) {
+        var cfg = svgInjectorFactory.getConfig();
         return {
           restrict: 'E',
           link: function (scope, element, attrs) {
-            if (attrs.hasOwnProperty('class')) {
+            if (attrs['class'] && attrs['class'].indexOf(cfg.spriteClassIdName) === 0) {
               attrs.$observe('class', function() {
                 svgInjectorFactory.inject(element[0]);
               });
-            } else {
+            } else if (attrs.dataSrc || attrs.src) {
               svgInjectorFactory.inject(element[0]);
             }
 
