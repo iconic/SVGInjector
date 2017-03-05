@@ -44,7 +44,7 @@
     "build": "npm run copy && uglifyjs ./src/svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./dist/svg-injector.min.js --source-map ./dist/svg-injector.map.js --source-map-include-sources",
     "watch": "watch \"npm run build\" ./src",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
-    "add": "git add ./dist/ && git add CHANGELOG.md",
+    "add": "git add ./dist/ && git add CHANGELOG.md && git add ./svg-injector.js",
     "version": "npm run changelog && npm run test && npm run build && npm run add",
     "release": "npm version patch",
     "prepush": "git push && git push --tags",
