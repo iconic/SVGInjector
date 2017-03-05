@@ -41,9 +41,9 @@
   </defs>
 
   <!-- put the symbols on the 'stage' to be able to display them in views -->
-  <use xlink:href="#circle-symbol"       width="100" height="100" x="0" y="0" />
-  <use xlink:href="#square-symbol"       width="100" height="100" x="0" y="100" />
-  <use xlink:href="#triangle-symbol"     width="100" height="100" x="0" y="200" />
-  <use xlink:href="#circlestyled-symbol" width="100" height="100" x="0" y="300" />
+  <use xlink:href="#circle-symbol"       width="100" height="100" />
+  <use xlink:href="#square-symbol"       width="100" height="100" y="100" />
+  <use xlink:href="#triangle-symbol"     width="100" height="100" y="200" />
+  <use xlink:href="#circlestyled-symbol" width="100" height="100" y="300" />
 
 </svg>
