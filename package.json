@@ -1,7 +1,7 @@
 {
   "name": "svg-injector-2",
   "description": "forked version of iconic/SVGInjector, extended by the ability to use spritesheets and support for angularjs",
-  "version": "2.0.34",
+  "version": "2.0.35",
   "author": "",
   "contributors": [
     {

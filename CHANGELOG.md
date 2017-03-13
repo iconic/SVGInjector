@@ -1,6 +1,22 @@
 ## Change Log
 
-### upcoming (2017/03/05 10:40 +00:00)
+### upcoming (2017/03/13 12:40 +00:00)
+- [7897ca7](https://github.com/flobacher/SVGInjector2/commit/7897ca7c284d4162b4f9ceb9446b829f5bb6f2c3) update example (@flobacher)
+- [6e7f25f](https://github.com/flobacher/SVGInjector2/commit/6e7f25f0f39ae0ec56ccbd24e58da9ee448e3c88) angular-directive: allow sprite-id class to be not the first in the classList (@flobacher)
+- [9c09103](https://github.com/flobacher/SVGInjector2/commit/9c09103d35c60c2762d389fb556ce83715ace092) fix package-script (@flobacher)
+
+### v2.0.34 (2017/03/05 10:43 +00:00)
+- [80f8b04](https://github.com/flobacher/SVGInjector2/commit/80f8b04c42104948937663a59f46fd751b1e5338) 2.0.34 (@flobacher)
+- [699af49](https://github.com/flobacher/SVGInjector2/commit/699af496e1627e6b0a42a908671f39977d83e5b5) codestyle (@flobacher)
+- [dedbd9b](https://github.com/flobacher/SVGInjector2/commit/dedbd9b181ffdf7450945c7642c2c658b58c173c) start adding support for interpolated data-src (@flobacher)
+- [b1a17fc](https://github.com/flobacher/SVGInjector2/commit/b1a17fc1c7d2f05364a8e81d17872d734e6812da) add example for interpolation support of classnames (@flobacher)
+- [1de9aa8](https://github.com/flobacher/SVGInjector2/commit/1de9aa8737a6e3d249c7c381c00f04f0d385cd2b) adapt example (@flobacher)
+- [215638d](https://github.com/flobacher/SVGInjector2/commit/215638d7d4bad66921c11bc7b9c08ca3099f4998) only execute angular-directive code if src, data-src or sprite-class are present (@flobacher)
+- [7eab253](https://github.com/flobacher/SVGInjector2/commit/7eab25323b2541640b3c5d143a525d3cd7f6ac69) codestyle (@flobacher)
+- [a0459c8](https://github.com/flobacher/SVGInjector2/commit/a0459c855fdf258204dd77d783847fe17acd7dfb) getter for config (@flobacher)
+- [3c4ba0e](https://github.com/flobacher/SVGInjector2/commit/3c4ba0e1bd1f48139d2673de3fc3732e2ba113c9) exit, when neither src, data-src, nor sprite sheet url are specified (@flobacher)
+- [3aef12b](https://github.com/flobacher/SVGInjector2/commit/3aef12bf51f3fe0992618c3d2a50d921ba319c38) add inline svgs to examples (@flobacher)
+- [ba2226f](https://github.com/flobacher/SVGInjector2/commit/ba2226fb08ca66d6f884d5ec3ef59a9911c307af) remove console.logs in minified version (@flobacher)
 - [#16](https://github.com/flobacher/SVGInjector2/pull/16) Check for imgUrl (@TheCopartnery)
 - [a188971](https://github.com/flobacher/SVGInjector2/commit/a188971bd5dbecea928eccc7e9d202ac0f46cecd) spelling correction (@TheCopartnery)
 - [3e72195](https://github.com/flobacher/SVGInjector2/commit/3e72195bb3c26348e12f8ae2ebf5e2cd4ec9af09) Check for imgUrl - inline svg’s will not have an imgUrl (src/data-src) causing imgUrl.split to error (@TheCopartnery)
@@ -59,8 +75,8 @@
 - [aadf829](https://github.com/flobacher/SVGInjector2/commit/aadf8299ecae7b5cd1213802f84d4fc2617c3d8d) correct those id-refs in sample sprite sheet.. this needs fixing in injector though (@flobacher)
 - [24e397d](https://github.com/flobacher/SVGInjector2/commit/24e397dae2b936829ecac1a4a42524faa4b11520) do not add role=presentation to title and desc (@flobacher)
 - [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
-- [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
 - [bd6213b](https://github.com/flobacher/SVGInjector2/commit/bd6213b62931d61563579e0641d7b03c95aadfc1) update/move examples (@flobacher)
+- [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
 - [#3](https://github.com/flobacher/SVGInjector2/pull/3) added support for aria-hidden attribute on svg element (@dgoerdes)
 - [f8cf0fe](https://github.com/flobacher/SVGInjector2/commit/f8cf0fe3706f6008eb39549363742dccc4c7ce0c) added support for aria-hidden attribute on svg element (@dgoerdes)
 
