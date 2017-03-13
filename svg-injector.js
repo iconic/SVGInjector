@@ -610,8 +610,7 @@
             return {
                 restrict: "E",
                 link: function(scope, element, attrs) {
-                    var attrToObserve;
-                    if (attrs["class"] && attrs["class"].indexOf(cfg.spriteClassIdName) === 0) {
+                    if (attrs["class"] && attrs["class"].indexOf(cfg.spriteClassIdName) >= 0) {
                         attrs.$observe("class", function() {
                             svgInjectorFactory.inject(element[0]);
                         });

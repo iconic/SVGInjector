@@ -1080,16 +1080,16 @@
         return {
           restrict: 'E',
           link: function (scope, element, attrs) {
-            var attrToObserve;
-            if (attrs['class'] && attrs['class'].indexOf(cfg.spriteClassIdName) === 0) {
+            // var attrToObserve;
+            if (attrs['class'] && attrs['class'].indexOf(cfg.spriteClassIdName) >= 0) {
               attrs.$observe('class', function() {
                 svgInjectorFactory.inject(element[0]);
               });
             } else if (attrs.dataSrc || attrs.src) {
-              //attrToObserve = (attrs.dataSrc) ? 'dataSrc' : 'src';
-              //attrs.$observe(attrToObserve, function() {
+              // attrToObserve = (attrs.dataSrc) ? 'dataSrc' : 'src';
+              // attrs.$observe(attrToObserve, function() {
               svgInjectorFactory.inject(element[0]);
-              //});
+              // });
             }
 
           }
