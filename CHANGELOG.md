@@ -1,6 +1,10 @@
 ## Change Log
 
-### upcoming (2017/03/13 12:40 +00:00)
+### upcoming (2017/03/28 08:49 +00:00)
+- [9517d99](https://github.com/flobacher/SVGInjector2/commit/9517d9941b17d5dc1dece733fcf2bb1281e2852f) update version nr. on build (@flobacher)
+
+### v2.0.35 (2017/03/13 12:40 +00:00)
+- [9b0617f](https://github.com/flobacher/SVGInjector2/commit/9b0617fdab9f178bb24922d1c610c66ccd85b873) 2.0.35 (@flobacher)
 - [7897ca7](https://github.com/flobacher/SVGInjector2/commit/7897ca7c284d4162b4f9ceb9446b829f5bb6f2c3) update example (@flobacher)
 - [6e7f25f](https://github.com/flobacher/SVGInjector2/commit/6e7f25f0f39ae0ec56ccbd24e58da9ee448e3c88) angular-directive: allow sprite-id class to be not the first in the classList (@flobacher)
 - [9c09103](https://github.com/flobacher/SVGInjector2/commit/9c09103d35c60c2762d389fb556ce83715ace092) fix package-script (@flobacher)
@@ -74,9 +78,9 @@
 - [2cb030f](https://github.com/flobacher/SVGInjector2/commit/2cb030f52aacd9d4afebe00e70b9caabe3ed04d9) 2.0.27 (@flobacher)
 - [aadf829](https://github.com/flobacher/SVGInjector2/commit/aadf8299ecae7b5cd1213802f84d4fc2617c3d8d) correct those id-refs in sample sprite sheet.. this needs fixing in injector though (@flobacher)
 - [24e397d](https://github.com/flobacher/SVGInjector2/commit/24e397dae2b936829ecac1a4a42524faa4b11520) do not add role=presentation to title and desc (@flobacher)
+- [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
 - [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
 - [bd6213b](https://github.com/flobacher/SVGInjector2/commit/bd6213b62931d61563579e0641d7b03c95aadfc1) update/move examples (@flobacher)
-- [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
 - [#3](https://github.com/flobacher/SVGInjector2/pull/3) added support for aria-hidden attribute on svg element (@dgoerdes)
 - [f8cf0fe](https://github.com/flobacher/SVGInjector2/commit/f8cf0fe3706f6008eb39549363742dccc4c7ce0c) added support for aria-hidden attribute on svg element (@dgoerdes)
 
