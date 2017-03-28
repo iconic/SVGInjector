@@ -35,13 +35,16 @@
     "github-changes": "^1.0.2",
     "jshint": "^2.5.0",
     "parallelshell": "^2.0.0",
+    "replace": "^0.3.0",
     "uglify-js": "^2.4.13",
     "watch": "^1.0.1"
   },
   "scripts": {
+    "update-version-comment": "replace '\\$\\{VERSION\\}' $npm_package_version svg-injector.js ./dist/svg-injector.min.js",
     "test": "jshint ./src/svg-injector.js",
-    "copy": "uglifyjs ./src/svg-injector.js -b --output svg-injector.js",
-    "build": "npm run copy && uglifyjs ./src/svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./dist/svg-injector.min.js --source-map ./dist/svg-injector.map.js --source-map-include-sources",
+    "copy": "uglifyjs ./src/svg-injector.js -b --comments --output svg-injector.js",
+    "minify": "uglifyjs ./src/svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./dist/svg-injector.min.js --source-map ./dist/svg-injector.map.js --source-map-include-sources",
+    "build": "npm run copy && npm run minify && npm run update-version-comment",
     "watch": "watch \"npm run build\" ./src",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
     "add": "git add ./dist/ && git add CHANGELOG.md && git add ./svg-injector.js",
