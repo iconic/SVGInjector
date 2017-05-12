@@ -131,6 +131,8 @@ Also see [examples/everything](https://github.com/flobacher/SVGInjector2/blob/ma
   // spritesheet relevant options
   spritesheetURL: 'urlToSpritesheet', false // only needed for classbased injection
   onlyInjectVisiblePart: true|false, // true -> if the fragmentId specifies an svg-view element, only inject the part that is visible due to the specified view
+  svgFallbackDir: 'urlToFragmentsThatMightNotBeInSpritesheetAnymore', // false -> it can make sense to remove fragments from a spritesheet after some time.. to be sure that nothin breaks, they can be put as single files to a fallback directory and injector tries to find them there
+  
 
   // testing
   forceFallbacks: true|false, // false
@@ -198,7 +200,8 @@ When using spritesheets, having to type the same data-src=urltospritesheet.svg#f
 Thats why there is a config options that allows to set a default url to a spritesheet. The fragment id can then be provided via
 a simple class.
 See [examples/fallbacks](https://github.com/flobacher/SVGInjector2/blob/master/examples/spritesheet-classbased.html) for more details.
-
+There is an additional option to add a fallback svg in case the fragmentid cannot be found in the spritesheet.
+Specify it via `data-fallback-svg = "url-to-fallback-image.svg"`
 
 ### AngularJS
 

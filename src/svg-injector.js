@@ -74,7 +74,8 @@
       svgElemSetClassName,
       forEach,
       setRootLevelElem,
-      addRootLevelElem
+      addRootLevelElem,
+      injectElement
     ;
 
 
@@ -116,6 +117,9 @@
 
       // Location of fallback pngs, if desired
       config.pngFallback = options.pngFallback || false;
+
+      // Location of fallback svgs, if desired
+      config.svgFallbackDir = options.svgFallbackDir || false;
 
       // Only inject the part of the svg, that is specified
       // as visible through the id of an SVGViewElement
@@ -200,7 +204,7 @@
      * @param {function} onDoneCallback
      * @param {function} eachCallback
      */
-    SVGInjector.prototype.injectElement = function (el, onElementInjectedCallback) {
+    injectElement = SVGInjector.prototype.injectElement = function (el, onElementInjectedCallback) {
       var imgUrl = el.getAttribute('data-src') || el.getAttribute('src'),
           spriteId;
 
@@ -547,7 +551,7 @@
       else {
         svgElem = sourceSvg.getElementById(fragId);
         if(!svgElem){
-          console.warn(fragId + ' not found in svg', sourceSvg);
+          console.warn(fragId + ' not found in svg');
           return;
         }
 
@@ -798,11 +802,22 @@
           imgId,
           titleId,
           descId,
-          ariaHidden;
+          ariaHidden,
+          fallbackSvg
+      ;
 
       svg = cloneSvg(config, svgCache[url], fragmentId);
       if (typeof svg === 'undefined' || typeof svg === 'string') {
-        onElementInjectedCallback(svg);
+        fallbackSvg = el.getAttribute('data-fallback-svg');
+        fallbackSvg = fallbackSvg || config.svgFallbackDir ? config.svgFallbackDir + '/' + fragmentId + '.svg' : false;
+        if (fallbackSvg) {
+          // console.log('use fallback-svg', fallbackSvg);
+          el.setAttribute('data-src', fallbackSvg);
+          injections.elements.splice(injections.elements.indexOf(el), 1);
+          injectElement(el, onElementInjectedCallback);
+        } else {
+          onElementInjectedCallback(svg);
+        }
         return false;
       }
 
@@ -1045,7 +1060,7 @@
       newElem.setAttribute('id', id);
 
       svg.insertBefore(newElem, insertBefore);
-      
+
       if (existingElem) { // remove
         existingElem.parentNode.removeChild(existingElem);
       }
