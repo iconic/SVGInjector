@@ -1,6 +1,7 @@
 ## Change Log
 
-### upcoming (2017/05/12 17:17 +00:00)
+### upcoming (2017/05/12 19:30 +00:00)
+- [e4d6f1a](https://github.com/flobacher/SVGInjector2/commit/e4d6f1a29b9cec3f6b9c6c803f8f6f6be00085bf) 2.0.37
 - [#22](https://github.com/flobacher/SVGInjector2/pull/22) bugfix, replace element (@sladiri)
 - [9f81e08](https://github.com/flobacher/SVGInjector2/commit/9f81e0801f5edbd358cac5df7b7013b710d46983) bugfix, replace element (@sladiri)
 
@@ -83,8 +84,8 @@
 - [2cb030f](https://github.com/flobacher/SVGInjector2/commit/2cb030f52aacd9d4afebe00e70b9caabe3ed04d9) 2.0.27 (@flobacher)
 - [aadf829](https://github.com/flobacher/SVGInjector2/commit/aadf8299ecae7b5cd1213802f84d4fc2617c3d8d) correct those id-refs in sample sprite sheet.. this needs fixing in injector though (@flobacher)
 - [24e397d](https://github.com/flobacher/SVGInjector2/commit/24e397dae2b936829ecac1a4a42524faa4b11520) do not add role=presentation to title and desc (@flobacher)
-- [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
 - [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
+- [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
 - [bd6213b](https://github.com/flobacher/SVGInjector2/commit/bd6213b62931d61563579e0641d7b03c95aadfc1) update/move examples (@flobacher)
 - [#3](https://github.com/flobacher/SVGInjector2/pull/3) added support for aria-hidden attribute on svg element (@dgoerdes)
 - [f8cf0fe](https://github.com/flobacher/SVGInjector2/commit/f8cf0fe3706f6008eb39549363742dccc4c7ce0c) added support for aria-hidden attribute on svg element (@dgoerdes)

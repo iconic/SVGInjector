@@ -1,5 +1,5 @@
 /*!
- * SVGInjector v2.0.37 - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v2.1.0 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/flobacher/SVGInjector2
  * forked from:
  * https://github.com/iconic/SVGInjector
@@ -29,7 +29,7 @@
         var ranScripts;
         var config;
         var env;
-        var setFallbackClassNames, removeFallbackClassNames, suffixIdReferences, suffixIdReferencesInStyles, copyAttributes, cloneSymbolAsSVG, doPrefixStyleTags, getClassList, getSpriteIdFromClass, cloneSvg, queueRequest, processRequestQueue, loadSvg, writeDefaultClass, replaceNoSVGClass, onLoadSVG, uniqueClasses, isFunction, isArray, svgElemSetClassName, forEach, setRootLevelElem, addRootLevelElem;
+        var setFallbackClassNames, removeFallbackClassNames, suffixIdReferences, suffixIdReferencesInStyles, copyAttributes, cloneSymbolAsSVG, doPrefixStyleTags, getClassList, getSpriteIdFromClass, cloneSvg, queueRequest, processRequestQueue, loadSvg, writeDefaultClass, replaceNoSVGClass, onLoadSVG, uniqueClasses, isFunction, isArray, svgElemSetClassName, forEach, setRootLevelElem, addRootLevelElem, injectElement;
         requestQueue = [];
         SVGInjector.instanceCounter = 0;
         SVGInjector.prototype.init = function(options) {
@@ -46,6 +46,7 @@
             config = {};
             config.evalScripts = options.evalScripts || "always";
             config.pngFallback = options.pngFallback || false;
+            config.svgFallbackDir = options.svgFallbackDir || false;
             config.onlyInjectVisiblePart = options.onlyInjectVisiblePart || true;
             config.keepStylesClass = typeof options.keepStylesClass === "undefined" ? "" : options.keepStylesClass;
             config.spriteClassName = typeof options.spriteClassName === "undefined" ? DEFAULT_SPRITE_CLASS_NAME : options.spriteClassName;
@@ -87,7 +88,7 @@
                 }
             }
         };
-        SVGInjector.prototype.injectElement = function(el, onElementInjectedCallback) {
+        injectElement = SVGInjector.prototype.injectElement = function(el, onElementInjectedCallback) {
             var imgUrl = el.getAttribute("data-src") || el.getAttribute("src"), spriteId;
             if (!imgUrl) {
                 if (config.spritesheetURL) {
@@ -304,7 +305,7 @@
             } else {
                 svgElem = sourceSvg.getElementById(fragId);
                 if (!svgElem) {
-                    console.warn(fragId + " not found in svg", sourceSvg);
+                    console.warn(fragId + " not found in svg");
                     return;
                 }
                 viewBoxAttr = svgElem.getAttribute("viewBox");
@@ -467,10 +468,18 @@
             }
         };
         onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el, name) {
-            var svg, imgId, titleId, descId, ariaHidden;
+            var svg, imgId, titleId, descId, ariaHidden, fallbackSvg;
             svg = cloneSvg(config, svgCache[url], fragmentId);
             if (typeof svg === "undefined" || typeof svg === "string") {
-                onElementInjectedCallback(svg);
+                fallbackSvg = el.getAttribute("data-fallback-svg");
+                fallbackSvg = fallbackSvg || config.svgFallbackDir ? config.svgFallbackDir + "/" + fragmentId + ".svg" : false;
+                if (fallbackSvg) {
+                    el.setAttribute("data-src", fallbackSvg);
+                    injections.elements.splice(injections.elements.indexOf(el), 1);
+                    injectElement(el, onElementInjectedCallback);
+                } else {
+                    onElementInjectedCallback(svg);
+                }
                 return false;
             }
             svg.setAttribute("role", "img");
