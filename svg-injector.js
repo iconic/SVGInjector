@@ -1,5 +1,5 @@
 /*!
- * SVGInjector v2.0.36 - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v2.0.37 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/flobacher/SVGInjector2
  * forked from:
  * https://github.com/iconic/SVGInjector
@@ -593,13 +593,13 @@
         };
         addRootLevelElem = function(type, svg, text, id, insertBefore) {
             var newElem, existingElem = svg.querySelector(type);
-            if (existingElem) {
-                existingElem.parentNode.removeChild(existingElem);
-            }
             newElem = document.createElementNS(SVG_NS, type);
             newElem.appendChild(document.createTextNode(text));
             newElem.setAttribute("id", id);
             svg.insertBefore(newElem, insertBefore);
+            if (existingElem) {
+                existingElem.parentNode.removeChild(existingElem);
+            }
             return newElem;
         };
         return SVGInjector;
