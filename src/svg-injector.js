@@ -1040,15 +1040,15 @@
       var newElem,
           existingElem = svg.querySelector(type);
 
-      if (existingElem) { // remove
-        existingElem.parentNode.removeChild(existingElem);
-      }
-
       newElem = document.createElementNS(SVG_NS, type);
       newElem.appendChild(document.createTextNode(text));
       newElem.setAttribute('id', id);
 
       svg.insertBefore(newElem, insertBefore);
+      
+      if (existingElem) { // remove
+        existingElem.parentNode.removeChild(existingElem);
+      }
 
       return newElem;
     };
