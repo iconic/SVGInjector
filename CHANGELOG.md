@@ -1,6 +1,8 @@
 ## Change Log
 
-### upcoming (2017/05/12 19:30 +00:00)
+### upcoming (2017/05/15 16:33 +00:00)
+- [54fa00d](https://github.com/flobacher/SVGInjector2/commit/54fa00d7ca9b359cbcf99f0e9bfb5fdf06f94c48) 2.1.0
+- [de4a372](https://github.com/flobacher/SVGInjector2/commit/de4a372b6d28f22f747cffd7b574da6160c8a257) add the option to provide fallback svgs for fragment ids, that might not be found in the spritesheet
 - [e4d6f1a](https://github.com/flobacher/SVGInjector2/commit/e4d6f1a29b9cec3f6b9c6c803f8f6f6be00085bf) 2.0.37
 - [#22](https://github.com/flobacher/SVGInjector2/pull/22) bugfix, replace element (@sladiri)
 - [9f81e08](https://github.com/flobacher/SVGInjector2/commit/9f81e0801f5edbd358cac5df7b7013b710d46983) bugfix, replace element (@sladiri)

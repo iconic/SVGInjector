@@ -1,5 +1,5 @@
 /*!
- * SVGInjector v2.1.0 - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v2.1.1 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/flobacher/SVGInjector2
  * forked from:
  * https://github.com/iconic/SVGInjector
@@ -299,20 +299,25 @@
             return id;
         };
         cloneSvg = function(config, sourceSvg, fragId) {
-            var svgElem, newSVG, viewBox, viewBoxAttr, symbolAttributesToFind, curClassList, setViewboxOnNewSVG = false, symbolElem = null, symobolList;
+            var svgElem, newSVG = null, viewBox, viewBoxAttr, symbolAttributesToFind, curClassList, setViewboxOnNewSVG = false, setDimensionsOnNewSVG = false, symbolElem = null, symobolList;
             if (fragId === undefined) {
-                return sourceSvg.cloneNode(true);
+                svgElem = newSVG = sourceSvg.cloneNode(true);
+                if (!newSVG.getAttribute("width") && !sourceSvg.getAttribute("width")) {
+                    setDimensionsOnNewSVG = true;
+                }
             } else {
                 svgElem = sourceSvg.getElementById(fragId);
                 if (!svgElem) {
                     console.warn(fragId + " not found in svg");
                     return;
                 }
-                viewBoxAttr = svgElem.getAttribute("viewBox");
-                viewBox = viewBoxAttr.split(" ");
+            }
+            viewBoxAttr = svgElem.getAttribute("viewBox");
+            viewBox = viewBoxAttr.split(" ");
+            if (!newSVG) {
                 if (svgElem instanceof SVGSymbolElement) {
                     newSVG = cloneSymbolAsSVG(svgElem);
-                    setViewboxOnNewSVG = true;
+                    setDimensionsOnNewSVG = setViewboxOnNewSVG = true;
                 } else if (svgElem instanceof SVGViewElement) {
                     symbolElem = null;
                     if (config.onlyInjectVisiblePart) {
@@ -348,28 +353,30 @@
                         newSVG = cloneSymbolAsSVG(referencedSymbol);
                         viewBoxAttr = referencedSymbol.getAttribute("viewBox");
                         viewBox = viewBoxAttr.split(" ");
-                        setViewboxOnNewSVG = true;
+                        setDimensionsOnNewSVG = setViewboxOnNewSVG = true;
                     } else {
                         console.info((config.onlyInjectVisiblePart ? "symbol referenced via view" + fragId + " not found" : "option.onlyInjectVisiblePart: false") + " -> clone complete svg!");
-                        setViewboxOnNewSVG = true;
+                        setDimensionsOnNewSVG = setViewboxOnNewSVG = true;
                         newSVG = sourceSvg.cloneNode(true);
                     }
                 }
-                if (setViewboxOnNewSVG) {
-                    newSVG.setAttribute("viewBox", viewBox.join(" "));
-                    newSVG.setAttribute("width", viewBox[2] + "px");
-                    newSVG.setAttribute("height", viewBox[3] + "px");
-                }
-                newSVG.setAttribute("xmlns", SVG_NS);
-                newSVG.setAttribute("xmlns:xlink", XLINK_NS);
                 curClassList = getClassList(newSVG);
                 var fragIdClassName = config.prefixFragIdClass + fragId;
                 if (curClassList.indexOf(fragIdClassName) < 0) {
                     curClassList.push(fragIdClassName);
                     newSVG.setAttribute("class", curClassList.join(" "));
                 }
-                return newSVG;
             }
+            if (setViewboxOnNewSVG) {
+                newSVG.setAttribute("viewBox", viewBox.join(" "));
+            }
+            if (setDimensionsOnNewSVG) {
+                newSVG.setAttribute("width", viewBox[2] + "px");
+                newSVG.setAttribute("height", viewBox[3] + "px");
+            }
+            newSVG.setAttribute("xmlns", SVG_NS);
+            newSVG.setAttribute("xmlns:xlink", XLINK_NS);
+            return newSVG;
         };
         queueRequest = function(fileName, fragId, callback, el) {
             requestQueue[fileName] = requestQueue[fileName] || [];
