@@ -155,13 +155,13 @@
       config.forceFallbacks = (typeof options.forceFallbacks === 'undefined') ?
         false : options.forceFallbacks;
 
-      if(config.forceFallbacks){
+      if (config.forceFallbacks){
         env.hasSvgSupport = false;
       }
 
       replaceNoSVGClass(document.querySelector('html'), 'no-svg', env.hasSvgSupport);
 
-      if(env.hasSvgSupport && typeof options.removeStylesClass === 'undefined' ){ // user does not want to use his own custom class -> write this style tag
+      if (env.hasSvgSupport && typeof options.removeStylesClass === 'undefined' ){ // user does not want to use his own custom class -> write this style tag
         writeDefaultClass(config.removeStylesClass);
       }
     };
@@ -353,7 +353,7 @@
           function(curFallbackClassName) {
             curFallbackClassName = curFallbackClassName.replace('%s', symbolId);
             idxOfCurClass = curClassNames.indexOf(curFallbackClassName);
-            if( idxOfCurClass >= 0 ){
+            if (idxOfCurClass >= 0){
               // console.log('remove class ' + curClassName);
               curClassNames[idxOfCurClass] = '';
             }
@@ -490,7 +490,7 @@
           },
           stylerule = '';
 
-      if(srcArr.length > 1) {
+      if (srcArr.length > 1) {
         origPrefixClassName = srcArr[1];
         newPrefixClassName = origPrefixClassName + '-' + injectCount;
         regex = new RegExp('\\.' + origPrefixClassName + ' ', 'g');
@@ -525,7 +525,7 @@
       var classes = getClassList(element);
       var id = '';
       forEach.call(classes, function (curClass) {
-        if(curClass.indexOf(config.spriteClassIdName) >= 0) {
+        if (curClass.indexOf(config.spriteClassIdName) >= 0) {
           id = curClass.replace(config.spriteClassIdName, '');
           // console.log('class with prefix ' + config.spriteClassIdName + ' found. id: ' + id);
         }
@@ -546,7 +546,7 @@
         symbolElem = null,
         symobolList;
 
-      if(fragId === undefined){
+      if (fragId === undefined){
         svgElem = newSVG = sourceSvg.cloneNode(true);
         if (!newSVG.getAttribute('width') && !sourceSvg.getAttribute('width')) {
           setDimensionsOnNewSVG = true;
@@ -605,7 +605,7 @@
               }
             }
           }
-          else if(symbolElem && (symbolElem instanceof SVGUseElement)) {
+          else if (symbolElem && (symbolElem instanceof SVGUseElement)) {
             // console.log('referenced view shows a SVGUseElement');
             var referencedSymbol = sourceSvg.getElementById(
               symbolElem.getAttributeNS(XLINK_NS, 'href').substr(1)
@@ -793,7 +793,7 @@
     };
 
     replaceNoSVGClass = function(element, noSVGClassName, hasSvgSupport) {
-      if(hasSvgSupport) {
+      if (hasSvgSupport) {
         element.className.replace(noSVGClassName, '');
       }
       else{
@@ -1001,7 +1001,7 @@
       var curClasses = el.getAttribute('class');
       curClasses = curClasses ? curClasses : '';
 
-      if(isArray(newClassNames)) {
+      if (isArray(newClassNames)) {
         newClassNames = newClassNames.join(' ');
       }
 
