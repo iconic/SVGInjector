@@ -304,12 +304,20 @@
           newId = currentId + '-' + injectCount;
 
           // All of the properties that can reference this element type
-          var referencingElements;
+          var referencingElements,currentStyle, newStyle;
           forEach.call(properties, function (property) {
             // :NOTE: using a substring match attr selector here to deal with IE "adding extra quotes in url() attrs"
             referencingElements = svg.querySelectorAll('[' + property + '*="' + currentId + '"]');
             for (var j = 0, referencingElementLen = referencingElements.length; j < referencingElementLen; j++) {
               referencingElements[j].setAttribute(property, 'url(#' + newId + ')');
+            }
+
+            // An svg can also have some of the mentioned properties declared inside the style attribute
+            referencingElements = svg.querySelectorAll('[style*="' + property + '"]');
+            for (var j = 0, referencingElementLen = referencingElements.length; j < referencingElementLen; j++) {
+              currentStyle = referencingElements[j].getAttribute('style');
+              newStyle = currentStyle.replace('url(#' + currentId + ')','url(#' + newId + ')');
+              referencingElements[j].setAttribute('style', newStyle);
             }
           });
 
