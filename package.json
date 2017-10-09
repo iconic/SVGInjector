@@ -34,7 +34,7 @@
     "browser-sync": "^2.18.6",
     "github-changes": "^1.0.2",
     "jshint": "^2.5.0",
-    "parallelshell": "^2.0.0",
+    "parallelshell": "^3.0.1",
     "replace": "^0.3.0",
     "uglify-js": "^2.4.13",
     "watch": "^1.0.1"
@@ -54,5 +54,9 @@
     "push": "npm publish",
     "start": "parallelshell \"npm run browser-sync\" \"npm run watch\"",
     "browser-sync": "browser-sync start -s . -f ./dist/*.js --index --directory --startPath ./examples/index.html"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=3.0.0"
   }
 }
