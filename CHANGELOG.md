@@ -1,8 +1,15 @@
 ## Change Log
 
-### upcoming (2017/05/15 16:33 +00:00)
+### v2.1.1 (2017/05/15 16:34 +00:00)
+- [ba82a4c](https://github.com/flobacher/SVGInjector2/commit/ba82a4cb168afa4c0af668a03685597d1696d166) 2.1.1
+- [013bb9d](https://github.com/flobacher/SVGInjector2/commit/013bb9d31fcba2fc4061b08418cfda5d5576b277) codestyle
+- [6221b19](https://github.com/flobacher/SVGInjector2/commit/6221b19f6f9f00344754304dfcea07ef35548e81) add width and height also on single elements (not spritesheet-fragments) that only specify a viewbox
+
+### v2.1.0 (2017/05/12 19:32 +00:00)
 - [54fa00d](https://github.com/flobacher/SVGInjector2/commit/54fa00d7ca9b359cbcf99f0e9bfb5fdf06f94c48) 2.1.0
 - [de4a372](https://github.com/flobacher/SVGInjector2/commit/de4a372b6d28f22f747cffd7b574da6160c8a257) add the option to provide fallback svgs for fragment ids, that might not be found in the spritesheet
+
+### v2.0.37 (2017/05/12 17:31 +00:00)
 - [e4d6f1a](https://github.com/flobacher/SVGInjector2/commit/e4d6f1a29b9cec3f6b9c6c803f8f6f6be00085bf) 2.0.37
 - [#22](https://github.com/flobacher/SVGInjector2/pull/22) bugfix, replace element (@sladiri)
 - [9f81e08](https://github.com/flobacher/SVGInjector2/commit/9f81e0801f5edbd358cac5df7b7013b710d46983) bugfix, replace element (@sladiri)

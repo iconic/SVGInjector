@@ -1,5 +1,5 @@
 /*!
- * SVGInjector v2.1.1 - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v2.1.2 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/flobacher/SVGInjector2
  * forked from:
  * https://github.com/iconic/SVGInjector
@@ -475,7 +475,7 @@
             }
         };
         onLoadSVG = function(url, fragmentId, onElementInjectedCallback, el, name) {
-            var svg, imgId, titleId, descId, ariaHidden, fallbackSvg;
+            var svg, imgId, titleId, descId, ariaHidden, fallbackSvg, labeledBy, titleTagExisting, descTagExisting;
             svg = cloneSvg(config, svgCache[url], fragmentId);
             if (typeof svg === "undefined" || typeof svg === "string") {
                 fallbackSvg = el.getAttribute("data-fallback-svg");
@@ -496,12 +496,23 @@
                 }
             });
             ariaHidden = el.getAttribute("aria-hidden") || svg.getAttribute("aria-hidden");
-            descId = setRootLevelElem("desc", svg, el, fragmentId, name, !ariaHidden);
-            titleId = setRootLevelElem("title", svg, el, fragmentId, name, !ariaHidden);
             if (ariaHidden) {
                 svg.setAttribute("aria-hidden", "true");
+                titleTagExisting = svg.querySelector("title");
+                descTagExisting = svg.querySelector("desc");
+                if (titleTagExisting) {
+                    svg.removeChild(titleTagExisting);
+                }
+                if (descTagExisting) {
+                    svg.removeChild(descTagExisting);
+                }
             } else {
-                svg.setAttribute("aria-labelledby", titleId + " " + descId);
+                descId = setRootLevelElem("desc", svg, el, fragmentId, false);
+                titleId = setRootLevelElem("title", svg, el, fragmentId, false);
+                if (descId.length > 0 || titleId.length > 0) {
+                    labeledBy = titleId + " " + descId;
+                    svg.setAttribute("aria-labelledby", labeledBy.trim());
+                }
             }
             copyAttributes(el, svg, [ "class" ]);
             var classMerge = [].concat(svg.getAttribute("class") || [], "injected-svg", el.getAttribute("class") || []).join(" ");
@@ -599,6 +610,7 @@
                     existingElem.setAttribute("id", elemId);
                 } else {
                     if (addDefault) {
+                        console.log("add default");
                         addRootLevelElem(type, svg, fragmentId, elemId, svg.firstChild);
                     } else {
                         elemId = "";
