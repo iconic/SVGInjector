@@ -809,7 +809,10 @@
           titleId,
           descId,
           ariaHidden,
-          fallbackSvg
+          fallbackSvg,
+          labeledBy,
+          titleTagExisting,
+          descTagExisting
       ;
 
       svg = cloneSvg(config, svgCache[url], fragmentId);
@@ -843,13 +846,26 @@
       // set aria-hidden attribute
       ariaHidden = el.getAttribute('aria-hidden') || svg.getAttribute('aria-hidden');
 
-      // set desc + title
-      descId = setRootLevelElem('desc', svg, el, fragmentId, name, !ariaHidden);
-      titleId = setRootLevelElem('title', svg, el, fragmentId, name, !ariaHidden);
       if (ariaHidden) {
         svg.setAttribute('aria-hidden', 'true');
+        titleTagExisting = svg.querySelector('title');
+        descTagExisting = svg.querySelector('desc');
+        if (titleTagExisting) {
+          svg.removeChild(titleTagExisting);
+        }
+        if (descTagExisting) {
+          svg.removeChild(descTagExisting);
+        }
+
       } else {
-        svg.setAttribute('aria-labelledby', titleId + ' ' + descId);
+        // set desc + title
+        descId = setRootLevelElem('desc', svg, el, fragmentId, false);
+        titleId = setRootLevelElem('title', svg, el, fragmentId, false);
+        if (descId.length > 0 || titleId.length > 0) {
+          labeledBy = titleId + ' ' + descId;
+          svg.setAttribute('aria-labelledby', labeledBy.trim());
+        }
+
       }
 
       // copy attributes of original element to new svg excluding class
@@ -1047,6 +1063,7 @@
         } else {
 
           if (addDefault) {
+            console.log('add default');
             // neither injection target nor the svg to inject contain this element -> create with default content
             addRootLevelElem(type, svg, fragmentId, elemId, svg.firstChild);
           } else {
