@@ -55,9 +55,5 @@
     "push": "npm publish",
     "start": "parallelshell \"npm run browser-sync\" \"npm run watch\"",
     "browser-sync": "browser-sync start -s . -f ./dist/*.js --index --directory --startPath ./examples/index.html"
-  },
-  "engines": {
-    "node": ">=8.0.0",
-    "npm": ">=3.0.0"
   }
 }
