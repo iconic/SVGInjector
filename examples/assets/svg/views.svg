@@ -23,6 +23,8 @@
 
   <view id="triangle"                             viewBox="0 200 100 100" />
   <svg class="triangle" width="100" height="100"  viewBox="0 0 100 100" y="200">
+    <title>Orig Triangle Tilte</title>
+    <desc>Orig Triangle Desc</desc>
     <style type="text/css">
       .triangle .st0 {
         fill: #A6042D;

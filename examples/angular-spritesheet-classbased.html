@@ -27,17 +27,26 @@
     </svg>
 
     <!-- reference fragments via views - generated with gulp-svg-sprite -->
-    <svg class="sprite--circle" />
-    <svg class="sprite--square" />
+    <svg class="sprite--circle">
+      <title>Circle Title Generated (not there in orig)</title>
+      <desc>Circle Desc Generated (not there in orig)</desc>
+    </svg>
+    <svg class="sprite--square" >
+      <title>Square Title Generated (not there in orig, only title generated, desc not set)</title>
+    </svg>
+    <svg class="sprite--square" aria-hidden="true"></svg>
     <svg class="sprite--triangle" />
-    <svg class="icon sprite--triangle" />
-    <svg class="sprite--logo-gradients" />
+    <svg class="icon sprite--triangle" aria-hidden="true"></svg>
+    <svg class="sprite--logo-gradients">
+      <title>Only Title Overridden</title>
+    </svg>
 
     <!-- interpolate sprite-class-name -->
     <svg class="sprite--{{spriteName}}" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
-    <script src="../dist/svg-injector.min.js"></script>
+    <!--<script src="../dist/svg-injector.min.js"></script>-->
+    <script src="../svg-injector.js"></script>
     <script>
       (function(window, document, angular){
 
