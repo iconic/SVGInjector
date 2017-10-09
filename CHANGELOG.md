@@ -1,5 +1,15 @@
 ## Change Log
 
+### v2.1.2 (2017/10/09 03:56 +00:00)
+- [01e4044](https://github.com/flobacher/SVGInjector2/commit/01e404473c45d850bad145b3c8d1cc25dd099f8c) 2.1.2
+- [6de7b44](https://github.com/flobacher/SVGInjector2/commit/6de7b44afecdc73062e78400a34ae15c0c57194b) make the `update-version-comment` script work on windows as well
+- [bd18b74](https://github.com/flobacher/SVGInjector2/commit/bd18b7472f7f3ce11676f060bbe725830886a692) update examples to test new `title`, `desc`, `aria-labelledby` and `aria-hidden` implementation
+- [6eab4d9](https://github.com/flobacher/SVGInjector2/commit/6eab4d96a84d1cfd3b1317de5db52418d256064f) update logic for title and desc creation/adaption
+- [fc49c49](https://github.com/flobacher/SVGInjector2/commit/fc49c49df789a580a611d121c09842d3cde7e166) add angular example
+- [4f71cc4](https://github.com/flobacher/SVGInjector2/commit/4f71cc473843308259edb8741b8b61d6f5f696c1) add `h1` to titles to identify them easier
+- [aafb1fe](https://github.com/flobacher/SVGInjector2/commit/aafb1fecda487a6e7ef7a6e9d96a6fcaac2a0dec) npm 5 support. hurray =)
+- [c934bd3](https://github.com/flobacher/SVGInjector2/commit/c934bd357864bc9959aa4d20585f2ab26dfaf9a4) chore: update for usage with node 8
+
 ### v2.1.1 (2017/05/15 16:34 +00:00)
 - [ba82a4c](https://github.com/flobacher/SVGInjector2/commit/ba82a4cb168afa4c0af668a03685597d1696d166) 2.1.1
 - [013bb9d](https://github.com/flobacher/SVGInjector2/commit/013bb9d31fcba2fc4061b08418cfda5d5576b277) codestyle

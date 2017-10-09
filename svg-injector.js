@@ -1,5 +1,5 @@
 /*!
- * SVGInjector v2.1.2 - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v2.1.3 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/flobacher/SVGInjector2
  * forked from:
  * https://github.com/iconic/SVGInjector
