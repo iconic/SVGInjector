@@ -31,7 +31,7 @@
   "scripts": {
     "test": "jshint svg-injector.js",
     "build": "uglifyjs ./svg-injector.js --stats --compress --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
-    "changelog": "github-changes -o iconic -r SVGInjector --use-commit-body",
+    "changelog": "github-changes -o tanem -r SVGInjector -n ${npm_package_version} --use-commit-body --no-merges",
     "changelog-post": "git add CHANGELOG.md && git commit -m 'Updated CHANGELOG'",
     "release": "for TASK in (test build changelog changelog-post tag); do npm run $TASK; done",
     "tag": "git tag ${npm_package_version} && git push --tags",
