@@ -1,5 +1,5 @@
 {
-  "name": "svg-injector",
+  "name": "@tanem/svg-injector",
   "description": "Fast, caching, dynamic inline SVG DOM injection library",
   "version": "1.1.3",
   "author": {
