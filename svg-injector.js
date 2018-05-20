@@ -14,6 +14,9 @@
   var isLocal = window.location.protocol === 'file:';
   var hasSvgSupport = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
 
+  var svgNamespace = 'http://www.w3.org/2000/svg';
+  var xlinkNamespace = 'http://www.w3.org/1999/xlink';
+
   function uniqueClasses(list) {
     list = list.split(' ');
 
@@ -313,6 +316,17 @@
             }
           });
 
+          var allLinks = svg.querySelectorAll('[*|href]');
+          var links = [];
+          for (var k = 0, allLinksLen = allLinks.length; k < allLinksLen; k++) {
+            if (allLinks[k].getAttributeNS(xlinkNamespace, 'href').toString() === '#' + elementDefs[i].id) {
+              links.push(allLinks[k]);
+            }
+          }
+          for (var l = 0, linksLen = links.length; l < linksLen; l++) {
+            links[l].setAttributeNS(xlinkNamespace, 'href', '#' + newId);
+          }
+
           elementDefs[i].id = newId;
         }
       });
@@ -372,6 +386,9 @@
       forEach.call(styleTags, function (styleTag) {
         styleTag.textContent += '';
       });
+
+      svg.setAttribute('xmlns', svgNamespace);
+      svg.setAttribute('xmlns:xlink', xlinkNamespace);
 
       // Replace the image with the svg
       el.parentNode.replaceChild(svg, el);
