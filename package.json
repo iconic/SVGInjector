@@ -24,12 +24,20 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.47.1",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
     "github-changes": "0.0.11",
     "jshint": "^2.5.0",
     "prettier": "^1.12.1",
     "uglify-js": "^2.4.13"
   },
   "scripts": {
+    "lint": "eslint .",
     "test": "jshint svg-injector.js",
     "build": "uglifyjs ./svg-injector.js --stats --compress --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
     "changelog": "github-changes -o tanem -r SVGInjector -n ${npm_package_version} --use-commit-body --no-merges",
