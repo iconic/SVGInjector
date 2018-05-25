@@ -1,10 +1,20 @@
 ## Change Log
 
-### 1.1.4 (2018/05/20 06:26 +00:00)
+### 1.1.5 (2018/05/25 01:21 +00:00)
+- [c0053ba](https://github.com/tanem/SVGInjector/commit/c0053ba31f3869adbd421bd18bbce5f995490f6b) Configure prettier (@tanem)
+- [75529f3](https://github.com/tanem/SVGInjector/commit/75529f31699790ac78454b06d97bb8aed9ffe445) Add eslint (@tanem)
+- [8ae4d0f](https://github.com/tanem/SVGInjector/commit/8ae4d0f6d2be5647b23cb304552ce4032e7c7076) Remove jshint (@tanem)
+- [357ec90](https://github.com/tanem/SVGInjector/commit/357ec90b1fe670dda21049bf4aed46b4e5463105) Prettify all the things (@tanem)
+- [eadadef](https://github.com/tanem/SVGInjector/commit/eadadef2d59000316737d3c88ea165efb2e33a1e) Remove .jshintrc (@tanem)
+- [29fef90](https://github.com/tanem/SVGInjector/commit/29fef905907f76dfe0ab7faa1c26f10d33baacf5) Fix non-browser behaviour (@tanem)
+- [9e8bc2e](https://github.com/tanem/SVGInjector/commit/9e8bc2ecd273c850b0edf2a00356f80a1d43fc96) Ditch bower (@tanem)
+
+### 1.1.4 (2018/05/20 06:27 +00:00)
 - [2313e72](https://github.com/tanem/SVGInjector/commit/2313e7246c3a215d9c7042afb42dc25158375b65) Fix id translations (@tanem)
 - [c163782](https://github.com/tanem/SVGInjector/commit/c163782748b14f5f01a8fc498a750273d8f5366d) Set up scoped package (@tanem)
 - [cd48d88](https://github.com/tanem/SVGInjector/commit/cd48d88c9d6e776da532777e441d43b0476c8acc) Reference the dist folder directly in examples & tests (@tanem)
 - [1952d4f](https://github.com/tanem/SVGInjector/commit/1952d4f26bc8ed50b0d1b5bbee89e9799158a218) Fix changelog script (@tanem)
+- [64ddfc3](https://github.com/tanem/SVGInjector/commit/64ddfc3ba1433ca1f6846be3730e62bc86f8ac92) Release v1.1.4 (@tanem)
 
 ### 1.1.3 (2015/06/23 23:12 +00:00)
 - [e01b63e](https://github.com/tanem/SVGInjector/commit/e01b63e586b8ab61203eb58e1d94b3b2626873ec) changelog update (@protodave)
