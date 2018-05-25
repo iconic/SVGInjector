@@ -43,9 +43,7 @@
       throw new TypeError();
     }
 
-    /* jshint bitwise: false */
     var i, len = this.length >>> 0;
-    /* jshint bitwise: true */
 
     for (i = 0; i < len; ++i) {
       if (i in this) {
@@ -78,13 +76,11 @@
   var processRequestQueue = function (url) {
     for (var i = 0, len = requestQueue[url].length; i < len; i++) {
       // Make these calls async so we avoid blocking the page/renderer
-      /* jshint loopfunc: true */
       (function (index) {
         setTimeout(function () {
           requestQueue[url][index](cloneSvg(svgCache[url]));
         }, 0);
       })(i);
-      /* jshint loopfunc: false */
     }
   };
 
@@ -370,7 +366,7 @@
           //
           // Also, the code is evaluated in a closure and not in the global scope.
           // If you need to put something in global scope, use 'window'
-          new Function(scriptsToEval[l])(window); // jshint ignore:line
+          new Function(scriptsToEval[l])(window);
         }
 
         // Remember we already ran scripts for this svg
@@ -461,7 +457,6 @@
     }
   };
 
-  /* global module, exports: true, define */
   // Node.js or CommonJS
   if (typeof module === 'object' && typeof module.exports === 'object') {
     module.exports = exports = SVGInjector;
@@ -476,6 +471,5 @@
   else if (typeof window === 'object') {
     window.SVGInjector = SVGInjector;
   }
-  /* global -module, -exports, -define */
 
 }(window, document));
