@@ -5,7 +5,7 @@
 }(this, (function () { 'use strict';
 
   /**
-   * SVGInjector v1.1.5 - Fast, caching, dynamic inline SVG DOM injection library
+   * SVGInjector v1.1.6 - Fast, caching, dynamic inline SVG DOM injection library
    * https://github.com/iconic/SVGInjector
    *
    * Copyright (c) 2014-2015 Waybury <hello@waybury.com>
