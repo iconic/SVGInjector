@@ -1,22 +1,24 @@
-import { uglify } from 'rollup-plugin-uglify';
+import babel from 'rollup-plugin-babel'
+import { uglify } from 'rollup-plugin-uglify'
 
 const devConfig = {
-  input: 'svg-injector.js',
+  input: 'src/index.js',
   output: {
     file: 'dist/svg-injector.js',
     format: 'umd',
     name: 'SVGInjector'
-  }
-};
+  },
+  plugins: [babel()]
+}
 
 const prodConfig = {
-  input: 'svg-injector.js',
+  input: 'src/index.js',
   output: {
     file: 'dist/svg-injector.min.js',
     format: 'umd',
     name: 'SVGInjector'
   },
-  plugins: [uglify()]
-};
+  plugins: [babel(), uglify()]
+}
 
-export default [devConfig, prodConfig];
+export default [devConfig, prodConfig]
