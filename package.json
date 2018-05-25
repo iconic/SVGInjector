@@ -33,11 +33,15 @@
     "eslint-plugin-react": "^7.8.2",
     "github-changes": "0.0.11",
     "prettier": "^1.12.1",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.59.3",
+    "rollup-plugin-uglify": "^4.0.0",
     "uglify-js": "^2.4.13"
   },
   "scripts": {
+    "clean": "rimraf dist",
     "lint": "eslint .",
-    "build": "uglifyjs ./svg-injector.js --stats --compress --mangle --comments --output ./svg-injector.min.js --source-map svg-injector.map.js && mv -f svg-injector.{map,min}.js ./dist",
+    "build": "rollup -c",
     "changelog": "github-changes -o tanem -r SVGInjector -n ${npm_package_version} --use-commit-body --no-merges",
     "changelog-post": "git add CHANGELOG.md && git commit -m 'Updated CHANGELOG'",
     "release": "for TASK in (test build changelog changelog-post tag); do npm run $TASK; done",
