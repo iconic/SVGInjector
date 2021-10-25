@@ -174,14 +174,19 @@
      */
     SVGInjector.prototype.inject = function(elements, onDoneCallback, eachCallback) {
       if (elements.length !== undefined) {
-        var elementsLoaded = 0;
-        var ctx = this;
-        forEach.call(elements, function (element) {
-          ctx.injectElement(element, function (svg) {
-            if (eachCallback && typeof eachCallback === 'function') eachCallback(svg);
-            if (onDoneCallback && elements.length === ++elementsLoaded) onDoneCallback(elementsLoaded);
+        if (0 === elements.length) {
+          onDoneCallback(0);
+        }
+        else {
+          var elementsLoaded = 0;
+          var ctx = this;
+          forEach.call(elements, function (element) {
+            ctx.injectElement(element, function (svg) {
+              if (eachCallback && typeof eachCallback === 'function') eachCallback(svg);
+              if (onDoneCallback && elements.length === ++elementsLoaded) onDoneCallback(elementsLoaded);
+            });
           });
-        });
+        }
       }
       else {
         if (elements) {
