@@ -175,7 +175,7 @@
     SVGInjector.prototype.inject = function(elements, onDoneCallback, eachCallback) {
       if (elements.length !== undefined) {
         if (0 === elements.length) {
-          onDoneCallback(0);
+          if (onDoneCallback) onDoneCallback(0);
         }
         else {
           var elementsLoaded = 0;
