@@ -41,6 +41,11 @@
     "watch": "^1.0.1"
   },
   "scripts": {
+    "// - end-user scripts":" ----------- ",
+    "start": "parallelshell \"npm run browser-sync\" \"npm run watch\"",
+    "release": "npm version patch",
+    "push": "npm publish",
+    "// - internal scripts":" ----------- ",
     "update-version-comment": "cross-var replace \"\\$\\{VERSION\\}\" $npm_package_version svg-injector.js ./dist/svg-injector.min.js",
     "test": "jshint ./src/svg-injector.js",
     "copy": "uglifyjs ./src/svg-injector.js -b --comments --output svg-injector.js",
@@ -48,12 +53,9 @@
     "build": "npm run copy && npm run minify && npm run update-version-comment",
     "watch": "watch \"npm run build\" ./src",
     "changelog": "github-changes -o flobacher -r SVGInjector2 --use-commit-body",
-    "add": "git add ./dist/ && git add CHANGELOG.md && git add ./svg-injector.js",
+    "add": "git add .",
     "version": "npm run changelog && npm run test && npm run build && npm run add",
-    "release": "npm version patch",
     "prepush": "git push && git push --tags",
-    "push": "npm publish",
-    "start": "parallelshell \"npm run browser-sync\" \"npm run watch\"",
     "browser-sync": "browser-sync start -s . -f ./dist/*.js --index --directory --startPath ./examples/index.html"
   }
 }
