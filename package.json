@@ -32,7 +32,6 @@
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.18.6",
-    "cross-var": "^1.0.3",
     "github-changes": "^1.0.2",
     "jshint": "^2.5.0",
     "parallelshell": "^3.0.1",
@@ -41,14 +40,14 @@
     "watch": "^1.0.1"
   },
   "scripts": {
-    "// - end-user scripts ------- ":"",
+    "// - end-user scripts ------- ": "",
     "start": "parallelshell \"npm run browser-sync\" \"npm run watch\"",
     "?release": "increase the version, triggers the version script and commits with the version as message",
     "release": "npm version patch",
     "push": "npm publish",
-    "// -------------------------":"",
-    "// - internal scripts ------":"",
-    "update-version-comment": "cross-var replace \"\\$\\{VERSION\\}\" $npm_package_version svg-injector.js ./dist/svg-injector.min.js",
+    "// -------------------------": "",
+    "// - internal scripts ------": "",
+    "update-version-comment": "replace '\\$\\{VERSION\\}' $npm_package_version svg-injector.js ./dist/svg-injector.min.js",
     "test": "jshint ./src/svg-injector.js",
     "copy": "uglifyjs ./src/svg-injector.js -b --comments --output svg-injector.js",
     "minify": "uglifyjs ./src/svg-injector.js --stats --compress drop_console=true --mangle --comments --output ./dist/svg-injector.min.js --source-map ./dist/svg-injector.map.js --source-map-include-sources",
