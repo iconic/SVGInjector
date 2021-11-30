@@ -41,11 +41,13 @@
     "watch": "^1.0.1"
   },
   "scripts": {
-    "// - end-user scripts":" ----------- ",
+    "// - end-user scripts ------- ":"",
     "start": "parallelshell \"npm run browser-sync\" \"npm run watch\"",
+    "?release": "increase the version, triggers the version script and commits with the version as message",
     "release": "npm version patch",
     "push": "npm publish",
-    "// - internal scripts":" ----------- ",
+    "// -------------------------":"",
+    "// - internal scripts ------":"",
     "update-version-comment": "cross-var replace \"\\$\\{VERSION\\}\" $npm_package_version svg-injector.js ./dist/svg-injector.min.js",
     "test": "jshint ./src/svg-injector.js",
     "copy": "uglifyjs ./src/svg-injector.js -b --comments --output svg-injector.js",
