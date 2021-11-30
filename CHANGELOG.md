@@ -1,5 +1,15 @@
 ## Change Log
 
+### upcoming (2021/11/30 00:53 +00:00)
+- [#29](https://github.com/flobacher/SVGInjector2/pull/29) fix onDoneCallback for empty array (@pga78)
+- [d1de008](https://github.com/flobacher/SVGInjector2/commit/d1de008f11ff23255335914e82b70bcb2dade913) mind if onDoneCallback defined (@pga78)
+- [9345475](https://github.com/flobacher/SVGInjector2/commit/934547569c25c6810f0712c7726ba72abe50da1d) fix onDoneCallback for empty array (@pga78)
+- [a1c5b79](https://github.com/flobacher/SVGInjector2/commit/a1c5b79c45a1ddb572858b12dd7dcfdae515bb35) replace `yarn.lock` by `package-lock.json`
+
+### v2.1.3 (2017/10/09 11:01 +00:00)
+- [1c7d9ca](https://github.com/flobacher/SVGInjector2/commit/1c7d9ca57c2c7803aef23e45daf995d8ef8b1bdf) 2.1.3
+- [7b60c1f](https://github.com/flobacher/SVGInjector2/commit/7b60c1f5c0a2dfe57f8a2afc4f23fe64c4484f44) get rid of `engines` field
+
 ### v2.1.2 (2017/10/09 03:56 +00:00)
 - [01e4044](https://github.com/flobacher/SVGInjector2/commit/01e404473c45d850bad145b3c8d1cc25dd099f8c) 2.1.2
 - [6de7b44](https://github.com/flobacher/SVGInjector2/commit/6de7b44afecdc73062e78400a34ae15c0c57194b) make the `update-version-comment` script work on windows as well
@@ -47,8 +57,8 @@
 - [3aef12b](https://github.com/flobacher/SVGInjector2/commit/3aef12bf51f3fe0992618c3d2a50d921ba319c38) add inline svgs to examples (@flobacher)
 - [ba2226f](https://github.com/flobacher/SVGInjector2/commit/ba2226fb08ca66d6f884d5ec3ef59a9911c307af) remove console.logs in minified version (@flobacher)
 - [#16](https://github.com/flobacher/SVGInjector2/pull/16) Check for imgUrl (@TheCopartnery)
-- [a188971](https://github.com/flobacher/SVGInjector2/commit/a188971bd5dbecea928eccc7e9d202ac0f46cecd) spelling correction (@TheCopartnery)
-- [3e72195](https://github.com/flobacher/SVGInjector2/commit/3e72195bb3c26348e12f8ae2ebf5e2cd4ec9af09) Check for imgUrl - inline svg’s will not have an imgUrl (src/data-src) causing imgUrl.split to error (@TheCopartnery)
+- [a188971](https://github.com/flobacher/SVGInjector2/commit/a188971bd5dbecea928eccc7e9d202ac0f46cecd) spelling correction (@Viveur)
+- [3e72195](https://github.com/flobacher/SVGInjector2/commit/3e72195bb3c26348e12f8ae2ebf5e2cd4ec9af09) Check for imgUrl - inline svg’s will not have an imgUrl (src/data-src) causing imgUrl.split to error (@Viveur)
 
 ### v2.0.33 (2017/02/27 23:25 +00:00)
 - [73c3432](https://github.com/flobacher/SVGInjector2/commit/73c3432a5ea5d88bf0230cf2f7a90a47e138655f) 2.0.33 (@flobacher)
@@ -58,8 +68,8 @@
 - [#14](https://github.com/flobacher/SVGInjector2/pull/14) Update README.md (@TheCopartnery)
 - [#13](https://github.com/flobacher/SVGInjector2/pull/13) Add simple with img tag example (@TheCopartnery)
 - [35a3f6a](https://github.com/flobacher/SVGInjector2/commit/35a3f6ab8efab2863c702738b546e717c7fb1eb5) update README.md (@flobacher)
-- [00838d8](https://github.com/flobacher/SVGInjector2/commit/00838d84dcd7ebc746b21eef37c57426c7a85c89) Update README.md (@TheCopartnery)
-- [caedbeb](https://github.com/flobacher/SVGInjector2/commit/caedbebe345c666812600e2ec60b9468a16faff5) Add simple with img tag example (@TheCopartnery)
+- [00838d8](https://github.com/flobacher/SVGInjector2/commit/00838d84dcd7ebc746b21eef37c57426c7a85c89) Update README.md (@Viveur)
+- [caedbeb](https://github.com/flobacher/SVGInjector2/commit/caedbebe345c666812600e2ec60b9468a16faff5) Add simple with img tag example (@Viveur)
 - [69ecf67](https://github.com/flobacher/SVGInjector2/commit/69ecf67708ce5a60a2c32d5326f2a1761d40842b) update/streamline examples and read (@flobacher)
 
 ### v2.0.32 (2017/02/22 22:58 +00:00)
@@ -75,7 +85,7 @@
 - [fd897d7](https://github.com/flobacher/SVGInjector2/commit/fd897d7de5b53dc71d9f3e272c4ca4655a0ac6b5) codestyle: streamline folder-pathes (@flobacher)
 - [5803a9a](https://github.com/flobacher/SVGInjector2/commit/5803a9a9eb257b4dbb31d72d0cac2ba941c1f7f2) add copy command to stay compatible with file structure of version < v2.0.28 (@flobacher)
 - [#10](https://github.com/flobacher/SVGInjector2/pull/10) Update README links (@TheCopartnery)
-- [febe4b2](https://github.com/flobacher/SVGInjector2/commit/febe4b22d331baeafaabefb00171ca767f8942af) update links (@TheCopartnery)
+- [febe4b2](https://github.com/flobacher/SVGInjector2/commit/febe4b22d331baeafaabefb00171ca767f8942af) update links (@Viveur)
 
 ### v2.0.30 (2017/02/21 18:10 +00:00)
 - [759c681](https://github.com/flobacher/SVGInjector2/commit/759c681a56dcb88b3ac2aa64d8b448b115e15010) 2.0.30 (@flobacher)
@@ -89,7 +99,7 @@
 - [58f4acd](https://github.com/flobacher/SVGInjector2/commit/58f4acde207ac1d4ba8f797c52204e766902a47a) do not remove console.logs (@flobacher)
 - [1aac685](https://github.com/flobacher/SVGInjector2/commit/1aac6854dca1c0fdace7b2f394028e62ab48f62e) fix fallbacks (@flobacher)
 - [#7](https://github.com/flobacher/SVGInjector2/pull/7) Update broken examples/spritesheet link (@TheCopartnery)
-- [7a39a24](https://github.com/flobacher/SVGInjector2/commit/7a39a24db30947640bacad3a4838d207865305ed) Update broken examples/spritesheet link (@TheCopartnery)
+- [7a39a24](https://github.com/flobacher/SVGInjector2/commit/7a39a24db30947640bacad3a4838d207865305ed) Update broken examples/spritesheet link (@Viveur)
 - [3cd8015](https://github.com/flobacher/SVGInjector2/commit/3cd801542957142d650aa0a373d64bb3930a50de) update README
 - [e6c040f](https://github.com/flobacher/SVGInjector2/commit/e6c040f450caa311cdd804fbe14e82d2c3396d7a) update examples
 - [cadac66](https://github.com/flobacher/SVGInjector2/commit/cadac666ddfb4fec52a8bd6b63aba0e776cdf195) fix package-scripts
@@ -103,9 +113,9 @@
 - [2cb030f](https://github.com/flobacher/SVGInjector2/commit/2cb030f52aacd9d4afebe00e70b9caabe3ed04d9) 2.0.27 (@flobacher)
 - [aadf829](https://github.com/flobacher/SVGInjector2/commit/aadf8299ecae7b5cd1213802f84d4fc2617c3d8d) correct those id-refs in sample sprite sheet.. this needs fixing in injector though (@flobacher)
 - [24e397d](https://github.com/flobacher/SVGInjector2/commit/24e397dae2b936829ecac1a4a42524faa4b11520) do not add role=presentation to title and desc (@flobacher)
-- [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
-- [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
 - [bd6213b](https://github.com/flobacher/SVGInjector2/commit/bd6213b62931d61563579e0641d7b03c95aadfc1) update/move examples (@flobacher)
+- [bc9aab5](https://github.com/flobacher/SVGInjector2/commit/bc9aab5a20292ce23657c01f229245b8613e227c) update scripts (@flobacher)
+- [d01d011](https://github.com/flobacher/SVGInjector2/commit/d01d01169e69ce36647f5561b45f736a281b7a0a) suffix id-references in style-tags and refactor (@flobacher)
 - [#3](https://github.com/flobacher/SVGInjector2/pull/3) added support for aria-hidden attribute on svg element (@dgoerdes)
 - [f8cf0fe](https://github.com/flobacher/SVGInjector2/commit/f8cf0fe3706f6008eb39549363742dccc4c7ce0c) added support for aria-hidden attribute on svg element (@dgoerdes)
 
@@ -357,7 +367,7 @@
 - [7adef6e](https://github.com/flobacher/SVGInjector2/commit/7adef6e409bef6e490524f33b831eab2089e39eb) Updated documentation (@protodave)
 - [172e267](https://github.com/flobacher/SVGInjector2/commit/172e267b7cd119728070003675e0a6453df32442) Update README.md (@protodave)
 - [#2](https://github.com/flobacher/SVGInjector2/pull/2) Missing a closing `)` on example console.log (@FStop)
-- [60c74dc](https://github.com/flobacher/SVGInjector2/commit/60c74dc119c24e6ae160c86031be0128da625979) Missing a closing `)` on example console.log (@FStop)
+- [60c74dc](https://github.com/flobacher/SVGInjector2/commit/60c74dc119c24e6ae160c86031be0128da625979) Missing a closing `)` on example console.log (@isGabe)
 - [f40df63](https://github.com/flobacher/SVGInjector2/commit/f40df632f1e413eb1bdcfa2a036ad845edba7af3) Update README.md (@protodave)
 - [9a4a8ba](https://github.com/flobacher/SVGInjector2/commit/9a4a8ba8910fc991a76ac889b43bbf1993571321) Updated CHANGELOG (@protodave)
 - [f61e766](https://github.com/flobacher/SVGInjector2/commit/f61e766220e3c70e98704b265d653977a96344a7) created first min/map dist build (@protodave)

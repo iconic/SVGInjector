@@ -1,5 +1,5 @@
 /*!
- * SVGInjector v2.1.3 - Fast, caching, dynamic inline SVG DOM injection library
+ * SVGInjector v2.1.4 - Fast, caching, dynamic inline SVG DOM injection library
  * https://github.com/flobacher/SVGInjector2
  * forked from:
  * https://github.com/iconic/SVGInjector
@@ -68,14 +68,18 @@
         };
         SVGInjector.prototype.inject = function(elements, onDoneCallback, eachCallback) {
             if (elements.length !== undefined) {
-                var elementsLoaded = 0;
-                var ctx = this;
-                forEach.call(elements, function(element) {
-                    ctx.injectElement(element, function(svg) {
-                        if (eachCallback && typeof eachCallback === "function") eachCallback(svg);
-                        if (onDoneCallback && elements.length === ++elementsLoaded) onDoneCallback(elementsLoaded);
+                if (0 === elements.length) {
+                    if (onDoneCallback) onDoneCallback(0);
+                } else {
+                    var elementsLoaded = 0;
+                    var ctx = this;
+                    forEach.call(elements, function(element) {
+                        ctx.injectElement(element, function(svg) {
+                            if (eachCallback && typeof eachCallback === "function") eachCallback(svg);
+                            if (onDoneCallback && elements.length === ++elementsLoaded) onDoneCallback(elementsLoaded);
+                        });
                     });
-                });
+                }
             } else {
                 if (elements) {
                     this.injectElement(elements, function(svg) {
