@@ -1,6 +1,13 @@
 ## Change Log
 
-### upcoming (2021/11/30 00:53 +00:00)
+### upcoming (2021/11/30 02:00 +00:00)
+- [8c3d59a](https://github.com/flobacher/SVGInjector2/commit/8c3d59a1883bb50b6b9ff2285bd89c17eeb0e45b) update dependency (@flobacher)
+- [330b01b](https://github.com/flobacher/SVGInjector2/commit/330b01b6e34eebfd76b61d17ca27a91a9316644f) fix update version script (@flobacher)
+- [6a9cda1](https://github.com/flobacher/SVGInjector2/commit/6a9cda1006045e279d22fc506b017074869f8d21) document scripts (@flobacher)
+- [324d99d](https://github.com/flobacher/SVGInjector2/commit/324d99df1ba7cae4e7008717e6b7fea6452dd830) update scripts (@flobacher)
+
+### v2.1.4 (2021/11/30 01:06 +00:00)
+- [73e5a69](https://github.com/flobacher/SVGInjector2/commit/73e5a693ce13e409dfa90b5a085688b14bdf0772) 2.1.4 (@flobacher)
 - [#29](https://github.com/flobacher/SVGInjector2/pull/29) fix onDoneCallback for empty array (@pga78)
 - [d1de008](https://github.com/flobacher/SVGInjector2/commit/d1de008f11ff23255335914e82b70bcb2dade913) mind if onDoneCallback defined (@pga78)
 - [9345475](https://github.com/flobacher/SVGInjector2/commit/934547569c25c6810f0712c7726ba72abe50da1d) fix onDoneCallback for empty array (@pga78)
